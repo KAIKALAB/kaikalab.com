@@ -194,3 +194,41 @@ footer.bottom::after { content: ""; position: absolute; right: -80px; bottom: -4
   .round-label { width: 86px; height: 86px; font-size: 17px; right: -4px; }
   .company dl { grid-template-columns: 76px 1fr; }
 }
+
+/* Closing band on / and /en/. The company details moved to /about/ and /en/about/. */
+.closing-band {
+  position: relative; overflow: hidden;
+  display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; gap: 36px;
+  padding: 44px 48px; border-radius: 16px;
+  background: linear-gradient(115deg, #fff4e3, #f3f9fb 52%, #e3f1fb);
+}
+.closing-band::before {
+  content: ""; position: absolute; width: 220px; height: 220px; border-radius: 50%;
+  background: #b9e2f6; opacity: .5; right: -70px; top: -90px;
+}
+.closing-band::after {
+  content: ""; position: absolute; width: 140px; height: 140px; border-radius: 50%;
+  background: #fbd5dc; opacity: .7; left: -60px; bottom: -80px;
+}
+.closing-copy, .closing-actions { position: relative; z-index: 1; }
+.leaf-mark { position: relative; display: block; width: 72px; height: 72px; margin-bottom: 12px; }
+.leaf-mark i { position: absolute; width: 30px; height: 48px; border-radius: 100% 100% 16px 100%; }
+.leaf-mark i:nth-child(1) { background: #f9c76b; left: 4px; top: 8px; transform: rotate(-34deg); }
+.leaf-mark i:nth-child(2) { background: #4da7e6; left: 28px; top: 2px; transform: rotate(20deg); }
+.leaf-mark i:nth-child(3) { background: #63c5ad; left: 18px; top: 24px; transform: rotate(55deg); opacity: .9; }
+.closing-copy h2 { font-size: 30px; font-weight: 600; line-height: 1.45; margin: 0 0 12px; word-break: auto-phrase; }
+.closing-copy .desc { font-size: 14.5px; line-height: 1.95; color: var(--ink-2); margin: 0; }
+.closing-actions { display: flex; flex-direction: column; align-items: stretch; gap: 12px; }
+.closing-actions .button { justify-content: space-between; }
+.button.ghost { background: #fff; color: var(--blue); border: 1px solid var(--blue); box-shadow: none; }
+.button.ghost:hover { background: var(--blue-soft); box-shadow: none; }
+.closing-mail { font-size: 12.5px; line-height: 1.8; color: #5d748a; margin: 4px 0 0; }
+.closing-mail a { color: var(--blue); text-decoration: none; }
+@media (max-width: 860px) {
+  .closing-band { grid-template-columns: 1fr; gap: 24px; padding: 32px 28px; }
+}
+@media (max-width: 540px) {
+  .closing-band { padding: 26px 20px; }
+  .closing-band::after { width: 90px; height: 90px; left: -45px; bottom: -55px; }
+  .closing-copy h2 { font-size: 24px; }
+}
