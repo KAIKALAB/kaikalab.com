@@ -1,0 +1,14 @@
+{
+  // The public site for kaikalab.com. Static files only, no server code:
+  // Cloudflare serves the directory and nothing else runs.
+  "name": "kaikalab",
+  "compatibility_date": "2026-09-18",
+  "assets": {
+    "directory": "./site",
+    "not_found_handling": "404-page"
+  },
+
+  // The apex only. www is left off deliberately: a redirect rule in the
+  // dashboard is the better way to handle it than serving the same pages twice.
+  "routes": [{ "pattern": "kaikalab.com", "custom_domain": true }]
+}

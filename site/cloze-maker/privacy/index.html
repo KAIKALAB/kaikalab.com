@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<title>Privacy Policy — Cloze Maker — Kaika Lab</title>
+<meta name="description" content="What Cloze Maker does with your text, and what it records.">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="brand" href="/">Kaika&nbsp;Lab</a>
+<nav><a href="/cloze-maker/">Cloze Maker</a><a href="/cloze-maker/privacy/">Privacy</a><a href="/cloze-maker/terms/">Terms</a></nav>
+</div></header>
+<main class="wrap">
+<h1>Privacy Policy</h1>
+<p class="updated">Cloze Maker for Japanese and Korean &middot; Kaika Lab &middot; Last updated 24 September 2026</p>
+
+<p>This page covers the Google user data the add-on accesses, how it is used, who it is shared with, how it is protected, and how long it is kept.</p>
+
+<h2>Google user data we access</h2>
+<div class="scroll">
+<table>
+<thead><tr><th>Permission</th><th>What it gives the add-on</th></tr></thead>
+<tbody>
+<tr><td>The document this add-on is installed in<br><small>documents.currentonly</small></td><td>The text of the passage you selected, or of the open document if you selected nothing. It cannot see your other documents or your Drive.</td></tr>
+<tr><td>Display and run third-party web content<br><small>script.container.ui</small></td><td>No data. It lets the add-on show its sidebar inside the document.</td></tr>
+<tr><td>Connect to an external service<br><small>script.external_request</small></td><td>No data. It lets the add-on send a passage to our word segmentation service.</td></tr>
+<tr><td>See your primary email address<br><small>userinfo.email</small></td><td>Your Google account email address.</td></tr>
+<tr><td>See your public profile<br><small>userinfo.profile</small></td><td>Added by the Marketplace to every listed add-on. We do not read it.</td></tr>
+</tbody>
+</table>
+</div>
+<p>The add-on cannot see your Gmail, your Drive, your calendar, your contacts, or any document other than the one it is open in.</p>
+
+<h2>How we use Google user data</h2>
+<ul>
+<li><strong>Document text</strong> is used only to make the worksheet you asked for. The add-on reads the passage, chooses the gaps, and writes the worksheet and answer key at the end of the same document. Your own text is not changed.</li>
+<li><strong>Your email address</strong> is used only to count how many worksheets you have made this month, and to turn it into an anonymous identifier. The address itself is never sent to us.</li>
+</ul>
+<p>We do not use Google user data for advertising, and we do not use it to train AI or machine learning models.</p>
+
+<h2>What we record about usage</h2>
+<p>Each time the add-on is used, it sends us a record holding:</p>
+<ul>
+<li>what happened (installed, first used, worksheet made, limit reached)</li>
+<li>the anonymous identifier</li>
+<li>the settings used, the number of words, and the number of gaps</li>
+<li>the language of the passage</li>
+<li>the date and time</li>
+</ul>
+<div class="note">
+<p><strong>We never record the text of your passages, the name or contents of your documents, or your email address.</strong></p>
+</div>
+<p>Two small values are also kept inside your own Google account, in the add-on's private storage: this month's worksheet count and the anonymous identifier. We cannot read them from our side.</p>
+
+<h2>Sharing, transfer and disclosure</h2>
+<p>We do not sell, rent, share, or transfer Google user data to anyone.</p>
+<p>For Japanese and Korean, the passage is sent to our own word segmentation service, because these languages are written without spaces between words and the add-on cannot split them on its own. That service runs on Google Cloud Run, so Google processes the request as our infrastructure provider. No other company receives it. English and other languages that use spaces are split inside the add-on, and nothing leaves your document.</p>
+<p>We would disclose data only if the law required it.</p>
+
+<h2>How we protect it</h2>
+<ul>
+<li>Every request between the add-on and our service is encrypted in transit with HTTPS (TLS).</li>
+<li>The word segmentation service holds a passage in memory only while it answers the request. It never writes the passage to disk or to a log.</li>
+<li>The anonymous identifier is a one-way SHA-256 hash of your email address with a fixed salt. It cannot be turned back into your address.</li>
+<li>Usage records are stored in Google Cloud Logging in our own project. Only Kaika Lab can access that project.</li>
+<li>The add-on asks for the narrowest permission Google offers for each thing it does. For example, it can open only the current document, not your Drive.</li>
+</ul>
+
+<h2>Retention and deletion</h2>
+<ul>
+<li><strong>Passages:</strong> not kept. They are gone as soon as the request is answered.</li>
+<li><strong>Usage records:</strong> deleted automatically 30 days after they are made.</li>
+<li><strong>Values in your own account:</strong> the monthly count and the anonymous identifier stay in the add-on's private storage in your Google account. Removing the add-on's access at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a> stops the add-on from using them.</li>
+</ul>
+<p>To ask what we hold about you, or to have it deleted sooner, write to <a href="mailto:support@kaikalab.com">support@kaikalab.com</a>.</p>
+
+<h2>Google API Services User Data Policy</h2>
+<p>Cloze Maker's use and transfer of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
+
+<h2>Your choices</h2>
+<p>Uninstalling the add-on removes its access to your documents immediately. You can also review and revoke access at any time at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</p>
+
+<h2>Children</h2>
+<p>This add-on is made for teachers. It is not directed at children and we do not knowingly collect data from them.</p>
+
+<h2>Changes</h2>
+<p>If we change this policy in a way that affects you, we will update the date at the top and note the change on this page.</p>
+
+<h2>Contact</h2>
+<p>Kaika Lab &middot; <a href="mailto:support@kaikalab.com">support@kaikalab.com</a></p>
+</main>
+<footer class="site"><div class="wrap">
+<span>&copy; 2026 Kaika Lab</span>
+<a href="/cloze-maker/privacy/">Privacy</a>
+<a href="/cloze-maker/terms/">Terms</a>
+<a href="mailto:support@kaikalab.com">support@kaikalab.com</a>
+</div></footer></body></html>
