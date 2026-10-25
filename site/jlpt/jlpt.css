@@ -1,0 +1,48 @@
+.jlpt { max-width: 760px; padding: 28px 0 56px; color: var(--ink); }
+.crumbs { font-size: 13px; color: var(--muted); margin-bottom: 18px; }
+.crumbs a { color: var(--blue); text-decoration: none; }
+.jlpt h1 { font-size: clamp(24px, 3.4vw, 32px); line-height: 1.4; margin: 0 0 8px; }
+.h1-en { display: block; font-size: 15px; font-weight: 500; color: var(--muted); }
+.jlpt .date { color: var(--muted); margin: 0 0 12px; }
+.jlpt .lead { line-height: 1.9; color: var(--ink-2); }
+.passage { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 18px 22px; margin: 18px 0; font-size: 17px; line-height: 2; }
+.passage p { margin: 0 0 12px; }
+.source { background: var(--blue-soft); border-radius: 10px; padding: 12px 16px; font-size: 13px; line-height: 1.8; margin: 16px 0; }
+.source p { margin: 0 0 4px; }
+.source a, .days a, .levels a, .today-kanji a, .lead a { color: var(--blue); }
+.q { border-top: 1px solid var(--line); padding: 18px 0; }
+.q h2 { font-size: 16px; margin: 0 0 8px; }
+.q audio { width: 100%; margin: 4px 0 10px; }
+.qtext { font-size: 17px; font-weight: 600; line-height: 1.8; margin: 0 0 8px; }
+.options { margin: 0 0 12px; padding-left: 1.6em; line-height: 2; }
+details { margin: 8px 0; }
+details > summary { cursor: pointer; color: var(--blue); font-weight: 600; }
+details.answer, details.script { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; }
+details.script p { margin: 4px 0; line-height: 1.9; }
+.correct { font-weight: 700; color: var(--green); }
+.ex { line-height: 1.9; }
+details.tr { margin: 6px 0 0; padding-left: 4px; }
+details.tr summary { font-weight: 500; font-size: 14px; }
+details.tr p, details.tr ul { line-height: 1.9; color: var(--ink-2); }
+.days { list-style: none; padding: 0; margin: 18px 0; }
+.days li { display: flex; flex-wrap: wrap; gap: 6px 18px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.days .day { font-weight: 700; min-width: 7em; }
+.days .kinds { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.days .kinds a { text-decoration: none; }
+.levels { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin: 20px 0; }
+.level-card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+.level-card h2 { margin: 0 0 6px; font-size: 20px; }
+.level-card h2 a { text-decoration: none; }
+.level-card p { margin: 4px 0; color: var(--ink-2); font-size: 14px; }
+.kanji-list { display: grid; gap: 14px; margin-top: 18px; }
+.kanji { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px; }
+.kanji .glyph { font-size: 52px; line-height: 1.1; margin: 0 0 8px; }
+.kanji dl { display: grid; grid-template-columns: 5em 1fr; gap: 4px 12px; margin: 0 0 8px; font-size: 15px; }
+.kanji dd { margin: 0; }
+.kanji .words { padding-left: 1.2em; line-height: 1.9; font-size: 15px; }
+.kanji .example { line-height: 1.9; color: var(--ink-2); }
+.lang-name { color: var(--muted); font-size: 13px; }
+.app-cta { margin-top: 36px; background: var(--blue-soft); border-radius: 14px; padding: 20px 22px; text-align: center; }
+.cta-lead { font-weight: 700; font-size: 17px; margin: 0 0 4px; }
+.cta-en { color: var(--ink-2); font-size: 14px; margin: 0 0 14px; }
+.cta-button { display: inline-block; background: var(--blue); color: #fff; font-weight: 700; padding: 10px 20px; border-radius: 999px; text-decoration: none; }
