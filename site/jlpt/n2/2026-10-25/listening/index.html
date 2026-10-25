@@ -11,23 +11,50 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat&family=Noto+Serif+JP:wght@400;600&display=swap">
 <link rel="stylesheet" href="/home.css">
 <link rel="stylesheet" href="/jlpt/jlpt.css">
+<script>
+(function () {
+  var L = ["ja","en","zh-Hans","zh-Hant","id","vi"], k = "jlpt.lang", l = null;
+  try {
+    var q = new URLSearchParams(location.search).get("lang");
+    if (L.indexOf(q) >= 0) { l = q; localStorage.setItem(k, q); } else { l = localStorage.getItem(k); }
+  } catch (e) {}
+  if (L.indexOf(l) < 0) return;
+  document.documentElement.setAttribute("data-ui", l);
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("details.answer").forEach(function (answer) {
+      // 選んだ言語の訳を開く。その言語の訳が無い問題（訳を足す前の日の分）は英語の訳を出す
+      var mine = answer.querySelector('details.tr[data-l="' + l + '"]') || (l === "ja" ? null : answer.querySelector('details.tr[data-l="en"]'));
+      if (mine) { mine.style.display = "block"; mine.open = true; }
+    });
+    // localStorage が使えない端末でも言語が続くよう、/jlpt/ の中のリンクに ?lang= を付ける
+    document.querySelectorAll('a[href^="/jlpt/"]').forEach(function (a) {
+      a.setAttribute("href", a.getAttribute("href").split("#")[0] + "?lang=" + l + (a.hash || ""));
+    });
+  });
+})();
+</script>
 </head>
 <body>
 <header class="top"><div class="wrap nav">
 <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Kaika Lab</span></a>
-<nav class="menu"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a></nav>
+<nav class="menu langs" aria-label="Language"><a href="?lang=ja" data-set="ja" lang="ja">日本語</a><a href="?lang=en" data-set="en" lang="en">English</a><a href="?lang=zh-Hans" data-set="zh-Hans" lang="zh-Hans">简体中文</a><a href="?lang=zh-Hant" data-set="zh-Hant" lang="zh-Hant">繁體中文</a><a href="?lang=id" data-set="id" lang="id">Bahasa Indonesia</a><a href="?lang=vi" data-set="vi" lang="vi">Tiếng Việt</a></nav>
 </div></header>
 <main><div class="wrap jlpt">
-<nav class="crumbs" aria-label="パンくず"><a href="/jlpt/">JLPT</a> › <a href="/jlpt/n2/">N2</a> › <span>2026-10-25 聴解</span></nav>
-<h1>JLPT N2 毎日の聴解 <span class="h1-en" lang="en">Daily Listening</span></h1>
+<nav class="crumbs" aria-label="パンくず"><a href="/jlpt/">JLPT</a> › <a href="/jlpt/n2/">N2</a> › <span>2026-10-25 <span data-l="ja" lang="ja">聴解</span><span data-l="en" lang="en">Listening</span><span data-l="zh-Hans" lang="zh-Hans">听力</span><span data-l="zh-Hant" lang="zh-Hant">聽力</span><span data-l="id" lang="id">Menyimak</span><span data-l="vi" lang="vi">Nghe hiểu</span></span></nav>
+<h1>JLPT N2 <span data-l="ja" lang="ja">毎日の聴解</span><span data-l="en" lang="en">Daily Listening</span><span data-l="zh-Hans" lang="zh-Hans">每日听力</span><span data-l="zh-Hant" lang="zh-Hant">每日聽力</span><span data-l="id" lang="id">Menyimak harian</span><span data-l="vi" lang="vi">Nghe hiểu hằng ngày</span></h1>
 <p class="date">2026-10-25</p>
-<p class="lead">音声を聞いて、答えを選んでください。スクリプトと答えは下で開けます。</p>
+<p data-l="ja" lang="ja" class="lead">音声を聞いて、答えを選んでください。スクリプトと答えは下で開けます。</p>
+<p data-l="en" lang="en" class="lead">Listen to the audio and choose your answers. Open the script and the answer below each question.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="lead">听音频并选择答案。听力原文和答案可在每题下方展开。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="lead">聽音檔並選擇答案。聽力原文和答案可在每題下方展開。</p>
+<p data-l="id" lang="id" class="lead">Dengarkan audio lalu pilih jawaban. Naskah dan jawaban bisa dibuka di bawah setiap soal.</p>
+<p data-l="vi" lang="vi" class="lead">Nghe âm thanh rồi chọn đáp án. Có thể mở lời thoại và đáp án bên dưới mỗi câu.</p>
 <section class="q">
-<h2>問1 <span lang="en">Q1</span></h2>
+<h2><span data-l="ja" lang="ja">問1</span><span data-l="en" lang="en">Q1</span><span data-l="zh-Hans" lang="zh-Hans">第1题</span><span data-l="zh-Hant" lang="zh-Hant">第1題</span><span data-l="id" lang="id">Soal 1</span><span data-l="vi" lang="vi">Câu 1</span></h2>
 <audio controls preload="none" src="https://pub-84049f5e6df74e898b5d0976f678f0d2.r2.dev/2026-10-25/N2/1.mp3"></audio>
 <p class="qtext">男の人はこのあとまず何をしますか。</p>
 <ol class="options"><li>番号札を取る</li><li>住民票の写しを書いて出す</li><li>窓口で住所と名前を言う</li><li>転入の届け出の用紙を書く</li></ol>
-<details class="script"><summary>スクリプト <span lang="en">Script</span></summary>
+<details class="script"><summary><span data-l="ja" lang="ja">スクリプト</span><span data-l="en" lang="en">Script</span><span data-l="zh-Hans" lang="zh-Hans">听力原文</span><span data-l="zh-Hant" lang="zh-Hant">聽力原文</span><span data-l="id" lang="id">Naskah</span><span data-l="vi" lang="vi">Lời thoại</span></summary>
 <p>男の人が市役所の窓口で係の人と話しています。男の人はこのあとまず何をしますか。</p>
 <p>男：すみません、引っ越してきたので、住民票の写しをもらいに来たんですが、この用紙に書けばいいんでしょうか。</p>
 <p>女：はい、その用紙にご記入ください。ただ、その用紙は転入の届け出用ですので、住民票の写しがほしい場合は、こちらの番号札を取って、そちらでお待ちください。</p>
@@ -35,18 +62,18 @@
 <p>女：いえ、用紙は必要ありません。番号札を取って、呼ばれたら窓口で住所とお名前を言ってください。</p>
 <p>男：わかりました。じゃあ、番号札を取りに行きます。</p>
 </details>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 1. 番号札を取る</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 1. 番号札を取る</p>
 <p class="ex">男の人は住民票の写しがほしいと伝えたが、窓口の人は「番号札を取って、呼ばれたら窓口で住所とお名前を言ってください」と説明している。用紙は必要ないと言われ、男の人も「番号札を取りに行きます」と言っているので、まず番号札を取る。</p>
-<details class="tr"><summary>English</summary><p lang="en">The man says he wants a copy of his residence certificate. The clerk tells him that the form is not needed and that he should take a numbered ticket and give his address and name when called. The man agrees to go get a ticket, so taking the ticket is the first thing he does.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The man says he wants a copy of his residence certificate. The clerk tells him that the form is not needed and that he should take a numbered ticket and give his address and name when called. The man agrees to go get a ticket, so taking the ticket is the first thing he does.</p></details>
 </details>
 </section>
 <section class="q">
-<h2>問2 <span lang="en">Q2</span></h2>
+<h2><span data-l="ja" lang="ja">問2</span><span data-l="en" lang="en">Q2</span><span data-l="zh-Hans" lang="zh-Hans">第2题</span><span data-l="zh-Hant" lang="zh-Hant">第2題</span><span data-l="id" lang="id">Soal 2</span><span data-l="vi" lang="vi">Câu 2</span></h2>
 <audio controls preload="none" src="https://pub-84049f5e6df74e898b5d0976f678f0d2.r2.dev/2026-10-25/N2/2.mp3"></audio>
 <p class="qtext">女の人はこのあと何をしますか。</p>
 <ol class="options"><li>コース料理を別のメニューに変えてもらう</li><li>デザートを別のものに変えてもらう</li><li>アレルギーがないか店の人に伝える</li><li>デザートの代わりにコーヒーにしてもらう</li></ol>
-<details class="script"><summary>スクリプト <span lang="en">Script</span></summary>
+<details class="script"><summary><span data-l="ja" lang="ja">スクリプト</span><span data-l="en" lang="en">Script</span><span data-l="zh-Hans" lang="zh-Hans">听力原文</span><span data-l="zh-Hant" lang="zh-Hant">聽力原文</span><span data-l="id" lang="id">Naskah</span><span data-l="vi" lang="vi">Lời thoại</span></summary>
 <p>女の人がレストランで店の人と話しています。女の人はこのあと何をしますか。</p>
 <p>女：すみません、このコース料理、デザートを別のものに変えてもらうことはできますか。</p>
 <p>男：申し訳ありません。コースのデザートは、当日の変更はお受けしていないんです。ただ、アレルギーがございましたら、別のものをご用意できます。</p>
@@ -54,18 +81,18 @@
 <p>男：それでしたら、デザートの代わりにコーヒーをお付けできます。お値段は変わりません。</p>
 <p>女：あ、それならそうしてください。よろしくお願いします。</p>
 </details>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 4. デザートの代わりにコーヒーにしてもらう</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 4. デザートの代わりにコーヒーにしてもらう</p>
 <p class="ex">女の人はデザートの変更を頼んだが、当日の変更はできないと言われる。アレルギーではないと伝え、デザートを抜けないか尋ねると、店の人は「デザートの代わりにコーヒーをお付けできます」と言い、女の人は「それならそうしてください」と頼んでいる。</p>
-<details class="tr"><summary>English</summary><p lang="en">The woman asks to change the dessert, but the server says same-day changes are not accepted. She says it is not an allergy and asks to remove the dessert. The server offers coffee instead of the dessert at the same price, and she accepts, so she chooses coffee in place of dessert.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The woman asks to change the dessert, but the server says same-day changes are not accepted. She says it is not an allergy and asks to remove the dessert. The server offers coffee instead of the dessert at the same price, and she accepts, so she chooses coffee in place of dessert.</p></details>
 </details>
 </section>
 <section class="q">
-<h2>問3 <span lang="en">Q3</span></h2>
+<h2><span data-l="ja" lang="ja">問3</span><span data-l="en" lang="en">Q3</span><span data-l="zh-Hans" lang="zh-Hans">第3题</span><span data-l="zh-Hant" lang="zh-Hant">第3題</span><span data-l="id" lang="id">Soal 3</span><span data-l="vi" lang="vi">Câu 3</span></h2>
 <audio controls preload="none" src="https://pub-84049f5e6df74e898b5d0976f678f0d2.r2.dev/2026-10-25/N2/3.mp3"></audio>
 <p class="qtext">男の人はこのあと何をしなければなりませんか。</p>
 <ol class="options"><li>明日の朝六時半にフロントで弁当を受け取る</li><li>今夜の九時までにフロントで弁当を注文する</li><li>明日の朝七時に朝食を食べる</li><li>今夜の九時までに朝食を食べる</li></ol>
-<details class="script"><summary>スクリプト <span lang="en">Script</span></summary>
+<details class="script"><summary><span data-l="ja" lang="ja">スクリプト</span><span data-l="en" lang="en">Script</span><span data-l="zh-Hans" lang="zh-Hans">听力原文</span><span data-l="zh-Hant" lang="zh-Hant">聽力原文</span><span data-l="id" lang="id">Naskah</span><span data-l="vi" lang="vi">Lời thoại</span></summary>
 <p>男の人がホテルのフロントで係の人と話しています。男の人はこのあと何をしなければなりませんか。</p>
 <p>男：明日の朝、七時に出発したいんですが、朝食は何時からですか。</p>
 <p>女：朝食は六時半からですが、七時のご出発でしたら、お食事の時間が短くなりますね。お弁当をご用意することもできます。</p>
@@ -73,16 +100,21 @@
 <p>女：明日の朝六時半に、こちらのフロントでお渡しします。お弁当のご注文は、今夜の九時までにお願いします。</p>
 <p>男：わかりました。じゃあ、部屋に戻る前に、注文しておきます。</p>
 </details>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 2. 今夜の九時までにフロントで弁当を注文する</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 2. 今夜の九時までにフロントで弁当を注文する</p>
 <p class="ex">男の人は弁当を頼むことにし、係の人は「お弁当のご注文は、今夜の九時までにお願いします」と言っている。受け取りは明日の朝六時半だが、このあとしなければならないのは今夜九時までの注文で、男の人も「注文しておきます」と言っている。</p>
-<details class="tr"><summary>English</summary><p lang="en">The man decides to take a boxed breakfast. The clerk says orders must be placed by 9 p.m. tonight. The man says he will place the order before returning to his room, so what he must do next is order by 9 p.m. tonight.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The man decides to take a boxed breakfast. The clerk says orders must be placed by 9 p.m. tonight. The man says he will place the order before returning to his room, so what he must do next is order by 9 p.m. tonight.</p></details>
 </details>
 </section>
+<nav class="jlpt-nav" aria-label="JLPT"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a></nav>
 <aside class="app-cta">
-<p class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
-<p class="cta-en" lang="en">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
-<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener">Google Play で見る <span lang="en">/ View on Google Play</span></a>
+<p data-l="ja" lang="ja" class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
+<p data-l="en" lang="en" class="cta-lead">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="cta-lead">每道题都附解析的完整模拟考试，请在 JLPT-GO 应用中练习。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="cta-lead">每一題都附解析的完整模擬考試，請在 JLPT-GO App 中練習。</p>
+<p data-l="id" lang="id" class="cta-lead">Ujian simulasi lengkap dengan penjelasan untuk setiap soal ada di aplikasi JLPT-GO.</p>
+<p data-l="vi" lang="vi" class="cta-lead">Bài thi thử trọn vẹn, câu nào cũng có giải thích, có trong ứng dụng JLPT-GO.</p>
+<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener"><span data-l="ja" lang="ja">Google Play で見る</span><span data-l="en" lang="en">View on Google Play</span><span data-l="zh-Hans" lang="zh-Hans">在 Google Play 查看</span><span data-l="zh-Hant" lang="zh-Hant">在 Google Play 查看</span><span data-l="id" lang="id">Lihat di Google Play</span><span data-l="vi" lang="vi">Xem trên Google Play</span></a>
 </aside>
 </div></main>
 <footer class="bottom"><div class="wrap footer-inner">

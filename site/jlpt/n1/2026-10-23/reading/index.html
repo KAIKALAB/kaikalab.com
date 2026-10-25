@@ -11,17 +11,44 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat&family=Noto+Serif+JP:wght@400;600&display=swap">
 <link rel="stylesheet" href="/home.css">
 <link rel="stylesheet" href="/jlpt/jlpt.css">
+<script>
+(function () {
+  var L = ["ja","en","zh-Hans","zh-Hant","id","vi"], k = "jlpt.lang", l = null;
+  try {
+    var q = new URLSearchParams(location.search).get("lang");
+    if (L.indexOf(q) >= 0) { l = q; localStorage.setItem(k, q); } else { l = localStorage.getItem(k); }
+  } catch (e) {}
+  if (L.indexOf(l) < 0) return;
+  document.documentElement.setAttribute("data-ui", l);
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("details.answer").forEach(function (answer) {
+      // 選んだ言語の訳を開く。その言語の訳が無い問題（訳を足す前の日の分）は英語の訳を出す
+      var mine = answer.querySelector('details.tr[data-l="' + l + '"]') || (l === "ja" ? null : answer.querySelector('details.tr[data-l="en"]'));
+      if (mine) { mine.style.display = "block"; mine.open = true; }
+    });
+    // localStorage が使えない端末でも言語が続くよう、/jlpt/ の中のリンクに ?lang= を付ける
+    document.querySelectorAll('a[href^="/jlpt/"]').forEach(function (a) {
+      a.setAttribute("href", a.getAttribute("href").split("#")[0] + "?lang=" + l + (a.hash || ""));
+    });
+  });
+})();
+</script>
 </head>
 <body>
 <header class="top"><div class="wrap nav">
 <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Kaika Lab</span></a>
-<nav class="menu"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a></nav>
+<nav class="menu langs" aria-label="Language"><a href="?lang=ja" data-set="ja" lang="ja">日本語</a><a href="?lang=en" data-set="en" lang="en">English</a><a href="?lang=zh-Hans" data-set="zh-Hans" lang="zh-Hans">简体中文</a><a href="?lang=zh-Hant" data-set="zh-Hant" lang="zh-Hant">繁體中文</a><a href="?lang=id" data-set="id" lang="id">Bahasa Indonesia</a><a href="?lang=vi" data-set="vi" lang="vi">Tiếng Việt</a></nav>
 </div></header>
 <main><div class="wrap jlpt">
-<nav class="crumbs" aria-label="パンくず"><a href="/jlpt/">JLPT</a> › <a href="/jlpt/n1/">N1</a> › <span>2026-10-23 読解</span></nav>
-<h1>JLPT N1 毎日の読解 <span class="h1-en" lang="en">Daily Reading</span></h1>
+<nav class="crumbs" aria-label="パンくず"><a href="/jlpt/">JLPT</a> › <a href="/jlpt/n1/">N1</a> › <span>2026-10-23 <span data-l="ja" lang="ja">読解</span><span data-l="en" lang="en">Reading</span><span data-l="zh-Hans" lang="zh-Hans">阅读</span><span data-l="zh-Hant" lang="zh-Hant">閱讀</span><span data-l="id" lang="id">Membaca</span><span data-l="vi" lang="vi">Đọc hiểu</span></span></nav>
+<h1>JLPT N1 <span data-l="ja" lang="ja">毎日の読解</span><span data-l="en" lang="en">Daily Reading</span><span data-l="zh-Hans" lang="zh-Hans">每日阅读</span><span data-l="zh-Hant" lang="zh-Hant">每日閱讀</span><span data-l="id" lang="id">Membaca harian</span><span data-l="vi" lang="vi">Đọc hiểu hằng ngày</span></h1>
 <p class="date">2026-10-23</p>
-<p class="lead">文章を読んで、答えを選んでください。答えと解説は下で開けます。</p>
+<p data-l="ja" lang="ja" class="lead">文章を読んで、答えを選んでください。答えと解説は下で開けます。</p>
+<p data-l="en" lang="en" class="lead">Read the passage and choose your answers. Open the answer and explanation below each question.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="lead">阅读文章并选择答案。答案与解析可在每题下方展开。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="lead">閱讀文章並選擇答案。答案與解析可在每題下方展開。</p>
+<p data-l="id" lang="id" class="lead">Bacalah teks lalu pilih jawaban. Jawaban dan penjelasan bisa dibuka di bawah setiap soal.</p>
+<p data-l="vi" lang="vi" class="lead">Đọc bài rồi chọn đáp án. Có thể mở đáp án và giải thích bên dưới mỗi câu.</p>
 <div class="passage">
 <p>新しい技術が生活に入り込むとき、私たちはつい「便利になるかどうか」だけを基準に考えがちだ。もちろん、手間が減ることは歓迎すべき変化だろう。しかし、技術が暮らしに定着する過程で本当に問われるのは、その便利さが誰のためのものか、という点である。</p>
 <p>たとえば、家事を支援する機器を考えてみよう。それを使えば確かに時間は節約できる。だが、その時間を何に充てるかは、使う人によってまったく異なる。ある人にとっては家族と過ごす余裕になり、別の人にとっては、これまでになかった別の作業を詰め込む余地になるだけかもしれない。技術そのものは、どちらが望ましいかを決めてはくれない。</p>
@@ -29,39 +56,44 @@
 <p>だからこそ、私たちは技術を評価するとき、効率という物差しだけでなく、それが生み出す関係や格差にも目を向ける必要がある。便利さは目的ではなく、よりよい暮らしをつくるための手段にすぎない。この順序を見失わなければ、技術は私たちの生活を本当に豊かにしてくれるはずだ。</p>
 </div>
 <section class="q">
-<h2>問1 <span lang="en">Q1</span></h2>
+<h2><span data-l="ja" lang="ja">問1</span><span data-l="en" lang="en">Q1</span><span data-l="zh-Hans" lang="zh-Hans">第1题</span><span data-l="zh-Hant" lang="zh-Hant">第1題</span><span data-l="id" lang="id">Soal 1</span><span data-l="vi" lang="vi">Câu 1</span></h2>
 <p class="qtext">筆者によると、技術が生活に定着するとき、最も問われるべきことは何か。</p>
 <ol class="options"><li>その技術によって節約できる時間がどれほど大きいかという点</li><li>その技術がもたらす便利さが誰のためにあるのかという点</li><li>その技術が家族との関係をどれだけ深めるかという点</li><li>その技術を多くの人が同じように使えるかという点</li></ol>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 2. その技術がもたらす便利さが誰のためにあるのかという点</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 2. その技術がもたらす便利さが誰のためにあるのかという点</p>
 <p class="ex">第二段落の冒頭で「本当に問われるのは、その便利さが誰のためのものか」と述べている。時間の節約量や使いやすさ、家族関係の深化は、この問いの中心ではない。</p>
-<details class="tr"><summary>English</summary><p lang="en">The passage states that what really matters is whose convenience the technology serves, not how much time it saves or how widely it can be used.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The passage states that what really matters is whose convenience the technology serves, not how much time it saves or how widely it can be used.</p></details>
 </details>
 </section>
 <section class="q">
-<h2>問2 <span lang="en">Q2</span></h2>
+<h2><span data-l="ja" lang="ja">問2</span><span data-l="en" lang="en">Q2</span><span data-l="zh-Hans" lang="zh-Hans">第2题</span><span data-l="zh-Hant" lang="zh-Hant">第2題</span><span data-l="id" lang="id">Soal 2</span><span data-l="vi" lang="vi">Câu 2</span></h2>
 <p class="qtext">家事を支援する機器について、筆者はどのように述べているか。</p>
 <ol class="options"><li>機器の便利さは、使う人の工夫しだいでいくらでも高められる。</li><li>機器を使えない人は、かえって多くの時間を家事に費やすことになる。</li><li>節約した時間の使い道は使う人によって変わり、技術はその善し悪しを決めない。</li><li>節約した時間は必ず家族と過ごすために使われ、暮らしが豊かになる。</li></ol>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 3. 節約した時間の使い道は使う人によって変わり、技術はその善し悪しを決めない。</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 3. 節約した時間の使い道は使う人によって変わり、技術はその善し悪しを決めない。</p>
 <p class="ex">第三段落で、節約した時間の使い道は人によって異なり、「技術そのものは、どちらが望ましいかを決めてはくれない」と述べている。時間が家族との団らんに必ず使われるとはしていない。</p>
-<details class="tr"><summary>English</summary><p lang="en">The passage explains that how saved time is used differs by person, and technology itself does not decide which use is desirable.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The passage explains that how saved time is used differs by person, and technology itself does not decide which use is desirable.</p></details>
 </details>
 </section>
 <section class="q">
-<h2>問3 <span lang="en">Q3</span></h2>
+<h2><span data-l="ja" lang="ja">問3</span><span data-l="en" lang="en">Q3</span><span data-l="zh-Hans" lang="zh-Hans">第3题</span><span data-l="zh-Hant" lang="zh-Hant">第3題</span><span data-l="id" lang="id">Soal 3</span><span data-l="vi" lang="vi">Câu 3</span></h2>
 <p class="qtext">この文章で筆者が最も言いたいことは何か。</p>
 <ol class="options"><li>新しい技術は効率を高めるために積極的に導入し、使えない人には使えるよう支援すべきだ。</li><li>技術の便利さに慣れると、かえって不便を感じるようになるので、利用は控えるべきだ。</li><li>便利さは目的ではなく手段であり、恩恵から漏れる人への配慮も含めて技術を評価すべきだ。</li><li>家事を支援する機器は、家族の時間を増やす効果が最も大きいので、普及を進めるべきだ。</li></ol>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 3. 便利さは目的ではなく手段であり、恩恵から漏れる人への配慮も含めて技術を評価すべきだ。</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 3. 便利さは目的ではなく手段であり、恩恵から漏れる人への配慮も含めて技術を評価すべきだ。</p>
 <p class="ex">最終段落で「便利さは目的ではなく、よりよい暮らしをつくるための手段にすぎない」とし、効率だけでなく関係や格差にも目を向けるべきだと主張している。導入の促進や利用の抑制が主旨ではない。</p>
-<details class="tr"><summary>English</summary><p lang="en">In the final paragraph, the author argues that convenience is a means, not an end, and that we must consider relationships and disparities, not just efficiency.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">In the final paragraph, the author argues that convenience is a means, not an end, and that we must consider relationships and disparities, not just efficiency.</p></details>
 </details>
 </section>
+<nav class="jlpt-nav" aria-label="JLPT"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a></nav>
 <aside class="app-cta">
-<p class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
-<p class="cta-en" lang="en">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
-<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener">Google Play で見る <span lang="en">/ View on Google Play</span></a>
+<p data-l="ja" lang="ja" class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
+<p data-l="en" lang="en" class="cta-lead">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="cta-lead">每道题都附解析的完整模拟考试，请在 JLPT-GO 应用中练习。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="cta-lead">每一題都附解析的完整模擬考試，請在 JLPT-GO App 中練習。</p>
+<p data-l="id" lang="id" class="cta-lead">Ujian simulasi lengkap dengan penjelasan untuk setiap soal ada di aplikasi JLPT-GO.</p>
+<p data-l="vi" lang="vi" class="cta-lead">Bài thi thử trọn vẹn, câu nào cũng có giải thích, có trong ứng dụng JLPT-GO.</p>
+<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener"><span data-l="ja" lang="ja">Google Play で見る</span><span data-l="en" lang="en">View on Google Play</span><span data-l="zh-Hans" lang="zh-Hans">在 Google Play 查看</span><span data-l="zh-Hant" lang="zh-Hant">在 Google Play 查看</span><span data-l="id" lang="id">Lihat di Google Play</span><span data-l="vi" lang="vi">Xem trên Google Play</span></a>
 </aside>
 </div></main>
 <footer class="bottom"><div class="wrap footer-inner">

@@ -11,23 +11,50 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat&family=Noto+Serif+JP:wght@400;600&display=swap">
 <link rel="stylesheet" href="/home.css">
 <link rel="stylesheet" href="/jlpt/jlpt.css">
+<script>
+(function () {
+  var L = ["ja","en","zh-Hans","zh-Hant","id","vi"], k = "jlpt.lang", l = null;
+  try {
+    var q = new URLSearchParams(location.search).get("lang");
+    if (L.indexOf(q) >= 0) { l = q; localStorage.setItem(k, q); } else { l = localStorage.getItem(k); }
+  } catch (e) {}
+  if (L.indexOf(l) < 0) return;
+  document.documentElement.setAttribute("data-ui", l);
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("details.answer").forEach(function (answer) {
+      // 選んだ言語の訳を開く。その言語の訳が無い問題（訳を足す前の日の分）は英語の訳を出す
+      var mine = answer.querySelector('details.tr[data-l="' + l + '"]') || (l === "ja" ? null : answer.querySelector('details.tr[data-l="en"]'));
+      if (mine) { mine.style.display = "block"; mine.open = true; }
+    });
+    // localStorage が使えない端末でも言語が続くよう、/jlpt/ の中のリンクに ?lang= を付ける
+    document.querySelectorAll('a[href^="/jlpt/"]').forEach(function (a) {
+      a.setAttribute("href", a.getAttribute("href").split("#")[0] + "?lang=" + l + (a.hash || ""));
+    });
+  });
+})();
+</script>
 </head>
 <body>
 <header class="top"><div class="wrap nav">
 <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Kaika Lab</span></a>
-<nav class="menu"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a></nav>
+<nav class="menu langs" aria-label="Language"><a href="?lang=ja" data-set="ja" lang="ja">日本語</a><a href="?lang=en" data-set="en" lang="en">English</a><a href="?lang=zh-Hans" data-set="zh-Hans" lang="zh-Hans">简体中文</a><a href="?lang=zh-Hant" data-set="zh-Hant" lang="zh-Hant">繁體中文</a><a href="?lang=id" data-set="id" lang="id">Bahasa Indonesia</a><a href="?lang=vi" data-set="vi" lang="vi">Tiếng Việt</a></nav>
 </div></header>
 <main><div class="wrap jlpt">
-<nav class="crumbs" aria-label="パンくず"><a href="/jlpt/">JLPT</a> › <a href="/jlpt/n3/">N3</a> › <span>2026-10-24 聴解</span></nav>
-<h1>JLPT N3 毎日の聴解 <span class="h1-en" lang="en">Daily Listening</span></h1>
+<nav class="crumbs" aria-label="パンくず"><a href="/jlpt/">JLPT</a> › <a href="/jlpt/n3/">N3</a> › <span>2026-10-24 <span data-l="ja" lang="ja">聴解</span><span data-l="en" lang="en">Listening</span><span data-l="zh-Hans" lang="zh-Hans">听力</span><span data-l="zh-Hant" lang="zh-Hant">聽力</span><span data-l="id" lang="id">Menyimak</span><span data-l="vi" lang="vi">Nghe hiểu</span></span></nav>
+<h1>JLPT N3 <span data-l="ja" lang="ja">毎日の聴解</span><span data-l="en" lang="en">Daily Listening</span><span data-l="zh-Hans" lang="zh-Hans">每日听力</span><span data-l="zh-Hant" lang="zh-Hant">每日聽力</span><span data-l="id" lang="id">Menyimak harian</span><span data-l="vi" lang="vi">Nghe hiểu hằng ngày</span></h1>
 <p class="date">2026-10-24</p>
-<p class="lead">音声を聞いて、答えを選んでください。スクリプトと答えは下で開けます。</p>
+<p data-l="ja" lang="ja" class="lead">音声を聞いて、答えを選んでください。スクリプトと答えは下で開けます。</p>
+<p data-l="en" lang="en" class="lead">Listen to the audio and choose your answers. Open the script and the answer below each question.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="lead">听音频并选择答案。听力原文和答案可在每题下方展开。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="lead">聽音檔並選擇答案。聽力原文和答案可在每題下方展開。</p>
+<p data-l="id" lang="id" class="lead">Dengarkan audio lalu pilih jawaban. Naskah dan jawaban bisa dibuka di bawah setiap soal.</p>
+<p data-l="vi" lang="vi" class="lead">Nghe âm thanh rồi chọn đáp án. Có thể mở lời thoại và đáp án bên dưới mỗi câu.</p>
 <section class="q">
-<h2>問1 <span lang="en">Q1</span></h2>
+<h2><span data-l="ja" lang="ja">問1</span><span data-l="en" lang="en">Q1</span><span data-l="zh-Hans" lang="zh-Hans">第1题</span><span data-l="zh-Hant" lang="zh-Hant">第1題</span><span data-l="id" lang="id">Soal 1</span><span data-l="vi" lang="vi">Câu 1</span></h2>
 <audio controls preload="none" src="https://pub-84049f5e6df74e898b5d0976f678f0d2.r2.dev/2026-10-24/N3/1.mp3"></audio>
 <p class="qtext">女の人はこのあとまず何をしますか。</p>
 <ol class="options"><li>荷物をフロントに預ける</li><li>記入用紙を持って部屋へ行く</li><li>部屋の鍵を受け取る</li><li>3時までロビーで待つ</li></ol>
-<details class="script"><summary>スクリプト <span lang="en">Script</span></summary>
+<details class="script"><summary><span data-l="ja" lang="ja">スクリプト</span><span data-l="en" lang="en">Script</span><span data-l="zh-Hans" lang="zh-Hans">听力原文</span><span data-l="zh-Hant" lang="zh-Hant">聽力原文</span><span data-l="id" lang="id">Naskah</span><span data-l="vi" lang="vi">Lời thoại</span></summary>
 <p>ホテルのフロントで、男の人と女の人が話しています。女の人はこのあとまず何をしますか。</p>
 <p>男：いらっしゃいませ。ご予約のお名前をお願いします。</p>
 <p>女：田中です。えっと、部屋に荷物を先に置きたいんですが、チェックインは何時からですか。</p>
@@ -36,18 +63,18 @@
 <p>男：はい。こちらにご記入をお願いします。お荷物は何個ですか。</p>
 <p>女：スーツケースが一つと、この袋が一つです。</p>
 </details>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 1. 荷物をフロントに預ける</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 1. 荷物をフロントに預ける</p>
 <p class="ex">女の人は「先に荷物を預かってもらえますか」と頼み、男の人が記入と荷物の数を確認している。チェックインは3時からで、まだ部屋には入れない。</p>
-<details class="tr"><summary>English</summary><p lang="en">The woman asks to leave her luggage first, and the man begins the paperwork and asks how many bags she has. Check-in starts at 3, so she cannot go to the room yet.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The woman asks to leave her luggage first, and the man begins the paperwork and asks how many bags she has. Check-in starts at 3, so she cannot go to the room yet.</p></details>
 </details>
 </section>
 <section class="q">
-<h2>問2 <span lang="en">Q2</span></h2>
+<h2><span data-l="ja" lang="ja">問2</span><span data-l="en" lang="en">Q2</span><span data-l="zh-Hans" lang="zh-Hans">第2题</span><span data-l="zh-Hant" lang="zh-Hant">第2題</span><span data-l="id" lang="id">Soal 2</span><span data-l="vi" lang="vi">Câu 2</span></h2>
 <audio controls preload="none" src="https://pub-84049f5e6df74e898b5d0976f678f0d2.r2.dev/2026-10-24/N3/2.mp3"></audio>
 <p class="qtext">男の学生はこのあと何をしますか。</p>
 <ol class="options"><li>図書館へ本を返しに行く</li><li>レポートの残りを教室で書く</li><li>先生の研究室を訪ねる</li><li>女の学生に資料を借りる</li></ol>
-<details class="script"><summary>スクリプト <span lang="en">Script</span></summary>
+<details class="script"><summary><span data-l="ja" lang="ja">スクリプト</span><span data-l="en" lang="en">Script</span><span data-l="zh-Hans" lang="zh-Hans">听力原文</span><span data-l="zh-Hant" lang="zh-Hant">聽力原文</span><span data-l="id" lang="id">Naskah</span><span data-l="vi" lang="vi">Lời thoại</span></summary>
 <p>大学の教室で、男の学生と女の学生が話しています。男の学生はこのあと何をしますか。</p>
 <p>女：レポート、もう書き終わった？締め切り明日だよ。</p>
 <p>男：それが、資料が足りなくてまだ半分しか書けてないんだ。</p>
@@ -56,18 +83,18 @@
 <p>女：じゃあ、先生に相談してみたら。研究室にいるはずだよ。</p>
 <p>男：そうだね。メールより直接話したほうが早いよね。今から行ってみるよ。</p>
 </details>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 3. 先生の研究室を訪ねる</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 3. 先生の研究室を訪ねる</p>
 <p class="ex">男の学生は必要な本が借りられず、女の学生の提案を受けて「今から行ってみるよ」と先生の研究室へ向かうことを決めている。図書館にはすでに行っており、資料は借りられなかった。</p>
-<details class="tr"><summary>English</summary><p lang="en">The man could not borrow the books he needed. Accepting the woman's suggestion, he decides to go to the professor's office now. He has already been to the library and could not get the materials.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The man could not borrow the books he needed. Accepting the woman's suggestion, he decides to go to the professor's office now. He has already been to the library and could not get the materials.</p></details>
 </details>
 </section>
 <section class="q">
-<h2>問3 <span lang="en">Q3</span></h2>
+<h2><span data-l="ja" lang="ja">問3</span><span data-l="en" lang="en">Q3</span><span data-l="zh-Hans" lang="zh-Hans">第3题</span><span data-l="zh-Hant" lang="zh-Hant">第3題</span><span data-l="id" lang="id">Soal 3</span><span data-l="vi" lang="vi">Câu 3</span></h2>
 <audio controls preload="none" src="https://pub-84049f5e6df74e898b5d0976f678f0d2.r2.dev/2026-10-24/N3/3.mp3"></audio>
 <p class="qtext">女の人はこのあとまず何をしますか。</p>
 <ol class="options"><li>売り上げの資料を山田さんに渡す</li><li>午後まで会議を待つ</li><li>最新の売上データを手に入れる</li><li>会議の資料を印刷する</li></ol>
-<details class="script"><summary>スクリプト <span lang="en">Script</span></summary>
+<details class="script"><summary><span data-l="ja" lang="ja">スクリプト</span><span data-l="en" lang="en">Script</span><span data-l="zh-Hans" lang="zh-Hans">听力原文</span><span data-l="zh-Hant" lang="zh-Hant">聽力原文</span><span data-l="id" lang="id">Naskah</span><span data-l="vi" lang="vi">Lời thoại</span></summary>
 <p>会社の休憩室で、男の人と女の人が話しています。女の人はこのあとまず何をしますか。</p>
 <p>男：来週の会議の資料、もう作った？</p>
 <p>女：だいたいできたけど、売り上げの数字がまだ古いままなんだ。</p>
@@ -77,16 +104,21 @@
 <p>女：数字をもらえたら、今日の午後には終わると思う。印刷は明日の朝でいい？</p>
 <p>男：いいよ。じゃあ、明日の朝に印刷しておいて。</p>
 </details>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 3. 最新の売上データを手に入れる</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 3. 最新の売上データを手に入れる</p>
 <p class="ex">女の人は資料の数字が古いままで、山田さんから最新の数字をもらってから直すと言っている。印刷は明日の朝に行う予定なので、まず数字をもらいに行く。</p>
-<details class="tr"><summary>English</summary><p lang="en">The woman says her figures are outdated and she will fix them after getting the latest numbers from Yamada. Printing is planned for tomorrow morning, so her first step is to get the numbers.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The woman says her figures are outdated and she will fix them after getting the latest numbers from Yamada. Printing is planned for tomorrow morning, so her first step is to get the numbers.</p></details>
 </details>
 </section>
+<nav class="jlpt-nav" aria-label="JLPT"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a></nav>
 <aside class="app-cta">
-<p class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
-<p class="cta-en" lang="en">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
-<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener">Google Play で見る <span lang="en">/ View on Google Play</span></a>
+<p data-l="ja" lang="ja" class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
+<p data-l="en" lang="en" class="cta-lead">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="cta-lead">每道题都附解析的完整模拟考试，请在 JLPT-GO 应用中练习。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="cta-lead">每一題都附解析的完整模擬考試，請在 JLPT-GO App 中練習。</p>
+<p data-l="id" lang="id" class="cta-lead">Ujian simulasi lengkap dengan penjelasan untuk setiap soal ada di aplikasi JLPT-GO.</p>
+<p data-l="vi" lang="vi" class="cta-lead">Bài thi thử trọn vẹn, câu nào cũng có giải thích, có trong ứng dụng JLPT-GO.</p>
+<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener"><span data-l="ja" lang="ja">Google Play で見る</span><span data-l="en" lang="en">View on Google Play</span><span data-l="zh-Hans" lang="zh-Hans">在 Google Play 查看</span><span data-l="zh-Hant" lang="zh-Hant">在 Google Play 查看</span><span data-l="id" lang="id">Lihat di Google Play</span><span data-l="vi" lang="vi">Xem trên Google Play</span></a>
 </aside>
 </div></main>
 <footer class="bottom"><div class="wrap footer-inner">

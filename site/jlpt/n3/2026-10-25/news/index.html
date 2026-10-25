@@ -11,59 +11,96 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat&family=Noto+Serif+JP:wght@400;600&display=swap">
 <link rel="stylesheet" href="/home.css">
 <link rel="stylesheet" href="/jlpt/jlpt.css">
+<script>
+(function () {
+  var L = ["ja","en","zh-Hans","zh-Hant","id","vi"], k = "jlpt.lang", l = null;
+  try {
+    var q = new URLSearchParams(location.search).get("lang");
+    if (L.indexOf(q) >= 0) { l = q; localStorage.setItem(k, q); } else { l = localStorage.getItem(k); }
+  } catch (e) {}
+  if (L.indexOf(l) < 0) return;
+  document.documentElement.setAttribute("data-ui", l);
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("details.answer").forEach(function (answer) {
+      // 選んだ言語の訳を開く。その言語の訳が無い問題（訳を足す前の日の分）は英語の訳を出す
+      var mine = answer.querySelector('details.tr[data-l="' + l + '"]') || (l === "ja" ? null : answer.querySelector('details.tr[data-l="en"]'));
+      if (mine) { mine.style.display = "block"; mine.open = true; }
+    });
+    // localStorage が使えない端末でも言語が続くよう、/jlpt/ の中のリンクに ?lang= を付ける
+    document.querySelectorAll('a[href^="/jlpt/"]').forEach(function (a) {
+      a.setAttribute("href", a.getAttribute("href").split("#")[0] + "?lang=" + l + (a.hash || ""));
+    });
+  });
+})();
+</script>
 </head>
 <body>
 <header class="top"><div class="wrap nav">
 <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Kaika Lab</span></a>
-<nav class="menu"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a></nav>
+<nav class="menu langs" aria-label="Language"><a href="?lang=ja" data-set="ja" lang="ja">日本語</a><a href="?lang=en" data-set="en" lang="en">English</a><a href="?lang=zh-Hans" data-set="zh-Hans" lang="zh-Hans">简体中文</a><a href="?lang=zh-Hant" data-set="zh-Hant" lang="zh-Hant">繁體中文</a><a href="?lang=id" data-set="id" lang="id">Bahasa Indonesia</a><a href="?lang=vi" data-set="vi" lang="vi">Tiếng Việt</a></nav>
 </div></header>
 <main><div class="wrap jlpt">
-<nav class="crumbs" aria-label="パンくず"><a href="/jlpt/">JLPT</a> › <a href="/jlpt/n3/">N3</a> › <span>2026-10-25 ニュース</span></nav>
-<h1>JLPT N3 毎日のニュース <span class="h1-en" lang="en">Daily News</span></h1>
+<nav class="crumbs" aria-label="パンくず"><a href="/jlpt/">JLPT</a> › <a href="/jlpt/n3/">N3</a> › <span>2026-10-25 <span data-l="ja" lang="ja">ニュース</span><span data-l="en" lang="en">News</span><span data-l="zh-Hans" lang="zh-Hans">新闻</span><span data-l="zh-Hant" lang="zh-Hant">新聞</span><span data-l="id" lang="id">Berita</span><span data-l="vi" lang="vi">Tin tức</span></span></nav>
+<h1>JLPT N3 <span data-l="ja" lang="ja">毎日のニュース</span><span data-l="en" lang="en">Daily News</span><span data-l="zh-Hans" lang="zh-Hans">每日新闻</span><span data-l="zh-Hant" lang="zh-Hant">每日新聞</span><span data-l="id" lang="id">Berita harian</span><span data-l="vi" lang="vi">Tin tức hằng ngày</span></h1>
 <p class="date">2026-10-25</p>
-<p class="lead">文章を読んで、答えを選んでください。答えと解説は下で開けます。</p>
+<p data-l="ja" lang="ja" class="lead">文章を読んで、答えを選んでください。答えと解説は下で開けます。</p>
+<p data-l="en" lang="en" class="lead">Read the passage and choose your answers. Open the answer and explanation below each question.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="lead">阅读文章并选择答案。答案与解析可在每题下方展开。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="lead">閱讀文章並選擇答案。答案與解析可在每題下方展開。</p>
+<p data-l="id" lang="id" class="lead">Bacalah teks lalu pilih jawaban. Jawaban dan penjelasan bisa dibuka di bawah setiap soal.</p>
+<p data-l="vi" lang="vi" class="lead">Đọc bài rồi chọn đáp án. Có thể mở đáp án và giải thích bên dưới mỗi câu.</p>
 <div class="source">
-<p>話題: 文化勲章に、スーパーマリオシリーズなどを手掛けた宮本茂と、ノーベル化学賞を受賞した硤合憲三ら8人が選出された。</p>
-<p><a href="https://ja.wikipedia.org/wiki/Portal%3A%E6%9C%80%E8%BF%91%E3%81%AE%E5%87%BA%E6%9D%A5%E4%BA%8B%2F2026%E5%B9%B410%E6%9C%88" target="_blank" rel="noopener">ウィキペディア日本語版「Portal:最近の出来事」</a>（CC BY-SA 4.0） ／ <a href="https://www.jiji.com/jc/article?k=2026102300273&amp;g=pol" target="_blank" rel="noopener">元の報道</a></p>
-<p>本文は上の記載をもとに書いたもので、CC BY-SA 4.0 で公開しています。</p>
+<p><span data-l="ja" lang="ja">話題</span><span data-l="en" lang="en">Topic</span><span data-l="zh-Hans" lang="zh-Hans">话题</span><span data-l="zh-Hant" lang="zh-Hant">話題</span><span data-l="id" lang="id">Topik</span><span data-l="vi" lang="vi">Chủ đề</span>: 文化勲章に、スーパーマリオシリーズなどを手掛けた宮本茂と、ノーベル化学賞を受賞した硤合憲三ら8人が選出された。</p>
+<p><a href="https://ja.wikipedia.org/wiki/Portal%3A%E6%9C%80%E8%BF%91%E3%81%AE%E5%87%BA%E6%9D%A5%E4%BA%8B%2F2026%E5%B9%B410%E6%9C%88" target="_blank" rel="noopener">ウィキペディア日本語版「Portal:最近の出来事」</a>（CC BY-SA 4.0） ／ <a href="https://www.jiji.com/jc/article?k=2026102300273&amp;g=pol" target="_blank" rel="noopener"><span data-l="ja" lang="ja">元の報道</span><span data-l="en" lang="en">Original report</span><span data-l="zh-Hans" lang="zh-Hans">原报道</span><span data-l="zh-Hant" lang="zh-Hant">原始報導</span><span data-l="id" lang="id">Laporan asli</span><span data-l="vi" lang="vi">Bài báo gốc</span></a></p>
+<p data-l="ja" lang="ja">本文は上の記載をもとに書いたもので、CC BY-SA 4.0 で公開しています。</p>
+<p data-l="en" lang="en">The article is based on the entry above and is published under CC BY-SA 4.0.</p>
+<p data-l="zh-Hans" lang="zh-Hans">本文根据上述内容撰写，以 CC BY-SA 4.0 发布。</p>
+<p data-l="zh-Hant" lang="zh-Hant">本文是根據上方記載所撰寫，並以 CC BY-SA 4.0 公開。</p>
+<p data-l="id" lang="id">Isi artikel ditulis berdasarkan keterangan di atas dan dipublikasikan dengan CC BY-SA 4.0.</p>
+<p data-l="vi" lang="vi">Nội dung bài viết dựa trên ghi chú ở trên và được công bố theo CC BY-SA 4.0.</p>
 </div>
 <div class="passage">
 <p>今年の文化勲章を授ける人として、8人が選ばれた。この中には、ゲームを作る仕事をしてきた宮本茂さんと、化学の研究で大きな賞を受けた硤合憲三さんがいる。文化勲章は、科学や芸術などの文化を発展させた人に贈られる勲章で、1937年に定められた。宮本さんは、1985年に発売された「スーパーマリオブラザーズ」などのゲームに関わってきた。</p>
 </div>
 <section class="q">
-<h2>問1 <span lang="en">Q1</span></h2>
+<h2><span data-l="ja" lang="ja">問1</span><span data-l="en" lang="en">Q1</span><span data-l="zh-Hans" lang="zh-Hans">第1题</span><span data-l="zh-Hant" lang="zh-Hant">第1題</span><span data-l="id" lang="id">Soal 1</span><span data-l="vi" lang="vi">Câu 1</span></h2>
 <p class="qtext">「授ける」とあるが、ここではどういう意味か。</p>
 <ol class="options"><li>勲章の制度を新しく決める</li><li>新しいゲームを売り出す</li><li>功績のある人に勲章を与える</li><li>文化を発展させるために研究を続ける</li></ol>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 3. 功績のある人に勲章を与える</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 3. 功績のある人に勲章を与える</p>
 <p class="ex">「文化勲章を授ける人」とあるので、功績のあった人に勲章を与えるという意味。本文に「贈られる勲章」とある。</p>
-<details class="tr"><summary>English</summary><p lang="en">The phrase 'people to whom the Culture Order is awarded' shows that '授ける' means to give the order to someone with achievements. The passage also says it is an order 'given' to people.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The phrase 'people to whom the Culture Order is awarded' shows that '授ける' means to give the order to someone with achievements. The passage also says it is an order 'given' to people.</p></details>
 </details>
 </section>
 <section class="q">
-<h2>問2 <span lang="en">Q2</span></h2>
+<h2><span data-l="ja" lang="ja">問2</span><span data-l="en" lang="en">Q2</span><span data-l="zh-Hans" lang="zh-Hans">第2题</span><span data-l="zh-Hant" lang="zh-Hant">第2題</span><span data-l="id" lang="id">Soal 2</span><span data-l="vi" lang="vi">Câu 2</span></h2>
 <p class="qtext">文化勲章について、本文の内容と合っているものはどれか。</p>
 <ol class="options"><li>ゲームを作った人だけに与えられる。</li><li>1937年に初めてゲームの開発者に与えられた。</li><li>文化の発展に大きく貢献した人に与えられる。</li><li>毎年8人に与えられると決まっている。</li></ol>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 3. 文化の発展に大きく貢献した人に与えられる。</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 3. 文化の発展に大きく貢献した人に与えられる。</p>
 <p class="ex">本文には、科学や芸術などの文化を発展させた人に贈られる勲章だと書かれている。ゲームだけ、1937年に初めて贈られた、毎年8人と決まっているとは書かれていない。</p>
-<details class="tr"><summary>English</summary><p lang="en">The passage says it is an order given to people who have developed culture such as science and art. It does not say it is only for game creators, that it was first given in 1937, or that it is always given to eight people every year.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The passage says it is an order given to people who have developed culture such as science and art. It does not say it is only for game creators, that it was first given in 1937, or that it is always given to eight people every year.</p></details>
 </details>
 </section>
 <section class="q">
-<h2>問3 <span lang="en">Q3</span></h2>
+<h2><span data-l="ja" lang="ja">問3</span><span data-l="en" lang="en">Q3</span><span data-l="zh-Hans" lang="zh-Hans">第3题</span><span data-l="zh-Hant" lang="zh-Hant">第3題</span><span data-l="id" lang="id">Soal 3</span><span data-l="vi" lang="vi">Câu 3</span></h2>
 <p class="qtext">このニュースで伝えている主な内容は何か。</p>
 <ol class="options"><li>文化勲章を受ける人に、ゲームの仕事をした人や化学の研究者などが選ばれたこと</li><li>文化勲章が1937年に作られた理由</li><li>硤合憲三さんがノーベル化学賞を受けたこと</li><li>宮本茂さんが作ったゲームが1985年に発売されたこと</li></ol>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 1. 文化勲章を受ける人に、ゲームの仕事をした人や化学の研究者などが選ばれたこと</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 1. 文化勲章を受ける人に、ゲームの仕事をした人や化学の研究者などが選ばれたこと</p>
 <p class="ex">本文全体は、文化勲章を受ける8人が選ばれ、その中に宮本さんや硤合さんがいることを伝えている。ゲームの発売やノーベル賞、勲章が作られた理由は主な内容ではない。</p>
-<details class="tr"><summary>English</summary><p lang="en">The whole passage reports that eight people were selected to receive the Culture Order, including Mr. Miyamoto and Mr. Hori. The game release, the Nobel Prize, and the reason the order was created are not the main content.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The whole passage reports that eight people were selected to receive the Culture Order, including Mr. Miyamoto and Mr. Hori. The game release, the Nobel Prize, and the reason the order was created are not the main content.</p></details>
 </details>
 </section>
+<nav class="jlpt-nav" aria-label="JLPT"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a></nav>
 <aside class="app-cta">
-<p class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
-<p class="cta-en" lang="en">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
-<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener">Google Play で見る <span lang="en">/ View on Google Play</span></a>
+<p data-l="ja" lang="ja" class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
+<p data-l="en" lang="en" class="cta-lead">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="cta-lead">每道题都附解析的完整模拟考试，请在 JLPT-GO 应用中练习。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="cta-lead">每一題都附解析的完整模擬考試，請在 JLPT-GO App 中練習。</p>
+<p data-l="id" lang="id" class="cta-lead">Ujian simulasi lengkap dengan penjelasan untuk setiap soal ada di aplikasi JLPT-GO.</p>
+<p data-l="vi" lang="vi" class="cta-lead">Bài thi thử trọn vẹn, câu nào cũng có giải thích, có trong ứng dụng JLPT-GO.</p>
+<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener"><span data-l="ja" lang="ja">Google Play で見る</span><span data-l="en" lang="en">View on Google Play</span><span data-l="zh-Hans" lang="zh-Hans">在 Google Play 查看</span><span data-l="zh-Hant" lang="zh-Hant">在 Google Play 查看</span><span data-l="id" lang="id">Lihat di Google Play</span><span data-l="vi" lang="vi">Xem trên Google Play</span></a>
 </aside>
 </div></main>
 <footer class="bottom"><div class="wrap footer-inner">

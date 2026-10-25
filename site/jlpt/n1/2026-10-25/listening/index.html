@@ -11,23 +11,50 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat&family=Noto+Serif+JP:wght@400;600&display=swap">
 <link rel="stylesheet" href="/home.css">
 <link rel="stylesheet" href="/jlpt/jlpt.css">
+<script>
+(function () {
+  var L = ["ja","en","zh-Hans","zh-Hant","id","vi"], k = "jlpt.lang", l = null;
+  try {
+    var q = new URLSearchParams(location.search).get("lang");
+    if (L.indexOf(q) >= 0) { l = q; localStorage.setItem(k, q); } else { l = localStorage.getItem(k); }
+  } catch (e) {}
+  if (L.indexOf(l) < 0) return;
+  document.documentElement.setAttribute("data-ui", l);
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("details.answer").forEach(function (answer) {
+      // 選んだ言語の訳を開く。その言語の訳が無い問題（訳を足す前の日の分）は英語の訳を出す
+      var mine = answer.querySelector('details.tr[data-l="' + l + '"]') || (l === "ja" ? null : answer.querySelector('details.tr[data-l="en"]'));
+      if (mine) { mine.style.display = "block"; mine.open = true; }
+    });
+    // localStorage が使えない端末でも言語が続くよう、/jlpt/ の中のリンクに ?lang= を付ける
+    document.querySelectorAll('a[href^="/jlpt/"]').forEach(function (a) {
+      a.setAttribute("href", a.getAttribute("href").split("#")[0] + "?lang=" + l + (a.hash || ""));
+    });
+  });
+})();
+</script>
 </head>
 <body>
 <header class="top"><div class="wrap nav">
 <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Kaika Lab</span></a>
-<nav class="menu"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a></nav>
+<nav class="menu langs" aria-label="Language"><a href="?lang=ja" data-set="ja" lang="ja">日本語</a><a href="?lang=en" data-set="en" lang="en">English</a><a href="?lang=zh-Hans" data-set="zh-Hans" lang="zh-Hans">简体中文</a><a href="?lang=zh-Hant" data-set="zh-Hant" lang="zh-Hant">繁體中文</a><a href="?lang=id" data-set="id" lang="id">Bahasa Indonesia</a><a href="?lang=vi" data-set="vi" lang="vi">Tiếng Việt</a></nav>
 </div></header>
 <main><div class="wrap jlpt">
-<nav class="crumbs" aria-label="パンくず"><a href="/jlpt/">JLPT</a> › <a href="/jlpt/n1/">N1</a> › <span>2026-10-25 聴解</span></nav>
-<h1>JLPT N1 毎日の聴解 <span class="h1-en" lang="en">Daily Listening</span></h1>
+<nav class="crumbs" aria-label="パンくず"><a href="/jlpt/">JLPT</a> › <a href="/jlpt/n1/">N1</a> › <span>2026-10-25 <span data-l="ja" lang="ja">聴解</span><span data-l="en" lang="en">Listening</span><span data-l="zh-Hans" lang="zh-Hans">听力</span><span data-l="zh-Hant" lang="zh-Hant">聽力</span><span data-l="id" lang="id">Menyimak</span><span data-l="vi" lang="vi">Nghe hiểu</span></span></nav>
+<h1>JLPT N1 <span data-l="ja" lang="ja">毎日の聴解</span><span data-l="en" lang="en">Daily Listening</span><span data-l="zh-Hans" lang="zh-Hans">每日听力</span><span data-l="zh-Hant" lang="zh-Hant">每日聽力</span><span data-l="id" lang="id">Menyimak harian</span><span data-l="vi" lang="vi">Nghe hiểu hằng ngày</span></h1>
 <p class="date">2026-10-25</p>
-<p class="lead">音声を聞いて、答えを選んでください。スクリプトと答えは下で開けます。</p>
+<p data-l="ja" lang="ja" class="lead">音声を聞いて、答えを選んでください。スクリプトと答えは下で開けます。</p>
+<p data-l="en" lang="en" class="lead">Listen to the audio and choose your answers. Open the script and the answer below each question.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="lead">听音频并选择答案。听力原文和答案可在每题下方展开。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="lead">聽音檔並選擇答案。聽力原文和答案可在每題下方展開。</p>
+<p data-l="id" lang="id" class="lead">Dengarkan audio lalu pilih jawaban. Naskah dan jawaban bisa dibuka di bawah setiap soal.</p>
+<p data-l="vi" lang="vi" class="lead">Nghe âm thanh rồi chọn đáp án. Có thể mở lời thoại và đáp án bên dưới mỗi câu.</p>
 <section class="q">
-<h2>問1 <span lang="en">Q1</span></h2>
+<h2><span data-l="ja" lang="ja">問1</span><span data-l="en" lang="en">Q1</span><span data-l="zh-Hans" lang="zh-Hans">第1题</span><span data-l="zh-Hant" lang="zh-Hant">第1題</span><span data-l="id" lang="id">Soal 1</span><span data-l="vi" lang="vi">Câu 1</span></h2>
 <audio controls preload="none" src="https://pub-84049f5e6df74e898b5d0976f678f0d2.r2.dev/2026-10-25/N1/1.mp3"></audio>
 <p class="qtext">女の人はこのあとまず何をしますか。</p>
 <ol class="options"><li>男の人と一緒にホームへ行く。</li><li>切符を家まで取りに帰る。</li><li>駅の窓口で切符を買い直す。</li><li>夫から切符を受け取りに行く。</li></ol>
-<details class="script"><summary>スクリプト <span lang="en">Script</span></summary>
+<details class="script"><summary><span data-l="ja" lang="ja">スクリプト</span><span data-l="en" lang="en">Script</span><span data-l="zh-Hans" lang="zh-Hans">听力原文</span><span data-l="zh-Hant" lang="zh-Hant">聽力原文</span><span data-l="id" lang="id">Naskah</span><span data-l="vi" lang="vi">Lời thoại</span></summary>
 <p>駅の改札前で、男の人と女の人が話しています。女の人はこのあとまず何をしますか。</p>
 <p>男：あれ、まだ改札にいるの？新幹線の時間、もうすぐだよね。</p>
 <p>女：それが、切符を家に忘れてしまって。今、夫に駅まで持ってきてもらっているんだけど、まだ着かなくて。</p>
@@ -35,18 +62,18 @@
 <p>女：うん、夫が今駅の駐車場に着いたって連絡があったから、ちょっと受け取りに行ってくる。そのあと、ホームで待ち合わせでいい？</p>
 <p>男：わかった。じゃあ、先にホームに行ってるね。急いでね。</p>
 </details>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 4. 夫から切符を受け取りに行く。</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 4. 夫から切符を受け取りに行く。</p>
 <p class="ex">女の人は切符を忘れ、夫が駅の駐車場に着いたと連絡があったので、まず夫から切符を受け取りに行く。そのあとホームで男の人と待ち合わせる。</p>
-<details class="tr"><summary>English</summary><p lang="en">The woman forgot her ticket, and her husband has just arrived at the station parking lot. So she first goes to get the ticket from him, then meets the man on the platform.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The woman forgot her ticket, and her husband has just arrived at the station parking lot. So she first goes to get the ticket from him, then meets the man on the platform.</p></details>
 </details>
 </section>
 <section class="q">
-<h2>問2 <span lang="en">Q2</span></h2>
+<h2><span data-l="ja" lang="ja">問2</span><span data-l="en" lang="en">Q2</span><span data-l="zh-Hans" lang="zh-Hans">第2题</span><span data-l="zh-Hant" lang="zh-Hant">第2題</span><span data-l="id" lang="id">Soal 2</span><span data-l="vi" lang="vi">Câu 2</span></h2>
 <audio controls preload="none" src="https://pub-84049f5e6df74e898b5d0976f678f0d2.r2.dev/2026-10-25/N1/2.mp3"></audio>
 <p class="qtext">男の人はこのあと何をしますか。</p>
 <ol class="options"><li>一人で買い物に行く。</li><li>キッチンの棚を片付ける。</li><li>女の人と買い物の計画を立てる。</li><li>電球を替える。</li></ol>
-<details class="script"><summary>スクリプト <span lang="en">Script</span></summary>
+<details class="script"><summary><span data-l="ja" lang="ja">スクリプト</span><span data-l="en" lang="en">Script</span><span data-l="zh-Hans" lang="zh-Hans">听力原文</span><span data-l="zh-Hant" lang="zh-Hant">聽力原文</span><span data-l="id" lang="id">Naskah</span><span data-l="vi" lang="vi">Lời thoại</span></summary>
 <p>家のリビングで、男の人と女の人が話しています。男の人はこのあと何をしますか。</p>
 <p>女：ねえ、この部屋の電球、切れかけてるみたい。ちらついてるよ。</p>
 <p>男：あ、本当だ。予備の電球、確かキッチンの棚にあったよね？</p>
@@ -55,18 +82,18 @@
 <p>女：え、でも私、買い物のリストを作ってないよ。一緒に行ったほうが早いんじゃない？</p>
 <p>男：それもそうだね。じゃあ、リストを作ってから二人で行こう。電球は帰ってきてからでいいや。</p>
 </details>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 3. 女の人と買い物の計画を立てる。</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 3. 女の人と買い物の計画を立てる。</p>
 <p class="ex">女の人がリストを作っていないと言ったため、男の人はリストを作ってから二人で買い物に行くことにした。電球は帰ってから替える。</p>
-<details class="tr"><summary>English</summary><p lang="en">Since the woman hasn't made a shopping list, the man decides they will make a list first and then go shopping together. They will change the light bulb after returning.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">Since the woman hasn't made a shopping list, the man decides they will make a list first and then go shopping together. They will change the light bulb after returning.</p></details>
 </details>
 </section>
 <section class="q">
-<h2>問3 <span lang="en">Q3</span></h2>
+<h2><span data-l="ja" lang="ja">問3</span><span data-l="en" lang="en">Q3</span><span data-l="zh-Hans" lang="zh-Hans">第3题</span><span data-l="zh-Hant" lang="zh-Hant">第3題</span><span data-l="id" lang="id">Soal 3</span><span data-l="vi" lang="vi">Câu 3</span></h2>
 <audio controls preload="none" src="https://pub-84049f5e6df74e898b5d0976f678f0d2.r2.dev/2026-10-25/N1/3.mp3"></audio>
 <p class="qtext">女の人はこのあと何をしますか。</p>
 <ol class="options"><li>受付で診察券を作る。</li><li>午後の仕事を休む。</li><li>予約をしてから出直す。</li><li>問診票を書いて待合室で待つ。</li></ol>
-<details class="script"><summary>スクリプト <span lang="en">Script</span></summary>
+<details class="script"><summary><span data-l="ja" lang="ja">スクリプト</span><span data-l="en" lang="en">Script</span><span data-l="zh-Hans" lang="zh-Hans">听力原文</span><span data-l="zh-Hant" lang="zh-Hant">聽力原文</span><span data-l="id" lang="id">Naskah</span><span data-l="vi" lang="vi">Lời thoại</span></summary>
 <p>病院の待合室で、女の人が受付の人と話しています。女の人はこのあと何をしますか。</p>
 <p>女：すみません、初めて来たのですが、診察は予約なしでも受けられますか。</p>
 <p>男：はい、受けられますが、予約の方が優先になりますので、待ち時間が長くなるかもしれません。</p>
@@ -75,16 +102,21 @@
 <p>女：わかりました。記入してから待っていればいいんですね。</p>
 <p>男：はい、そうです。お呼びするまで、こちらでお待ちください。</p>
 </details>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 4. 問診票を書いて待合室で待つ。</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 4. 問診票を書いて待合室で待つ。</p>
 <p class="ex">受付の人は、まず問診票に記入し、そのあと待合室で順番を待つように指示している。予約なしでも受診は可能。</p>
-<details class="tr"><summary>English</summary><p lang="en">The receptionist instructs the woman to fill out the questionnaire first and then wait in the waiting room for her turn. She can be seen without an appointment.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The receptionist instructs the woman to fill out the questionnaire first and then wait in the waiting room for her turn. She can be seen without an appointment.</p></details>
 </details>
 </section>
+<nav class="jlpt-nav" aria-label="JLPT"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a></nav>
 <aside class="app-cta">
-<p class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
-<p class="cta-en" lang="en">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
-<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener">Google Play で見る <span lang="en">/ View on Google Play</span></a>
+<p data-l="ja" lang="ja" class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
+<p data-l="en" lang="en" class="cta-lead">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="cta-lead">每道题都附解析的完整模拟考试，请在 JLPT-GO 应用中练习。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="cta-lead">每一題都附解析的完整模擬考試，請在 JLPT-GO App 中練習。</p>
+<p data-l="id" lang="id" class="cta-lead">Ujian simulasi lengkap dengan penjelasan untuk setiap soal ada di aplikasi JLPT-GO.</p>
+<p data-l="vi" lang="vi" class="cta-lead">Bài thi thử trọn vẹn, câu nào cũng có giải thích, có trong ứng dụng JLPT-GO.</p>
+<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener"><span data-l="ja" lang="ja">Google Play で見る</span><span data-l="en" lang="en">View on Google Play</span><span data-l="zh-Hans" lang="zh-Hans">在 Google Play 查看</span><span data-l="zh-Hant" lang="zh-Hant">在 Google Play 查看</span><span data-l="id" lang="id">Lihat di Google Play</span><span data-l="vi" lang="vi">Xem trên Google Play</span></a>
 </aside>
 </div></main>
 <footer class="bottom"><div class="wrap footer-inner">

@@ -11,56 +11,88 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat&family=Noto+Serif+JP:wght@400;600&display=swap">
 <link rel="stylesheet" href="/home.css">
 <link rel="stylesheet" href="/jlpt/jlpt.css">
+<script>
+(function () {
+  var L = ["ja","en","zh-Hans","zh-Hant","id","vi"], k = "jlpt.lang", l = null;
+  try {
+    var q = new URLSearchParams(location.search).get("lang");
+    if (L.indexOf(q) >= 0) { l = q; localStorage.setItem(k, q); } else { l = localStorage.getItem(k); }
+  } catch (e) {}
+  if (L.indexOf(l) < 0) return;
+  document.documentElement.setAttribute("data-ui", l);
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("details.answer").forEach(function (answer) {
+      // 選んだ言語の訳を開く。その言語の訳が無い問題（訳を足す前の日の分）は英語の訳を出す
+      var mine = answer.querySelector('details.tr[data-l="' + l + '"]') || (l === "ja" ? null : answer.querySelector('details.tr[data-l="en"]'));
+      if (mine) { mine.style.display = "block"; mine.open = true; }
+    });
+    // localStorage が使えない端末でも言語が続くよう、/jlpt/ の中のリンクに ?lang= を付ける
+    document.querySelectorAll('a[href^="/jlpt/"]').forEach(function (a) {
+      a.setAttribute("href", a.getAttribute("href").split("#")[0] + "?lang=" + l + (a.hash || ""));
+    });
+  });
+})();
+</script>
 </head>
 <body>
 <header class="top"><div class="wrap nav">
 <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Kaika Lab</span></a>
-<nav class="menu"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a></nav>
+<nav class="menu langs" aria-label="Language"><a href="?lang=ja" data-set="ja" lang="ja">日本語</a><a href="?lang=en" data-set="en" lang="en">English</a><a href="?lang=zh-Hans" data-set="zh-Hans" lang="zh-Hans">简体中文</a><a href="?lang=zh-Hant" data-set="zh-Hant" lang="zh-Hant">繁體中文</a><a href="?lang=id" data-set="id" lang="id">Bahasa Indonesia</a><a href="?lang=vi" data-set="vi" lang="vi">Tiếng Việt</a></nav>
 </div></header>
 <main><div class="wrap jlpt">
-<nav class="crumbs" aria-label="パンくず"><a href="/jlpt/">JLPT</a> › <a href="/jlpt/n1/">N1</a> › <span>2026-10-24 読解</span></nav>
-<h1>JLPT N1 毎日の読解 <span class="h1-en" lang="en">Daily Reading</span></h1>
+<nav class="crumbs" aria-label="パンくず"><a href="/jlpt/">JLPT</a> › <a href="/jlpt/n1/">N1</a> › <span>2026-10-24 <span data-l="ja" lang="ja">読解</span><span data-l="en" lang="en">Reading</span><span data-l="zh-Hans" lang="zh-Hans">阅读</span><span data-l="zh-Hant" lang="zh-Hant">閱讀</span><span data-l="id" lang="id">Membaca</span><span data-l="vi" lang="vi">Đọc hiểu</span></span></nav>
+<h1>JLPT N1 <span data-l="ja" lang="ja">毎日の読解</span><span data-l="en" lang="en">Daily Reading</span><span data-l="zh-Hans" lang="zh-Hans">每日阅读</span><span data-l="zh-Hant" lang="zh-Hant">每日閱讀</span><span data-l="id" lang="id">Membaca harian</span><span data-l="vi" lang="vi">Đọc hiểu hằng ngày</span></h1>
 <p class="date">2026-10-24</p>
-<p class="lead">文章を読んで、答えを選んでください。答えと解説は下で開けます。</p>
+<p data-l="ja" lang="ja" class="lead">文章を読んで、答えを選んでください。答えと解説は下で開けます。</p>
+<p data-l="en" lang="en" class="lead">Read the passage and choose your answers. Open the answer and explanation below each question.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="lead">阅读文章并选择答案。答案与解析可在每题下方展开。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="lead">閱讀文章並選擇答案。答案與解析可在每題下方展開。</p>
+<p data-l="id" lang="id" class="lead">Bacalah teks lalu pilih jawaban. Jawaban dan penjelasan bisa dibuka di bawah setiap soal.</p>
+<p data-l="vi" lang="vi" class="lead">Đọc bài rồi chọn đáp án. Có thể mở đáp án và giải thích bên dưới mỗi câu.</p>
 <div class="passage">
 <p>現代社会において、買い物は単なる必要品の調達ではなく、自己表現や娯楽の一環として捉えられることが多い。しかし、このような消費行動が常に合理的であるとは限らない。むしろ、人間はしばしば感情や周囲の視線に左右され、後悔する買い物を繰り返す。たとえば、セールという言葉に踊らされて本来必要でない物を購入したり、他人が持っているという理由だけで同じ商品を欲しがったりする。こうした行動の背景には、所有すること自体が安心感や優越感をもたらすという心理が働いている。だが、物を所有することの意味は、本当にそのような外面的な価値だけなのだろうか。</p>
 <p>近年、ミニマリズムという考え方が注目を集めている。必要最小限の物だけを持つことで、精神的な余裕を得ようとするライフスタイルだ。この思想は、単に物を減らすことを推奨するだけでなく、本当に価値のあるものを見極める力を養うことを目的としている。しかし、注意しなければならないのは、ミニマリズム自体が新たな消費の対象になっているという皮肉な現象だ。高価なシンプル系の家具や衣類が次々と販売され、人々は「少なく持つ」ためにかえって多くの出費を強いられている。これは、本来の目的から逸脱した本末転倒な状況と言えよう。</p>
 <p>買い物とお金の関係を考えるとき、私たちは「何のために消費するのか」という問いを常に自らに投げかける必要がある。所有欲を満たすための買い物か、それとも本当に必要な機能や体験を得るための買い物か。この区別を意識するだけでも、無駄な支出は減少するはずだ。同時に、お金を使うことは悪ではなく、適切な消費は生活の質を高める。問題は、消費そのものではなく、消費に対する無自覚さなのである。</p>
 </div>
 <section class="q">
-<h2>問1 <span lang="en">Q1</span></h2>
+<h2><span data-l="ja" lang="ja">問1</span><span data-l="en" lang="en">Q1</span><span data-l="zh-Hans" lang="zh-Hans">第1题</span><span data-l="zh-Hant" lang="zh-Hant">第1題</span><span data-l="id" lang="id">Soal 1</span><span data-l="vi" lang="vi">Câu 1</span></h2>
 <p class="qtext">本文によると、人間が後悔する買い物をしてしまう主な原因は何か。</p>
 <ol class="options"><li>感情や周囲の視線に影響されること</li><li>所有することの意味を深く考えること</li><li>自己表現や娯楽を求めること</li><li>必要な物を調達しようとすること</li></ol>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 1. 感情や周囲の視線に影響されること</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 1. 感情や周囲の視線に影響されること</p>
 <p class="ex">本文に「人間はしばしば感情や周囲の視線に左右され、後悔する買い物を繰り返す」とあり、これが原因として述べられている。他の選択肢は本文の記述と合致しない。</p>
-<details class="tr"><summary>English</summary><p lang="en">The passage states that people are often swayed by emotions and the gaze of others, leading to regrettable purchases. This is the main cause mentioned.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The passage states that people are often swayed by emotions and the gaze of others, leading to regrettable purchases. This is the main cause mentioned.</p></details>
 </details>
 </section>
 <section class="q">
-<h2>問2 <span lang="en">Q2</span></h2>
+<h2><span data-l="ja" lang="ja">問2</span><span data-l="en" lang="en">Q2</span><span data-l="zh-Hans" lang="zh-Hans">第2题</span><span data-l="zh-Hant" lang="zh-Hant">第2題</span><span data-l="id" lang="id">Soal 2</span><span data-l="vi" lang="vi">Câu 2</span></h2>
 <p class="qtext">ミニマリズムについて、本文が指摘する問題点は何か。</p>
 <ol class="options"><li>高価なシンプル系の家具や衣類が売れなくなっていること</li><li>物を減らすことで本当に価値のあるものが見極められなくなること</li><li>ミニマリズムが新たな消費の対象となり、本来の目的から外れていること</li><li>必要最小限の物だけを持つことで精神的な余裕が失われること</li></ol>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 3. ミニマリズムが新たな消費の対象となり、本来の目的から外れていること</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 3. ミニマリズムが新たな消費の対象となり、本来の目的から外れていること</p>
 <p class="ex">本文では「ミニマリズム自体が新たな消費の対象になっている」という皮肉な現象を挙げ、「本来の目的から逸脱した本末転倒な状況」と批判している。これが問題点である。</p>
-<details class="tr"><summary>English</summary><p lang="en">The passage points out the ironic phenomenon that minimalism itself has become an object of consumption, calling it a situation that deviates from its original purpose.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The passage points out the ironic phenomenon that minimalism itself has become an object of consumption, calling it a situation that deviates from its original purpose.</p></details>
 </details>
 </section>
 <section class="q">
-<h2>問3 <span lang="en">Q3</span></h2>
+<h2><span data-l="ja" lang="ja">問3</span><span data-l="en" lang="en">Q3</span><span data-l="zh-Hans" lang="zh-Hans">第3题</span><span data-l="zh-Hant" lang="zh-Hant">第3題</span><span data-l="id" lang="id">Soal 3</span><span data-l="vi" lang="vi">Câu 3</span></h2>
 <p class="qtext">本文の主張として最も適切なものはどれか。</p>
 <ol class="options"><li>消費に対する無自覚さをなくすことが、無駄な支出を減らすことにつながる。</li><li>お金を使うことは悪であるから、消費を最小限に抑えるべきだ。</li><li>ミニマリズムを実践すれば、誰でも精神的な余裕を得ることができる。</li><li>買い物は常に合理的に行うべきであり、感情に流されるのは避けるべきだ。</li></ol>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 1. 消費に対する無自覚さをなくすことが、無駄な支出を減らすことにつながる。</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 1. 消費に対する無自覚さをなくすことが、無駄な支出を減らすことにつながる。</p>
 <p class="ex">本文の最後で「問題は、消費そのものではなく、消費に対する無自覚さなのである」と述べ、何のために消費するかを意識する重要性を主張している。これが主旨に最も近い。</p>
-<details class="tr"><summary>English</summary><p lang="en">The passage concludes that the problem is not consumption itself but rather the lack of awareness about consumption, emphasizing the importance of being conscious of why we spend.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The passage concludes that the problem is not consumption itself but rather the lack of awareness about consumption, emphasizing the importance of being conscious of why we spend.</p></details>
 </details>
 </section>
+<nav class="jlpt-nav" aria-label="JLPT"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a></nav>
 <aside class="app-cta">
-<p class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
-<p class="cta-en" lang="en">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
-<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener">Google Play で見る <span lang="en">/ View on Google Play</span></a>
+<p data-l="ja" lang="ja" class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
+<p data-l="en" lang="en" class="cta-lead">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="cta-lead">每道题都附解析的完整模拟考试，请在 JLPT-GO 应用中练习。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="cta-lead">每一題都附解析的完整模擬考試，請在 JLPT-GO App 中練習。</p>
+<p data-l="id" lang="id" class="cta-lead">Ujian simulasi lengkap dengan penjelasan untuk setiap soal ada di aplikasi JLPT-GO.</p>
+<p data-l="vi" lang="vi" class="cta-lead">Bài thi thử trọn vẹn, câu nào cũng có giải thích, có trong ứng dụng JLPT-GO.</p>
+<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener"><span data-l="ja" lang="ja">Google Play で見る</span><span data-l="en" lang="en">View on Google Play</span><span data-l="zh-Hans" lang="zh-Hans">在 Google Play 查看</span><span data-l="zh-Hant" lang="zh-Hant">在 Google Play 查看</span><span data-l="id" lang="id">Lihat di Google Play</span><span data-l="vi" lang="vi">Xem trên Google Play</span></a>
 </aside>
 </div></main>
 <footer class="bottom"><div class="wrap footer-inner">

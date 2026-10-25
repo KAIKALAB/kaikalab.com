@@ -11,54 +11,86 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat&family=Noto+Serif+JP:wght@400;600&display=swap">
 <link rel="stylesheet" href="/home.css">
 <link rel="stylesheet" href="/jlpt/jlpt.css">
+<script>
+(function () {
+  var L = ["ja","en","zh-Hans","zh-Hant","id","vi"], k = "jlpt.lang", l = null;
+  try {
+    var q = new URLSearchParams(location.search).get("lang");
+    if (L.indexOf(q) >= 0) { l = q; localStorage.setItem(k, q); } else { l = localStorage.getItem(k); }
+  } catch (e) {}
+  if (L.indexOf(l) < 0) return;
+  document.documentElement.setAttribute("data-ui", l);
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("details.answer").forEach(function (answer) {
+      // 選んだ言語の訳を開く。その言語の訳が無い問題（訳を足す前の日の分）は英語の訳を出す
+      var mine = answer.querySelector('details.tr[data-l="' + l + '"]') || (l === "ja" ? null : answer.querySelector('details.tr[data-l="en"]'));
+      if (mine) { mine.style.display = "block"; mine.open = true; }
+    });
+    // localStorage が使えない端末でも言語が続くよう、/jlpt/ の中のリンクに ?lang= を付ける
+    document.querySelectorAll('a[href^="/jlpt/"]').forEach(function (a) {
+      a.setAttribute("href", a.getAttribute("href").split("#")[0] + "?lang=" + l + (a.hash || ""));
+    });
+  });
+})();
+</script>
 </head>
 <body>
 <header class="top"><div class="wrap nav">
 <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Kaika Lab</span></a>
-<nav class="menu"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a></nav>
+<nav class="menu langs" aria-label="Language"><a href="?lang=ja" data-set="ja" lang="ja">日本語</a><a href="?lang=en" data-set="en" lang="en">English</a><a href="?lang=zh-Hans" data-set="zh-Hans" lang="zh-Hans">简体中文</a><a href="?lang=zh-Hant" data-set="zh-Hant" lang="zh-Hant">繁體中文</a><a href="?lang=id" data-set="id" lang="id">Bahasa Indonesia</a><a href="?lang=vi" data-set="vi" lang="vi">Tiếng Việt</a></nav>
 </div></header>
 <main><div class="wrap jlpt">
-<nav class="crumbs" aria-label="パンくず"><a href="/jlpt/">JLPT</a> › <a href="/jlpt/n2/">N2</a> › <span>2026-10-24 読解</span></nav>
-<h1>JLPT N2 毎日の読解 <span class="h1-en" lang="en">Daily Reading</span></h1>
+<nav class="crumbs" aria-label="パンくず"><a href="/jlpt/">JLPT</a> › <a href="/jlpt/n2/">N2</a> › <span>2026-10-24 <span data-l="ja" lang="ja">読解</span><span data-l="en" lang="en">Reading</span><span data-l="zh-Hans" lang="zh-Hans">阅读</span><span data-l="zh-Hant" lang="zh-Hant">閱讀</span><span data-l="id" lang="id">Membaca</span><span data-l="vi" lang="vi">Đọc hiểu</span></span></nav>
+<h1>JLPT N2 <span data-l="ja" lang="ja">毎日の読解</span><span data-l="en" lang="en">Daily Reading</span><span data-l="zh-Hans" lang="zh-Hans">每日阅读</span><span data-l="zh-Hant" lang="zh-Hant">每日閱讀</span><span data-l="id" lang="id">Membaca harian</span><span data-l="vi" lang="vi">Đọc hiểu hằng ngày</span></h1>
 <p class="date">2026-10-24</p>
-<p class="lead">文章を読んで、答えを選んでください。答えと解説は下で開けます。</p>
+<p data-l="ja" lang="ja" class="lead">文章を読んで、答えを選んでください。答えと解説は下で開けます。</p>
+<p data-l="en" lang="en" class="lead">Read the passage and choose your answers. Open the answer and explanation below each question.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="lead">阅读文章并选择答案。答案与解析可在每题下方展开。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="lead">閱讀文章並選擇答案。答案與解析可在每題下方展開。</p>
+<p data-l="id" lang="id" class="lead">Bacalah teks lalu pilih jawaban. Jawaban dan penjelasan bisa dibuka di bawah setiap soal.</p>
+<p data-l="vi" lang="vi" class="lead">Đọc bài rồi chọn đáp án. Có thể mở đáp án và giải thích bên dưới mỗi câu.</p>
 <div class="passage">
 <p>近年、多くの企業で「週休3日制」を導入する動きが見られる。しかし、その目的は一様ではない。ある企業は、育児や介護と仕事を両立したい社員の支援を目的とし、賃金を維持したまま休日を増やしている。一方で、別の企業は、労働時間を短縮して生産性を高めることを狙い、給与を日割りで減らす方式を採っている。どちらの場合も、社員が自分の都合に合わせて働き方を選べる点が評価されている。ただし、週休3日制がすべての業種に適しているわけではない。特に、顧客対応が求められるサービス業では、シフトの調整が難しく、導入に慎重な企業も少なくない。また、休日が増えても、仕事の量が変わらなければ、限られた時間で成果を出すプレッシャーが強まるという指摘もある。制度の形だけを整えても、働く人の負担が減るとは限らないのだ。</p>
 </div>
 <section class="q">
-<h2>問1 <span lang="en">Q1</span></h2>
+<h2><span data-l="ja" lang="ja">問1</span><span data-l="en" lang="en">Q1</span><span data-l="zh-Hans" lang="zh-Hans">第1题</span><span data-l="zh-Hant" lang="zh-Hant">第1題</span><span data-l="id" lang="id">Soal 1</span><span data-l="vi" lang="vi">Câu 1</span></h2>
 <p class="qtext">週休3日制を導入する企業の目的について、本文の内容と合っているものはどれか。</p>
 <ol class="options"><li>すべての企業が、労働時間を短縮して生産性を高めることを目的としている。</li><li>週休3日制を導入すれば、仕事の量が減り、社員の負担は必ず軽くなる。</li><li>顧客対応が必要なサービス業では、週休3日制を積極的に導入する企業が多い。</li><li>社員の育児や介護を支援するために、給与を維持して休日を増やす企業がある。</li></ol>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 4. 社員の育児や介護を支援するために、給与を維持して休日を増やす企業がある。</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 4. 社員の育児や介護を支援するために、給与を維持して休日を増やす企業がある。</p>
 <p class="ex">本文に「育児や介護と仕事を両立したい社員の支援を目的とし、賃金を維持したまま休日を増やしている」とある。他の選択肢は本文と逆か、書かれていない内容。</p>
-<details class="tr"><summary>English</summary><p lang="en">The passage states that some companies aim to support employees balancing childcare or caregiving by increasing days off while maintaining wages. The other options are either contrary to the text or not mentioned.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The passage states that some companies aim to support employees balancing childcare or caregiving by increasing days off while maintaining wages. The other options are either contrary to the text or not mentioned.</p></details>
 </details>
 </section>
 <section class="q">
-<h2>問2 <span lang="en">Q2</span></h2>
+<h2><span data-l="ja" lang="ja">問2</span><span data-l="en" lang="en">Q2</span><span data-l="zh-Hans" lang="zh-Hans">第2题</span><span data-l="zh-Hant" lang="zh-Hant">第2題</span><span data-l="id" lang="id">Soal 2</span><span data-l="vi" lang="vi">Câu 2</span></h2>
 <p class="qtext">週休3日制がすべての業種に適しているわけではない理由として、本文で述べられていることは何か。</p>
 <ol class="options"><li>給与を日割りで減らす方式が、サービス業では法律で認められていないため。</li><li>週休3日制を導入すると、サービス業では顧客の数が減ってしまうため。</li><li>サービス業の社員は、自分の都合に合わせて働くことを望んでいないため。</li><li>接客を伴う仕事では、勤務の組み方を調整するのが容易でないため。</li></ol>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 4. 接客を伴う仕事では、勤務の組み方を調整するのが容易でないため。</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 4. 接客を伴う仕事では、勤務の組み方を調整するのが容易でないため。</p>
 <p class="ex">本文に「顧客対応が求められるサービス業では、シフトの調整が難しく、導入に慎重な企業も少なくない」とある。他の選択肢は本文にない内容や本文と異なる内容。</p>
-<details class="tr"><summary>English</summary><p lang="en">The passage says that in service industries requiring customer interaction, adjusting shifts is difficult, and many companies are cautious about introducing the system. The other options are not stated or differ from the text.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The passage says that in service industries requiring customer interaction, adjusting shifts is difficult, and many companies are cautious about introducing the system. The other options are not stated or differ from the text.</p></details>
 </details>
 </section>
 <section class="q">
-<h2>問3 <span lang="en">Q3</span></h2>
+<h2><span data-l="ja" lang="ja">問3</span><span data-l="en" lang="en">Q3</span><span data-l="zh-Hans" lang="zh-Hans">第3题</span><span data-l="zh-Hant" lang="zh-Hant">第3題</span><span data-l="id" lang="id">Soal 3</span><span data-l="vi" lang="vi">Câu 3</span></h2>
 <p class="qtext">本文で指摘されている、週休3日制の懸念点はどれか。</p>
 <ol class="options"><li>休日が増えても仕事の量が同じなら、短い時間で成果を出す負担が強まること。</li><li>週休3日制を導入すると、社員が自分の働き方を選べなくなること。</li><li>週休3日制を導入する企業が増えすぎて、業種の区別がなくなること。</li><li>休日が増えることで、社員の給与が必ず上がってしまうこと。</li></ol>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 1. 休日が増えても仕事の量が同じなら、短い時間で成果を出す負担が強まること。</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 1. 休日が増えても仕事の量が同じなら、短い時間で成果を出す負担が強まること。</p>
 <p class="ex">本文に「休日が増えても、仕事の量が変わらなければ、限られた時間で成果を出すプレッシャーが強まるという指摘もある」とある。他の選択肢は本文に書かれていない。</p>
-<details class="tr"><summary>English</summary><p lang="en">The passage points out that if the amount of work remains the same even with more days off, the pressure to produce results in limited time increases. The other options are not mentioned in the text.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The passage points out that if the amount of work remains the same even with more days off, the pressure to produce results in limited time increases. The other options are not mentioned in the text.</p></details>
 </details>
 </section>
+<nav class="jlpt-nav" aria-label="JLPT"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a></nav>
 <aside class="app-cta">
-<p class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
-<p class="cta-en" lang="en">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
-<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener">Google Play で見る <span lang="en">/ View on Google Play</span></a>
+<p data-l="ja" lang="ja" class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
+<p data-l="en" lang="en" class="cta-lead">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="cta-lead">每道题都附解析的完整模拟考试，请在 JLPT-GO 应用中练习。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="cta-lead">每一題都附解析的完整模擬考試，請在 JLPT-GO App 中練習。</p>
+<p data-l="id" lang="id" class="cta-lead">Ujian simulasi lengkap dengan penjelasan untuk setiap soal ada di aplikasi JLPT-GO.</p>
+<p data-l="vi" lang="vi" class="cta-lead">Bài thi thử trọn vẹn, câu nào cũng có giải thích, có trong ứng dụng JLPT-GO.</p>
+<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener"><span data-l="ja" lang="ja">Google Play で見る</span><span data-l="en" lang="en">View on Google Play</span><span data-l="zh-Hans" lang="zh-Hans">在 Google Play 查看</span><span data-l="zh-Hant" lang="zh-Hant">在 Google Play 查看</span><span data-l="id" lang="id">Lihat di Google Play</span><span data-l="vi" lang="vi">Xem trên Google Play</span></a>
 </aside>
 </div></main>
 <footer class="bottom"><div class="wrap footer-inner">

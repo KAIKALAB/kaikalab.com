@@ -11,462 +11,455 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat&family=Noto+Serif+JP:wght@400;600&display=swap">
 <link rel="stylesheet" href="/home.css">
 <link rel="stylesheet" href="/jlpt/jlpt.css">
+<script>
+(function () {
+  var L = ["ja","en","zh-Hans","zh-Hant","id","vi"], k = "jlpt.lang", l = null;
+  try {
+    var q = new URLSearchParams(location.search).get("lang");
+    if (L.indexOf(q) >= 0) { l = q; localStorage.setItem(k, q); } else { l = localStorage.getItem(k); }
+  } catch (e) {}
+  if (L.indexOf(l) < 0) return;
+  document.documentElement.setAttribute("data-ui", l);
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("details.answer").forEach(function (answer) {
+      // 選んだ言語の訳を開く。その言語の訳が無い問題（訳を足す前の日の分）は英語の訳を出す
+      var mine = answer.querySelector('details.tr[data-l="' + l + '"]') || (l === "ja" ? null : answer.querySelector('details.tr[data-l="en"]'));
+      if (mine) { mine.style.display = "block"; mine.open = true; }
+    });
+    // localStorage が使えない端末でも言語が続くよう、/jlpt/ の中のリンクに ?lang= を付ける
+    document.querySelectorAll('a[href^="/jlpt/"]').forEach(function (a) {
+      a.setAttribute("href", a.getAttribute("href").split("#")[0] + "?lang=" + l + (a.hash || ""));
+    });
+  });
+})();
+</script>
 </head>
 <body>
 <header class="top"><div class="wrap nav">
 <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Kaika Lab</span></a>
-<nav class="menu"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a></nav>
+<nav class="menu langs" aria-label="Language"><a href="?lang=ja" data-set="ja" lang="ja">日本語</a><a href="?lang=en" data-set="en" lang="en">English</a><a href="?lang=zh-Hans" data-set="zh-Hans" lang="zh-Hans">简体中文</a><a href="?lang=zh-Hant" data-set="zh-Hant" lang="zh-Hant">繁體中文</a><a href="?lang=id" data-set="id" lang="id">Bahasa Indonesia</a><a href="?lang=vi" data-set="vi" lang="vi">Tiếng Việt</a></nav>
 </div></header>
 <main><div class="wrap jlpt">
-<nav class="crumbs" aria-label="パンくず"><a href="/jlpt/">JLPT</a> › <a href="/jlpt/n2/">N2</a> › <span>漢字</span></nav>
-<h1>JLPT N2 の漢字 <span class="h1-en" lang="en">N2 Kanji</span></h1>
-<p class="lead">JLPT は漢字の公式リストを公開していないので、N2 の目安として選んだ字です。今日の漢字は「<a href="#k-異">異</a>」です。</p>
+<nav class="crumbs" aria-label="パンくず"><a href="/jlpt/">JLPT</a> › <a href="/jlpt/n2/">N2</a> › <span><span data-l="ja" lang="ja">N2 の漢字</span><span data-l="en" lang="en">N2 kanji</span><span data-l="zh-Hans" lang="zh-Hans">N2 汉字</span><span data-l="zh-Hant" lang="zh-Hant">N2 漢字</span><span data-l="id" lang="id">Kanji N2</span><span data-l="vi" lang="vi">Kanji N2</span></span></nav>
+<h1>JLPT <span data-l="ja" lang="ja">N2 の漢字</span><span data-l="en" lang="en">N2 kanji</span><span data-l="zh-Hans" lang="zh-Hans">N2 汉字</span><span data-l="zh-Hant" lang="zh-Hant">N2 漢字</span><span data-l="id" lang="id">Kanji N2</span><span data-l="vi" lang="vi">Kanji N2</span></h1>
+<p data-l="ja" lang="ja" class="lead">JLPT は漢字の公式リストを公開していないので、N2 の目安として選んだ字です。</p>
+<p data-l="en" lang="en" class="lead">JLPT does not publish an official kanji list, so these are kanji chosen as an approximate guide for N2.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="lead">JLPT 不公开官方的汉字表，这些是作为 N2 的大致参考选出的汉字。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="lead">JLPT 沒有公開官方的漢字清單，這些是作為 N2 的大致參考選出的漢字。</p>
+<p data-l="id" lang="id" class="lead">JLPT tidak menerbitkan daftar resmi kanji, jadi kanji ini dipilih sebagai perkiraan untuk N2.</p>
+<p data-l="vi" lang="vi" class="lead">JLPT không công bố danh sách kanji chính thức, nên đây là các chữ được chọn làm mốc tham khảo cho N2.</p>
+<p class="today-kanji"><span data-l="ja" lang="ja">今日の漢字</span><span data-l="en" lang="en">Kanji of the day</span><span data-l="zh-Hans" lang="zh-Hans">今日汉字</span><span data-l="zh-Hant" lang="zh-Hant">今日漢字</span><span data-l="id" lang="id">Kanji hari ini</span><span data-l="vi" lang="vi">Kanji hôm nay</span>: <a href="#k-異">異</a></p>
 <div class="kanji-list">
 <article class="kanji" id="k-更">
 <p class="glyph">更</p>
 <dl>
-<dt>音読み</dt><dd>コウ</dd>
-<dt>訓読み</dt><dd>さら、ふ-ける、ふ-かす</dd>
-<dt>意味</dt><dd>あらためる、さらに <span lang="en">/ renew; further</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>コウ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>さら、ふ-ける、ふ-かす</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>あらためる、さらに <span data-l="en" lang="en">/ renew; further</span><span data-l="zh-Hans" lang="zh-Hans">/ 更改、更加</span><span data-l="zh-Hant" lang="zh-Hant">/ 更改；更加</span><span data-l="id" lang="id">/ mengubah, memperbarui; lebih lanjut</span><span data-l="vi" lang="vi">/ đổi mới; hơn nữa</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">mengubah, memperbarui; lebih lanjut</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">更改、更加</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">更改；更加</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">đổi mới; hơn nữa</span></li></ul></details>
-<ul class="words"><li><b>変更</b>（へんこう）変えること <span lang="en">/ change</span></li><li><b>更新</b>（こうしん）新しくすること <span lang="en">/ renewal, update</span></li></ul>
-<p class="example">会議の時間が三時に変更になりました。<br><span lang="en">The meeting time has been changed to three o'clock.</span></p>
+<ul class="words"><li><b>変更</b>（へんこう）変えること <span data-l="en" lang="en">/ change</span><span data-l="zh-Hans" lang="zh-Hans">/ 变更</span><span data-l="zh-Hant" lang="zh-Hant">/ 變更</span><span data-l="id" lang="id">/ perubahan</span><span data-l="vi" lang="vi">/ thay đổi</span></li><li><b>更新</b>（こうしん）新しくすること <span data-l="en" lang="en">/ renewal, update</span><span data-l="zh-Hans" lang="zh-Hans">/ 更新</span><span data-l="zh-Hant" lang="zh-Hant">/ 更新</span><span data-l="id" lang="id">/ pembaruan, update</span><span data-l="vi" lang="vi">/ làm mới, cập nhật</span></li></ul>
+<p class="example">会議の時間が三時に変更になりました。<br><span data-l="en" lang="en">The meeting time has been changed to three o'clock.</span><span data-l="zh-Hans" lang="zh-Hans">会议时间改到了三点。</span><span data-l="zh-Hant" lang="zh-Hant">會議的時間改到三點了。</span><span data-l="id" lang="id">Waktu rapat diubah menjadi pukul tiga.</span><span data-l="vi" lang="vi">Giờ họp đã được đổi thành ba giờ.</span></p>
 </article>
 <article class="kanji" id="k-勤">
 <p class="glyph">勤</p>
 <dl>
-<dt>音読み</dt><dd>キン</dd>
-<dt>訓読み</dt><dd>つと-める、つと-まる</dd>
-<dt>意味</dt><dd>つとめる <span lang="en">/ work, serve</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>キン</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>つと-める、つと-まる</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>つとめる <span data-l="en" lang="en">/ work, serve</span><span data-l="zh-Hans" lang="zh-Hans">/ 工作、任职</span><span data-l="zh-Hant" lang="zh-Hant">/ 工作、任職</span><span data-l="id" lang="id">/ bekerja, mengabdi</span><span data-l="vi" lang="vi">/ làm việc, phục vụ</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">bekerja, mengabdi</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">工作、任职</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">工作、任職</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">làm việc, phục vụ</span></li></ul></details>
-<ul class="words"><li><b>通勤</b>（つうきん）仕事場へ通うこと <span lang="en">/ commuting</span></li><li><b>勤める</b>（つとめる）会社などで働く <span lang="en">/ to work for</span></li></ul>
-<p class="example">父は銀行に勤めています。<br><span lang="en">My father works at a bank.</span></p>
+<ul class="words"><li><b>通勤</b>（つうきん）仕事場へ通うこと <span data-l="en" lang="en">/ commuting</span><span data-l="zh-Hans" lang="zh-Hans">/ 通勤</span><span data-l="zh-Hant" lang="zh-Hant">/ 通勤</span><span data-l="id" lang="id">/ pergi-pulang kerja (komuting)</span><span data-l="vi" lang="vi">/ đi làm (đi đến nơi làm việc)</span></li><li><b>勤める</b>（つとめる）会社などで働く <span data-l="en" lang="en">/ to work for</span><span data-l="zh-Hans" lang="zh-Hans">/ 在公司等工作</span><span data-l="zh-Hant" lang="zh-Hant">/ 任職</span><span data-l="id" lang="id">/ bekerja di (perusahaan)</span><span data-l="vi" lang="vi">/ làm việc cho</span></li></ul>
+<p class="example">父は銀行に勤めています。<br><span data-l="en" lang="en">My father works at a bank.</span><span data-l="zh-Hans" lang="zh-Hans">父亲在银行工作。</span><span data-l="zh-Hant" lang="zh-Hant">父親在銀行上班。</span><span data-l="id" lang="id">Ayah saya bekerja di bank.</span><span data-l="vi" lang="vi">Bố tôi đang làm việc ở ngân hàng.</span></p>
 </article>
 <article class="kanji" id="k-若">
 <p class="glyph">若</p>
 <dl>
-<dt>音読み</dt><dd>ジャク</dd>
-<dt>訓読み</dt><dd>わか-い、も-しくは</dd>
-<dt>意味</dt><dd>わかい <span lang="en">/ young</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>ジャク</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>わか-い、も-しくは</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>わかい <span data-l="en" lang="en">/ young</span><span data-l="zh-Hans" lang="zh-Hans">/ 年轻</span><span data-l="zh-Hant" lang="zh-Hant">/ 年輕</span><span data-l="id" lang="id">/ muda</span><span data-l="vi" lang="vi">/ trẻ</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">muda</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">年轻</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">年輕</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">trẻ</span></li></ul></details>
-<ul class="words"><li><b>若者</b>（わかもの）若い人 <span lang="en">/ young people</span></li><li><b>若干</b>（じゃっかん）少し <span lang="en">/ some, a little</span></li></ul>
-<p class="example">この店は若者に人気がある。<br><span lang="en">This shop is popular with young people.</span></p>
+<ul class="words"><li><b>若者</b>（わかもの）若い人 <span data-l="en" lang="en">/ young people</span><span data-l="zh-Hans" lang="zh-Hans">/ 年轻人</span><span data-l="zh-Hant" lang="zh-Hant">/ 年輕人</span><span data-l="id" lang="id">/ orang muda</span><span data-l="vi" lang="vi">/ người trẻ</span></li><li><b>若干</b>（じゃっかん）少し <span data-l="en" lang="en">/ some, a little</span><span data-l="zh-Hans" lang="zh-Hans">/ 若干、一些</span><span data-l="zh-Hant" lang="zh-Hant">/ 若干</span><span data-l="id" lang="id">/ sedikit, beberapa</span><span data-l="vi" lang="vi">/ một chút, vài</span></li></ul>
+<p class="example">この店は若者に人気がある。<br><span data-l="en" lang="en">This shop is popular with young people.</span><span data-l="zh-Hans" lang="zh-Hans">这家店很受年轻人欢迎。</span><span data-l="zh-Hant" lang="zh-Hant">這家店很受年輕人歡迎。</span><span data-l="id" lang="id">Toko ini populer di kalangan anak muda.</span><span data-l="vi" lang="vi">Cửa hàng này được giới trẻ ưa chuộng.</span></p>
 </article>
 <article class="kanji" id="k-雇">
 <p class="glyph">雇</p>
 <dl>
-<dt>音読み</dt><dd>コ</dd>
-<dt>訓読み</dt><dd>やと-う</dd>
-<dt>意味</dt><dd>やとう <span lang="en">/ employ</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>コ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>やと-う</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>やとう <span data-l="en" lang="en">/ employ</span><span data-l="zh-Hans" lang="zh-Hans">/ 雇用</span><span data-l="zh-Hant" lang="zh-Hant">/ 僱用</span><span data-l="id" lang="id">/ mempekerjakan</span><span data-l="vi" lang="vi">/ thuê, tuyển dụng</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">mempekerjakan</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">雇用</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">僱用</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">thuê, tuyển dụng</span></li></ul></details>
-<ul class="words"><li><b>雇用</b>（こよう）人をやとうこと <span lang="en">/ employment</span></li><li><b>雇う</b>（やとう）お金を払って働いてもらう <span lang="en">/ to hire</span></li></ul>
-<p class="example">その会社は、毎年多くの学生を雇っている。<br><span lang="en">That company hires many students every year.</span></p>
+<ul class="words"><li><b>雇用</b>（こよう）人をやとうこと <span data-l="en" lang="en">/ employment</span><span data-l="zh-Hans" lang="zh-Hans">/ 雇用</span><span data-l="zh-Hant" lang="zh-Hant">/ 僱用</span><span data-l="id" lang="id">/ ketenagakerjaan, pekerjaan</span><span data-l="vi" lang="vi">/ việc làm, tuyển dụng</span></li><li><b>雇う</b>（やとう）お金を払って働いてもらう <span data-l="en" lang="en">/ to hire</span><span data-l="zh-Hans" lang="zh-Hans">/ 雇用、雇</span><span data-l="zh-Hant" lang="zh-Hant">/ 僱用</span><span data-l="id" lang="id">/ mempekerjakan</span><span data-l="vi" lang="vi">/ thuê</span></li></ul>
+<p class="example">その会社は、毎年多くの学生を雇っている。<br><span data-l="en" lang="en">That company hires many students every year.</span><span data-l="zh-Hans" lang="zh-Hans">那家公司每年雇用很多学生。</span><span data-l="zh-Hant" lang="zh-Hant">那家公司每年都僱用很多學生。</span><span data-l="id" lang="id">Perusahaan itu mempekerjakan banyak mahasiswa setiap tahun.</span><span data-l="vi" lang="vi">Công ty đó năm nào cũng tuyển nhiều sinh viên.</span></p>
 </article>
 <article class="kanji" id="k-企">
 <p class="glyph">企</p>
 <dl>
-<dt>音読み</dt><dd>キ</dd>
-<dt>訓読み</dt><dd>くわだ-てる</dd>
-<dt>意味</dt><dd>くわだてる <span lang="en">/ plan, undertake</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>キ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>くわだ-てる</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>くわだてる <span data-l="en" lang="en">/ plan, undertake</span><span data-l="zh-Hans" lang="zh-Hans">/ 策划、图谋</span><span data-l="zh-Hant" lang="zh-Hant">/ 企劃、謀劃</span><span data-l="id" lang="id">/ merencanakan, mengusahakan</span><span data-l="vi" lang="vi">/ lập kế hoạch, khởi xướng</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">merencanakan, mengusahakan</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">策划、图谋</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">企劃、謀劃</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">lập kế hoạch, khởi xướng</span></li></ul></details>
-<ul class="words"><li><b>企業</b>（きぎょう）事業をする会社 <span lang="en">/ company, enterprise</span></li><li><b>企画</b>（きかく）計画を立てること <span lang="en">/ planning, project</span></li></ul>
-<p class="example">新しいイベントの企画を考えています。<br><span lang="en">I am working on a plan for a new event.</span></p>
+<ul class="words"><li><b>企業</b>（きぎょう）事業をする会社 <span data-l="en" lang="en">/ company, enterprise</span><span data-l="zh-Hans" lang="zh-Hans">/ 企业</span><span data-l="zh-Hant" lang="zh-Hant">/ 企業</span><span data-l="id" lang="id">/ perusahaan, badan usaha</span><span data-l="vi" lang="vi">/ doanh nghiệp, công ty</span></li><li><b>企画</b>（きかく）計画を立てること <span data-l="en" lang="en">/ planning, project</span><span data-l="zh-Hans" lang="zh-Hans">/ 策划</span><span data-l="zh-Hant" lang="zh-Hant">/ 企劃</span><span data-l="id" lang="id">/ perencanaan, proyek</span><span data-l="vi" lang="vi">/ lập kế hoạch, dự án</span></li></ul>
+<p class="example">新しいイベントの企画を考えています。<br><span data-l="en" lang="en">I am working on a plan for a new event.</span><span data-l="zh-Hans" lang="zh-Hans">正在考虑新活动的策划。</span><span data-l="zh-Hant" lang="zh-Hant">我正在構思新活動的企劃。</span><span data-l="id" lang="id">Saya sedang memikirkan rencana untuk acara baru.</span><span data-l="vi" lang="vi">Tôi đang nghĩ kế hoạch cho một sự kiện mới.</span></p>
 </article>
 <article class="kanji" id="k-掃">
 <p class="glyph">掃</p>
 <dl>
-<dt>音読み</dt><dd>ソウ</dd>
-<dt>訓読み</dt><dd>は-く</dd>
-<dt>意味</dt><dd>はく、取りのぞく <span lang="en">/ sweep</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>ソウ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>は-く</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>はく、取りのぞく <span data-l="en" lang="en">/ sweep</span><span data-l="zh-Hans" lang="zh-Hans">/ 扫、清除</span><span data-l="zh-Hant" lang="zh-Hant">/ 掃、清除</span><span data-l="id" lang="id">/ menyapu, membersihkan</span><span data-l="vi" lang="vi">/ quét, dọn sạch</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">menyapu, membersihkan</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">扫、清除</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">掃、清除</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">quét, dọn sạch</span></li></ul></details>
-<ul class="words"><li><b>掃除</b>（そうじ）きれいにすること <span lang="en">/ cleaning</span></li><li><b>掃除機</b>（そうじき）掃除をする機械 <span lang="en">/ vacuum cleaner</span></li></ul>
-<p class="example">週末に部屋を掃除した。<br><span lang="en">I cleaned my room at the weekend.</span></p>
+<ul class="words"><li><b>掃除</b>（そうじ）きれいにすること <span data-l="en" lang="en">/ cleaning</span><span data-l="zh-Hans" lang="zh-Hans">/ 打扫</span><span data-l="zh-Hant" lang="zh-Hant">/ 打掃</span><span data-l="id" lang="id">/ pembersihan</span><span data-l="vi" lang="vi">/ dọn dẹp, vệ sinh</span></li><li><b>掃除機</b>（そうじき）掃除をする機械 <span data-l="en" lang="en">/ vacuum cleaner</span><span data-l="zh-Hans" lang="zh-Hans">/ 吸尘器</span><span data-l="zh-Hant" lang="zh-Hant">/ 吸塵器</span><span data-l="id" lang="id">/ penyedot debu (vacuum cleaner)</span><span data-l="vi" lang="vi">/ máy hút bụi</span></li></ul>
+<p class="example">週末に部屋を掃除した。<br><span data-l="en" lang="en">I cleaned my room at the weekend.</span><span data-l="zh-Hans" lang="zh-Hans">周末打扫了房间。</span><span data-l="zh-Hant" lang="zh-Hant">週末打掃了房間。</span><span data-l="id" lang="id">Saya membersihkan kamar pada akhir pekan.</span><span data-l="vi" lang="vi">Cuối tuần tôi đã dọn dẹp phòng.</span></p>
 </article>
 <article class="kanji" id="k-趣">
 <p class="glyph">趣</p>
 <dl>
-<dt>音読み</dt><dd>シュ</dd>
-<dt>訓読み</dt><dd>おもむき</dd>
-<dt>意味</dt><dd>おもむき、好み <span lang="en">/ taste, interest</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>シュ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>おもむき</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>おもむき、好み <span data-l="en" lang="en">/ taste, interest</span><span data-l="zh-Hans" lang="zh-Hans">/ 情趣、喜好</span><span data-l="zh-Hant" lang="zh-Hant">/ 情趣、喜好</span><span data-l="id" lang="id">/ selera, minat; maksud</span><span data-l="vi" lang="vi">/ phong vị, sở thích</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">selera, minat; maksud</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">情趣、喜好</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">情趣、喜好</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">phong vị, sở thích</span></li></ul></details>
-<ul class="words"><li><b>趣味</b>（しゅみ）楽しみとしてすること <span lang="en">/ hobby</span></li><li><b>趣旨</b>（しゅし）言いたいこと、目的 <span lang="en">/ purpose, gist</span></li></ul>
-<p class="example">私の趣味は写真を撮ることです。<br><span lang="en">My hobby is taking photos.</span></p>
+<ul class="words"><li><b>趣味</b>（しゅみ）楽しみとしてすること <span data-l="en" lang="en">/ hobby</span><span data-l="zh-Hans" lang="zh-Hans">/ 爱好</span><span data-l="zh-Hant" lang="zh-Hant">/ 興趣</span><span data-l="id" lang="id">/ hobi</span><span data-l="vi" lang="vi">/ sở thích</span></li><li><b>趣旨</b>（しゅし）言いたいこと、目的 <span data-l="en" lang="en">/ purpose, gist</span><span data-l="zh-Hans" lang="zh-Hans">/ 宗旨、目的</span><span data-l="zh-Hant" lang="zh-Hant">/ 主旨</span><span data-l="id" lang="id">/ maksud, tujuan</span><span data-l="vi" lang="vi">/ mục đích, ý chính</span></li></ul>
+<p class="example">私の趣味は写真を撮ることです。<br><span data-l="en" lang="en">My hobby is taking photos.</span><span data-l="zh-Hans" lang="zh-Hans">我的爱好是拍照。</span><span data-l="zh-Hant" lang="zh-Hant">我的興趣是拍照。</span><span data-l="id" lang="id">Hobi saya adalah memotret.</span><span data-l="vi" lang="vi">Sở thích của tôi là chụp ảnh.</span></p>
 </article>
 <article class="kanji" id="k-優">
 <p class="glyph">優</p>
 <dl>
-<dt>音読み</dt><dd>ユウ</dd>
-<dt>訓読み</dt><dd>やさ-しい、すぐ-れる</dd>
-<dt>意味</dt><dd>やさしい、すぐれる <span lang="en">/ gentle; excellent</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>ユウ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>やさ-しい、すぐ-れる</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>やさしい、すぐれる <span data-l="en" lang="en">/ gentle; excellent</span><span data-l="zh-Hans" lang="zh-Hans">/ 温柔、优秀</span><span data-l="zh-Hant" lang="zh-Hant">/ 溫柔；優秀</span><span data-l="id" lang="id">/ lembut, baik hati; unggul</span><span data-l="vi" lang="vi">/ dịu dàng; xuất sắc</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">lembut, baik hati; unggul</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">温柔、优秀</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">溫柔；優秀</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">dịu dàng; xuất sắc</span></li></ul></details>
-<ul class="words"><li><b>優勝</b>（ゆうしょう）一位になること <span lang="en">/ victory, championship</span></li><li><b>優先</b>（ゆうせん）ほかより先にすること <span lang="en">/ priority</span></li></ul>
-<p class="example">お年寄りの方を優先して席を案内してください。<br><span lang="en">Please show elderly people to their seats first.</span></p>
+<ul class="words"><li><b>優勝</b>（ゆうしょう）一位になること <span data-l="en" lang="en">/ victory, championship</span><span data-l="zh-Hans" lang="zh-Hans">/ 夺冠、冠军</span><span data-l="zh-Hant" lang="zh-Hant">/ 優勝</span><span data-l="id" lang="id">/ kemenangan, juara</span><span data-l="vi" lang="vi">/ vô địch, thắng giải nhất</span></li><li><b>優先</b>（ゆうせん）ほかより先にすること <span data-l="en" lang="en">/ priority</span><span data-l="zh-Hans" lang="zh-Hans">/ 优先</span><span data-l="zh-Hant" lang="zh-Hant">/ 優先</span><span data-l="id" lang="id">/ prioritas</span><span data-l="vi" lang="vi">/ ưu tiên</span></li></ul>
+<p class="example">お年寄りの方を優先して席を案内してください。<br><span data-l="en" lang="en">Please show elderly people to their seats first.</span><span data-l="zh-Hans" lang="zh-Hans">请优先为老年人引导座位。</span><span data-l="zh-Hant" lang="zh-Hant">請優先帶年長者到座位。</span><span data-l="id" lang="id">Tolong antar orang lanjut usia ke tempat duduk mereka terlebih dahulu.</span><span data-l="vi" lang="vi">Hãy ưu tiên hướng dẫn chỗ ngồi cho người cao tuổi.</span></p>
 </article>
 <article class="kanji" id="k-就">
 <p class="glyph">就</p>
 <dl>
-<dt>音読み</dt><dd>シュウ</dd>
-<dt>訓読み</dt><dd>つ-く、つ-ける</dd>
-<dt>意味</dt><dd>つく <span lang="en">/ take up (a job)</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>シュウ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>つ-く、つ-ける</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>つく <span data-l="en" lang="en">/ take up (a job)</span><span data-l="zh-Hans" lang="zh-Hans">/ 就任、从事</span><span data-l="zh-Hant" lang="zh-Hant">/ 就（職）</span><span data-l="id" lang="id">/ memperoleh (pekerjaan), memangku (jabatan)</span><span data-l="vi" lang="vi">/ nhận (việc), đảm nhận</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">memperoleh (pekerjaan), memangku (jabatan)</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">就任、从事</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">就（職）</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">nhận (việc), đảm nhận</span></li></ul></details>
-<ul class="words"><li><b>就職</b>（しゅうしょく）仕事につくこと <span lang="en">/ getting a job</span></li><li><b>就任</b>（しゅうにん）役目につくこと <span lang="en">/ taking office</span></li></ul>
-<p class="example">兄は大学を卒業して、商社に就職した。<br><span lang="en">My older brother graduated and got a job at a trading company.</span></p>
+<ul class="words"><li><b>就職</b>（しゅうしょく）仕事につくこと <span data-l="en" lang="en">/ getting a job</span><span data-l="zh-Hans" lang="zh-Hans">/ 就业</span><span data-l="zh-Hant" lang="zh-Hant">/ 就業</span><span data-l="id" lang="id">/ mendapat pekerjaan</span><span data-l="vi" lang="vi">/ xin được việc làm</span></li><li><b>就任</b>（しゅうにん）役目につくこと <span data-l="en" lang="en">/ taking office</span><span data-l="zh-Hans" lang="zh-Hans">/ 就任</span><span data-l="zh-Hant" lang="zh-Hant">/ 就任</span><span data-l="id" lang="id">/ pelantikan, memangku jabatan</span><span data-l="vi" lang="vi">/ nhậm chức</span></li></ul>
+<p class="example">兄は大学を卒業して、商社に就職した。<br><span data-l="en" lang="en">My older brother graduated and got a job at a trading company.</span><span data-l="zh-Hans" lang="zh-Hans">哥哥大学毕业后进了贸易公司工作。</span><span data-l="zh-Hant" lang="zh-Hant">哥哥大學畢業後，進了貿易公司工作。</span><span data-l="id" lang="id">Kakak laki-laki saya lulus dari universitas dan mendapat pekerjaan di perusahaan dagang.</span><span data-l="vi" lang="vi">Anh trai tôi tốt nghiệp đại học và đã xin được việc ở một công ty thương mại.</span></p>
 </article>
 <article class="kanji" id="k-徴">
 <p class="glyph">徴</p>
 <dl>
-<dt>音読み</dt><dd>チョウ</dd>
-<dt>訓読み</dt><dd>―</dd>
-<dt>意味</dt><dd>しるし、取り立てる <span lang="en">/ sign; collect</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>チョウ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>―</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>しるし、取り立てる <span data-l="en" lang="en">/ sign; collect</span><span data-l="zh-Hans" lang="zh-Hans">/ 征兆、征收</span><span data-l="zh-Hant" lang="zh-Hant">/ 徵兆、徵收</span><span data-l="id" lang="id">/ tanda, ciri; memungut</span><span data-l="vi" lang="vi">/ dấu hiệu; thu (tiền)</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">tanda, ciri; memungut</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">征兆、征收</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">徵兆、徵收</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">dấu hiệu; thu (tiền)</span></li></ul></details>
-<ul class="words"><li><b>特徴</b>（とくちょう）ほかとちがう目立つ点 <span lang="en">/ feature, characteristic</span></li><li><b>象徴</b>（しょうちょう）形のないものを表すしるし <span lang="en">/ symbol</span></li></ul>
-<p class="example">この地方の料理は、味が濃いのが特徴だ。<br><span lang="en">The food of this region is characterized by strong flavours.</span></p>
+<ul class="words"><li><b>特徴</b>（とくちょう）ほかとちがう目立つ点 <span data-l="en" lang="en">/ feature, characteristic</span><span data-l="zh-Hans" lang="zh-Hans">/ 特征</span><span data-l="zh-Hant" lang="zh-Hant">/ 特徵</span><span data-l="id" lang="id">/ ciri khas</span><span data-l="vi" lang="vi">/ đặc điểm, nét đặc trưng</span></li><li><b>象徴</b>（しょうちょう）形のないものを表すしるし <span data-l="en" lang="en">/ symbol</span><span data-l="zh-Hans" lang="zh-Hans">/ 象征</span><span data-l="zh-Hant" lang="zh-Hant">/ 象徵</span><span data-l="id" lang="id">/ simbol</span><span data-l="vi" lang="vi">/ biểu tượng</span></li></ul>
+<p class="example">この地方の料理は、味が濃いのが特徴だ。<br><span data-l="en" lang="en">The food of this region is characterized by strong flavours.</span><span data-l="zh-Hans" lang="zh-Hans">这个地方的菜特点是味道浓。</span><span data-l="zh-Hant" lang="zh-Hant">這一帶的料理口味偏重，是它的特徵。</span><span data-l="id" lang="id">Masakan daerah ini bercirikan rasanya yang kuat.</span><span data-l="vi" lang="vi">Món ăn của vùng này có đặc điểm là vị đậm.</span></p>
 </article>
 <article class="kanji" id="k-恐">
 <p class="glyph">恐</p>
 <dl>
-<dt>音読み</dt><dd>キョウ</dd>
-<dt>訓読み</dt><dd>おそ-れる、おそ-ろしい</dd>
-<dt>意味</dt><dd>おそれる、こわい <span lang="en">/ fear</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>キョウ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>おそ-れる、おそ-ろしい</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>おそれる、こわい <span data-l="en" lang="en">/ fear</span><span data-l="zh-Hans" lang="zh-Hans">/ 害怕、恐惧</span><span data-l="zh-Hant" lang="zh-Hant">/ 害怕、恐懼</span><span data-l="id" lang="id">/ takut, merasa takut</span><span data-l="vi" lang="vi">/ sợ hãi</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">takut, merasa takut</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">害怕、恐惧</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">害怕、恐懼</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">sợ hãi</span></li></ul></details>
-<ul class="words"><li><b>恐ろしい</b>（おそろしい）とてもこわい <span lang="en">/ frightening</span></li><li><b>恐縮</b>（きょうしゅく）申し訳なく思うこと <span lang="en">/ feeling obliged, sorry</span></li></ul>
-<p class="example">夜の山道は恐ろしかった。<br><span lang="en">The mountain road at night was frightening.</span></p>
+<ul class="words"><li><b>恐ろしい</b>（おそろしい）とてもこわい <span data-l="en" lang="en">/ frightening</span><span data-l="zh-Hans" lang="zh-Hans">/ 可怕的</span><span data-l="zh-Hant" lang="zh-Hant">/ 可怕的、令人害怕的</span><span data-l="id" lang="id">/ sangat menakutkan</span><span data-l="vi" lang="vi">/ đáng sợ</span></li><li><b>恐縮</b>（きょうしゅく）申し訳なく思うこと <span data-l="en" lang="en">/ feeling obliged, sorry</span><span data-l="zh-Hans" lang="zh-Hans">/ 惶恐、抱歉</span><span data-l="zh-Hant" lang="zh-Hant">/ 感到過意不去、抱歉</span><span data-l="id" lang="id">/ merasa sungkan, maaf</span><span data-l="vi" lang="vi">/ cảm thấy áy náy, xin lỗi</span></li></ul>
+<p class="example">夜の山道は恐ろしかった。<br><span data-l="en" lang="en">The mountain road at night was frightening.</span><span data-l="zh-Hans" lang="zh-Hans">夜里的山路很可怕。</span><span data-l="zh-Hant" lang="zh-Hant">夜晚的山路很可怕。</span><span data-l="id" lang="id">Jalan gunung di malam hari sangat menakutkan.</span><span data-l="vi" lang="vi">Con đường núi vào ban đêm thật đáng sợ.</span></p>
 </article>
 <article class="kanji" id="k-悔">
 <p class="glyph">悔</p>
 <dl>
-<dt>音読み</dt><dd>カイ</dd>
-<dt>訓読み</dt><dd>く-いる、く-やむ、くや-しい</dd>
-<dt>意味</dt><dd>くやむ、くやしい <span lang="en">/ regret</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>カイ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>く-いる、く-やむ、くや-しい</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>くやむ、くやしい <span data-l="en" lang="en">/ regret</span><span data-l="zh-Hans" lang="zh-Hans">/ 后悔、懊悔</span><span data-l="zh-Hant" lang="zh-Hant">/ 後悔、懊悔</span><span data-l="id" lang="id">/ menyesal, merasa menyesal</span><span data-l="vi" lang="vi">/ hối hận</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">menyesal, merasa menyesal</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">后悔、懊悔</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">後悔、懊悔</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">hối hận</span></li></ul></details>
-<ul class="words"><li><b>後悔</b>（こうかい）あとでくやむこと <span lang="en">/ regret</span></li><li><b>悔しい</b>（くやしい）負けたりして残念に思う <span lang="en">/ frustrating, vexing</span></li></ul>
-<p class="example">もっと勉強しておけばよかったと後悔している。<br><span lang="en">I regret not having studied more.</span></p>
+<ul class="words"><li><b>後悔</b>（こうかい）あとでくやむこと <span data-l="en" lang="en">/ regret</span><span data-l="zh-Hans" lang="zh-Hans">/ 后悔</span><span data-l="zh-Hant" lang="zh-Hant">/ 後悔</span><span data-l="id" lang="id">/ penyesalan</span><span data-l="vi" lang="vi">/ sự hối hận</span></li><li><b>悔しい</b>（くやしい）負けたりして残念に思う <span data-l="en" lang="en">/ frustrating, vexing</span><span data-l="zh-Hans" lang="zh-Hans">/ 懊悔、不甘心</span><span data-l="zh-Hant" lang="zh-Hant">/ 不甘心、懊惱</span><span data-l="id" lang="id">/ menjengkelkan, frustrasi</span><span data-l="vi" lang="vi">/ bực bội, tiếc nuối</span></li></ul>
+<p class="example">もっと勉強しておけばよかったと後悔している。<br><span data-l="en" lang="en">I regret not having studied more.</span><span data-l="zh-Hans" lang="zh-Hans">我后悔没有多学习一些。</span><span data-l="zh-Hant" lang="zh-Hant">我很後悔沒有多讀一點書。</span><span data-l="id" lang="id">Saya menyesal seharusnya lebih rajin belajar.</span><span data-l="vi" lang="vi">Tôi hối hận vì đã không học nhiều hơn.</span></p>
 </article>
 <article class="kanji" id="k-催">
 <p class="glyph">催</p>
 <dl>
-<dt>音読み</dt><dd>サイ</dd>
-<dt>訓読み</dt><dd>もよお-す</dd>
-<dt>意味</dt><dd>もよおす <span lang="en">/ hold (an event)</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>サイ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>もよお-す</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>もよおす <span data-l="en" lang="en">/ hold (an event)</span><span data-l="zh-Hans" lang="zh-Hans">/ 举办、举行</span><span data-l="zh-Hant" lang="zh-Hant">/ 舉辦、舉行</span><span data-l="id" lang="id">/ mengadakan (acara)</span><span data-l="vi" lang="vi">/ tổ chức (sự kiện)</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">mengadakan (acara)</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">举办、举行</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">舉辦、舉行</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">tổ chức (sự kiện)</span></li></ul></details>
-<ul class="words"><li><b>開催</b>（かいさい）会などを開くこと <span lang="en">/ holding (an event)</span></li><li><b>主催</b>（しゅさい）中心になって会を開くこと <span lang="en">/ hosting, sponsorship</span></li></ul>
-<p class="example">来月、駅前で音楽祭が開催される。<br><span lang="en">A music festival will be held in front of the station next month.</span></p>
+<ul class="words"><li><b>開催</b>（かいさい）会などを開くこと <span data-l="en" lang="en">/ holding (an event)</span><span data-l="zh-Hans" lang="zh-Hans">/ 举办</span><span data-l="zh-Hant" lang="zh-Hant">/ 舉辦（活動等）</span><span data-l="id" lang="id">/ penyelenggaraan</span><span data-l="vi" lang="vi">/ việc tổ chức (sự kiện)</span></li><li><b>主催</b>（しゅさい）中心になって会を開くこと <span data-l="en" lang="en">/ hosting, sponsorship</span><span data-l="zh-Hans" lang="zh-Hans">/ 主办</span><span data-l="zh-Hant" lang="zh-Hant">/ 主辦</span><span data-l="id" lang="id">/ menyelenggarakan, menjadi tuan rumah</span><span data-l="vi" lang="vi">/ việc chủ trì, đăng cai</span></li></ul>
+<p class="example">来月、駅前で音楽祭が開催される。<br><span data-l="en" lang="en">A music festival will be held in front of the station next month.</span><span data-l="zh-Hans" lang="zh-Hans">下个月将在车站前举办音乐节。</span><span data-l="zh-Hant" lang="zh-Hant">下個月，車站前將舉辦音樂祭。</span><span data-l="id" lang="id">Bulan depan, festival musik akan diadakan di depan stasiun.</span><span data-l="vi" lang="vi">Tháng sau, một lễ hội âm nhạc sẽ được tổ chức trước ga.</span></p>
 </article>
 <article class="kanji" id="k-座">
 <p class="glyph">座</p>
 <dl>
-<dt>音読み</dt><dd>ザ</dd>
-<dt>訓読み</dt><dd>すわ-る</dd>
-<dt>意味</dt><dd>すわる、すわる所 <span lang="en">/ sit; seat</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>ザ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>すわ-る</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>すわる、すわる所 <span data-l="en" lang="en">/ sit; seat</span><span data-l="zh-Hans" lang="zh-Hans">/ 坐、座位</span><span data-l="zh-Hant" lang="zh-Hant">/ 坐；座位</span><span data-l="id" lang="id">/ duduk, tempat duduk</span><span data-l="vi" lang="vi">/ ngồi; chỗ ngồi</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">duduk, tempat duduk</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">坐、座位</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">坐；座位</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">ngồi; chỗ ngồi</span></li></ul></details>
-<ul class="words"><li><b>座席</b>（ざせき）すわる所 <span lang="en">/ seat</span></li><li><b>口座</b>（こうざ）銀行でお金を預ける記録 <span lang="en">/ bank account</span></li></ul>
-<p class="example">給料は銀行の口座に振り込まれる。<br><span lang="en">My salary is paid into my bank account.</span></p>
+<ul class="words"><li><b>座席</b>（ざせき）すわる所 <span data-l="en" lang="en">/ seat</span><span data-l="zh-Hans" lang="zh-Hans">/ 座位</span><span data-l="zh-Hant" lang="zh-Hant">/ 座位</span><span data-l="id" lang="id">/ kursi, tempat duduk</span><span data-l="vi" lang="vi">/ chỗ ngồi</span></li><li><b>口座</b>（こうざ）銀行でお金を預ける記録 <span data-l="en" lang="en">/ bank account</span><span data-l="zh-Hans" lang="zh-Hans">/ 银行账户</span><span data-l="zh-Hant" lang="zh-Hant">/ 銀行帳戶</span><span data-l="id" lang="id">/ rekening bank</span><span data-l="vi" lang="vi">/ tài khoản ngân hàng</span></li></ul>
+<p class="example">給料は銀行の口座に振り込まれる。<br><span data-l="en" lang="en">My salary is paid into my bank account.</span><span data-l="zh-Hans" lang="zh-Hans">工资会汇入银行账户。</span><span data-l="zh-Hant" lang="zh-Hant">薪水會匯入銀行的帳戶。</span><span data-l="id" lang="id">Gaji ditransfer ke rekening bank.</span><span data-l="vi" lang="vi">Tiền lương được chuyển vào tài khoản ngân hàng.</span></p>
 </article>
 <article class="kanji" id="k-戻">
 <p class="glyph">戻</p>
 <dl>
-<dt>音読み</dt><dd>レイ</dd>
-<dt>訓読み</dt><dd>もど-す、もど-る</dd>
-<dt>意味</dt><dd>もどる、もどす <span lang="en">/ return</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>レイ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>もど-す、もど-る</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>もどる、もどす <span data-l="en" lang="en">/ return</span><span data-l="zh-Hans" lang="zh-Hans">/ 返回、退回</span><span data-l="zh-Hant" lang="zh-Hant">/ 返回、回去</span><span data-l="id" lang="id">/ kembali, mengembalikan</span><span data-l="vi" lang="vi">/ quay lại</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">kembali, mengembalikan</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">返回、退回</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">返回、回去</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">quay lại</span></li></ul></details>
-<ul class="words"><li><b>戻る</b>（もどる）もとの所へ帰る <span lang="en">/ to return</span></li><li><b>払い戻し</b>（はらいもどし）払ったお金を返すこと <span lang="en">/ refund</span></li></ul>
-<p class="example">忘れ物に気づいて、家に戻った。<br><span lang="en">I noticed I had forgotten something and went back home.</span></p>
+<ul class="words"><li><b>戻る</b>（もどる）もとの所へ帰る <span data-l="en" lang="en">/ to return</span><span data-l="zh-Hans" lang="zh-Hans">/ 返回</span><span data-l="zh-Hant" lang="zh-Hant">/ 返回</span><span data-l="id" lang="id">/ kembali</span><span data-l="vi" lang="vi">/ quay về</span></li><li><b>払い戻し</b>（はらいもどし）払ったお金を返すこと <span data-l="en" lang="en">/ refund</span><span data-l="zh-Hans" lang="zh-Hans">/ 退款</span><span data-l="zh-Hant" lang="zh-Hant">/ 退款</span><span data-l="id" lang="id">/ pengembalian uang</span><span data-l="vi" lang="vi">/ việc hoàn tiền</span></li></ul>
+<p class="example">忘れ物に気づいて、家に戻った。<br><span data-l="en" lang="en">I noticed I had forgotten something and went back home.</span><span data-l="zh-Hans" lang="zh-Hans">发现忘了东西，就返回了家。</span><span data-l="zh-Hant" lang="zh-Hant">發現忘了東西，就回家了一趟。</span><span data-l="id" lang="id">Saya menyadari ada yang tertinggal dan kembali ke rumah.</span><span data-l="vi" lang="vi">Tôi nhận ra mình đã để quên đồ nên đã quay về nhà.</span></p>
 </article>
 <article class="kanji" id="k-環">
 <p class="glyph">環</p>
 <dl>
-<dt>音読み</dt><dd>カン</dd>
-<dt>訓読み</dt><dd>―</dd>
-<dt>意味</dt><dd>わ、まわり <span lang="en">/ ring; surroundings</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>カン</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>―</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>わ、まわり <span data-l="en" lang="en">/ ring; surroundings</span><span data-l="zh-Hans" lang="zh-Hans">/ 环、周围</span><span data-l="zh-Hant" lang="zh-Hant">/ 環、周圍</span><span data-l="id" lang="id">/ lingkaran, lingkungan</span><span data-l="vi" lang="vi">/ vòng; xung quanh</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">lingkaran, lingkungan</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">环、周围</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">環、周圍</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">vòng; xung quanh</span></li></ul></details>
-<ul class="words"><li><b>環境</b>（かんきょう）まわりの様子 <span lang="en">/ environment</span></li><li><b>循環</b>（じゅんかん）ひとまわりしてもとにもどること <span lang="en">/ circulation, cycle</span></li></ul>
-<p class="example">働きやすい環境を作ることが大切だ。<br><span lang="en">It is important to create an environment that is easy to work in.</span></p>
+<ul class="words"><li><b>環境</b>（かんきょう）まわりの様子 <span data-l="en" lang="en">/ environment</span><span data-l="zh-Hans" lang="zh-Hans">/ 环境</span><span data-l="zh-Hant" lang="zh-Hant">/ 環境</span><span data-l="id" lang="id">/ lingkungan</span><span data-l="vi" lang="vi">/ môi trường</span></li><li><b>循環</b>（じゅんかん）ひとまわりしてもとにもどること <span data-l="en" lang="en">/ circulation, cycle</span><span data-l="zh-Hans" lang="zh-Hans">/ 循环</span><span data-l="zh-Hant" lang="zh-Hant">/ 循環</span><span data-l="id" lang="id">/ siklus, peredaran</span><span data-l="vi" lang="vi">/ sự tuần hoàn, chu kỳ</span></li></ul>
+<p class="example">働きやすい環境を作ることが大切だ。<br><span data-l="en" lang="en">It is important to create an environment that is easy to work in.</span><span data-l="zh-Hans" lang="zh-Hans">创造容易工作的环境很重要。</span><span data-l="zh-Hant" lang="zh-Hant">打造容易工作的環境很重要。</span><span data-l="id" lang="id">Penting untuk menciptakan lingkungan yang nyaman untuk bekerja.</span><span data-l="vi" lang="vi">Việc tạo ra một môi trường dễ làm việc là rất quan trọng.</span></p>
 </article>
 <article class="kanji" id="k-了">
 <p class="glyph">了</p>
 <dl>
-<dt>音読み</dt><dd>リョウ</dd>
-<dt>訓読み</dt><dd>―</dd>
-<dt>意味</dt><dd>おわる、わかる <span lang="en">/ finish; understand</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>リョウ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>―</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>おわる、わかる <span data-l="en" lang="en">/ finish; understand</span><span data-l="zh-Hans" lang="zh-Hans">/ 结束、明白</span><span data-l="zh-Hant" lang="zh-Hant">/ 結束、明白</span><span data-l="id" lang="id">/ selesai, mengerti</span><span data-l="vi" lang="vi">/ kết thúc; hiểu</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">selesai, mengerti</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">结束、明白</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">結束、明白</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">kết thúc; hiểu</span></li></ul></details>
-<ul class="words"><li><b>終了</b>（しゅうりょう）終わること <span lang="en">/ end</span></li><li><b>了解</b>（りょうかい）わかって認めること <span lang="en">/ understanding, OK</span></li></ul>
-<p class="example">本日の受付は終了しました。<br><span lang="en">Today's reception has closed.</span></p>
+<ul class="words"><li><b>終了</b>（しゅうりょう）終わること <span data-l="en" lang="en">/ end</span><span data-l="zh-Hans" lang="zh-Hans">/ 结束</span><span data-l="zh-Hant" lang="zh-Hant">/ 結束</span><span data-l="id" lang="id">/ berakhir, selesai</span><span data-l="vi" lang="vi">/ sự kết thúc</span></li><li><b>了解</b>（りょうかい）わかって認めること <span data-l="en" lang="en">/ understanding, OK</span><span data-l="zh-Hans" lang="zh-Hans">/ 了解、明白</span><span data-l="zh-Hant" lang="zh-Hant">/ 了解、明白</span><span data-l="id" lang="id">/ pengertian, mengerti</span><span data-l="vi" lang="vi">/ sự hiểu và chấp nhận</span></li></ul>
+<p class="example">本日の受付は終了しました。<br><span data-l="en" lang="en">Today's reception has closed.</span><span data-l="zh-Hans" lang="zh-Hans">今天的受理已经结束了。</span><span data-l="zh-Hant" lang="zh-Hant">今天的受理已經結束了。</span><span data-l="id" lang="id">Penerimaan hari ini telah ditutup.</span><span data-l="vi" lang="vi">Quầy tiếp nhận hôm nay đã đóng.</span></p>
 </article>
 <article class="kanji" id="k-創">
 <p class="glyph">創</p>
 <dl>
-<dt>音読み</dt><dd>ソウ</dd>
-<dt>訓読み</dt><dd>つく-る</dd>
-<dt>意味</dt><dd>はじめてつくる <span lang="en">/ create</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>ソウ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>つく-る</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>はじめてつくる <span data-l="en" lang="en">/ create</span><span data-l="zh-Hans" lang="zh-Hans">/ 创造、首创</span><span data-l="zh-Hant" lang="zh-Hant">/ 創造、首創</span><span data-l="id" lang="id">/ menciptakan</span><span data-l="vi" lang="vi">/ tạo ra lần đầu</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">menciptakan</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">创造、首创</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">創造、首創</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">tạo ra lần đầu</span></li></ul></details>
-<ul class="words"><li><b>創造</b>（そうぞう）新しく作り出すこと <span lang="en">/ creation</span></li><li><b>独創的</b>（どくそうてき）ほかにない考えで作る <span lang="en">/ original, creative</span></li></ul>
-<p class="example">この作家は独創的な作品で知られている。<br><span lang="en">This writer is known for original works.</span></p>
+<ul class="words"><li><b>創造</b>（そうぞう）新しく作り出すこと <span data-l="en" lang="en">/ creation</span><span data-l="zh-Hans" lang="zh-Hans">/ 创造</span><span data-l="zh-Hant" lang="zh-Hant">/ 創造</span><span data-l="id" lang="id">/ penciptaan</span><span data-l="vi" lang="vi">/ sự sáng tạo</span></li><li><b>独創的</b>（どくそうてき）ほかにない考えで作る <span data-l="en" lang="en">/ original, creative</span><span data-l="zh-Hans" lang="zh-Hans">/ 独创的</span><span data-l="zh-Hant" lang="zh-Hant">/ 獨創的</span><span data-l="id" lang="id">/ orisinal, kreatif</span><span data-l="vi" lang="vi">/ độc đáo, sáng tạo</span></li></ul>
+<p class="example">この作家は独創的な作品で知られている。<br><span data-l="en" lang="en">This writer is known for original works.</span><span data-l="zh-Hans" lang="zh-Hans">这位作家以独创性的作品而闻名。</span><span data-l="zh-Hant" lang="zh-Hant">這位作家以獨創的作品聞名。</span><span data-l="id" lang="id">Penulis ini dikenal karena karya-karyanya yang orisinal.</span><span data-l="vi" lang="vi">Nhà văn này nổi tiếng với những tác phẩm độc đáo.</span></p>
 </article>
 <article class="kanji" id="k-影">
 <p class="glyph">影</p>
 <dl>
-<dt>音読み</dt><dd>エイ</dd>
-<dt>訓読み</dt><dd>かげ</dd>
-<dt>意味</dt><dd>かげ、すがた <span lang="en">/ shadow; influence</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>エイ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>かげ</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>かげ、すがた <span data-l="en" lang="en">/ shadow; influence</span><span data-l="zh-Hans" lang="zh-Hans">/ 影子、影响</span><span data-l="zh-Hant" lang="zh-Hant">/ 影子；影響</span><span data-l="id" lang="id">/ bayangan, pengaruh</span><span data-l="vi" lang="vi">/ bóng; ảnh hưởng</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">bayangan, pengaruh</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">影子、影响</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">影子；影響</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">bóng; ảnh hưởng</span></li></ul></details>
-<ul class="words"><li><b>影響</b>（えいきょう）ほかに力が及ぶこと <span lang="en">/ influence</span></li><li><b>撮影</b>（さつえい）写真や映像をとること <span lang="en">/ filming, shooting</span></li></ul>
-<p class="example">台風の影響で、電車が止まった。<br><span lang="en">The trains stopped because of the typhoon.</span></p>
+<ul class="words"><li><b>影響</b>（えいきょう）ほかに力が及ぶこと <span data-l="en" lang="en">/ influence</span><span data-l="zh-Hans" lang="zh-Hans">/ 影响</span><span data-l="zh-Hant" lang="zh-Hant">/ 影響</span><span data-l="id" lang="id">/ pengaruh</span><span data-l="vi" lang="vi">/ ảnh hưởng</span></li><li><b>撮影</b>（さつえい）写真や映像をとること <span data-l="en" lang="en">/ filming, shooting</span><span data-l="zh-Hans" lang="zh-Hans">/ 拍摄</span><span data-l="zh-Hant" lang="zh-Hant">/ 攝影、拍攝</span><span data-l="id" lang="id">/ pemotretan, pengambilan gambar</span><span data-l="vi" lang="vi">/ việc chụp ảnh, quay phim</span></li></ul>
+<p class="example">台風の影響で、電車が止まった。<br><span data-l="en" lang="en">The trains stopped because of the typhoon.</span><span data-l="zh-Hans" lang="zh-Hans">受台风影响，电车停运了。</span><span data-l="zh-Hant" lang="zh-Hant">受到颱風影響，電車停駛了。</span><span data-l="id" lang="id">Kereta berhenti karena pengaruh topan.</span><span data-l="vi" lang="vi">Do ảnh hưởng của bão nên tàu điện đã dừng chạy.</span></p>
 </article>
 <article class="kanji" id="k-挑">
 <p class="glyph">挑</p>
 <dl>
-<dt>音読み</dt><dd>チョウ</dd>
-<dt>訓読み</dt><dd>いど-む</dd>
-<dt>意味</dt><dd>いどむ <span lang="en">/ challenge</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>チョウ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>いど-む</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>いどむ <span data-l="en" lang="en">/ challenge</span><span data-l="zh-Hans" lang="zh-Hans">/ 挑战</span><span data-l="zh-Hant" lang="zh-Hant">/ 挑戰</span><span data-l="id" lang="id">/ menantang</span><span data-l="vi" lang="vi">/ thách thức</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">menantang</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">挑战</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">挑戰</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">thách thức</span></li></ul></details>
-<ul class="words"><li><b>挑戦</b>（ちょうせん）むずかしいことにいどむこと <span lang="en">/ challenge</span></li><li><b>挑む</b>（いどむ）立ち向かう <span lang="en">/ to take on</span></li></ul>
-<p class="example">今年はマラソンに挑戦するつもりだ。<br><span lang="en">I plan to take on a marathon this year.</span></p>
+<ul class="words"><li><b>挑戦</b>（ちょうせん）むずかしいことにいどむこと <span data-l="en" lang="en">/ challenge</span><span data-l="zh-Hans" lang="zh-Hans">/ 挑战</span><span data-l="zh-Hant" lang="zh-Hant">/ 挑戰</span><span data-l="id" lang="id">/ tantangan</span><span data-l="vi" lang="vi">/ sự thách thức</span></li><li><b>挑む</b>（いどむ）立ち向かう <span data-l="en" lang="en">/ to take on</span><span data-l="zh-Hans" lang="zh-Hans">/ 挑战、迎战</span><span data-l="zh-Hant" lang="zh-Hant">/ 挑戰、迎戰</span><span data-l="id" lang="id">/ menantang, menghadapi</span><span data-l="vi" lang="vi">/ đương đầu</span></li></ul>
+<p class="example">今年はマラソンに挑戦するつもりだ。<br><span data-l="en" lang="en">I plan to take on a marathon this year.</span><span data-l="zh-Hans" lang="zh-Hans">今年我打算挑战马拉松。</span><span data-l="zh-Hant" lang="zh-Hant">今年我打算挑戰馬拉松。</span><span data-l="id" lang="id">Tahun ini saya berniat menantang diri untuk maraton.</span><span data-l="vi" lang="vi">Năm nay tôi định thử sức với chạy marathon.</span></p>
 </article>
 <article class="kanji" id="k-推">
 <p class="glyph">推</p>
 <dl>
-<dt>音読み</dt><dd>スイ</dd>
-<dt>訓読み</dt><dd>お-す</dd>
-<dt>意味</dt><dd>おす、おしはかる <span lang="en">/ push; infer</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>スイ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>お-す</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>おす、おしはかる <span data-l="en" lang="en">/ push; infer</span><span data-l="zh-Hans" lang="zh-Hans">/ 推；推测</span><span data-l="zh-Hant" lang="zh-Hant">/ 推；推測</span><span data-l="id" lang="id">/ mendorong; menduga</span><span data-l="vi" lang="vi">/ đẩy; suy đoán</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">mendorong; menduga</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">推；推测</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">推；推測</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">đẩy; suy đoán</span></li></ul></details>
-<ul class="words"><li><b>推薦</b>（すいせん）よいと思う人や物をすすめること <span lang="en">/ recommendation</span></li><li><b>推測</b>（すいそく）おしはかること <span lang="en">/ guess, inference</span></li></ul>
-<p class="example">先生の推薦で、奨学金を申し込んだ。<br><span lang="en">I applied for the scholarship on my teacher's recommendation.</span></p>
+<ul class="words"><li><b>推薦</b>（すいせん）よいと思う人や物をすすめること <span data-l="en" lang="en">/ recommendation</span><span data-l="zh-Hans" lang="zh-Hans">/ 推荐</span><span data-l="zh-Hant" lang="zh-Hant">/ 推薦</span><span data-l="id" lang="id">/ rekomendasi</span><span data-l="vi" lang="vi">/ giới thiệu, đề cử</span></li><li><b>推測</b>（すいそく）おしはかること <span data-l="en" lang="en">/ guess, inference</span><span data-l="zh-Hans" lang="zh-Hans">/ 推测</span><span data-l="zh-Hant" lang="zh-Hant">/ 推測</span><span data-l="id" lang="id">/ dugaan, perkiraan</span><span data-l="vi" lang="vi">/ suy đoán, phỏng đoán</span></li></ul>
+<p class="example">先生の推薦で、奨学金を申し込んだ。<br><span data-l="en" lang="en">I applied for the scholarship on my teacher's recommendation.</span><span data-l="zh-Hans" lang="zh-Hans">因为老师的推荐，我申请了奖学金。</span><span data-l="zh-Hant" lang="zh-Hant">因為老師的推薦，我申請了獎學金。</span><span data-l="id" lang="id">Berkat rekomendasi guru, saya mendaftar beasiswa.</span><span data-l="vi" lang="vi">Nhờ sự giới thiệu của thầy giáo, tôi đã xin học bổng.</span></p>
 </article>
 <article class="kanji" id="k-締">
 <p class="glyph">締</p>
 <dl>
-<dt>音読み</dt><dd>テイ</dd>
-<dt>訓読み</dt><dd>し-まる、し-める</dd>
-<dt>意味</dt><dd>しめる <span lang="en">/ tighten; close</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>テイ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>し-まる、し-める</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>しめる <span data-l="en" lang="en">/ tighten; close</span><span data-l="zh-Hans" lang="zh-Hans">/ 系紧；关闭</span><span data-l="zh-Hant" lang="zh-Hant">/ 繫緊；關閉</span><span data-l="id" lang="id">/ mengencangkan; menutup</span><span data-l="vi" lang="vi">/ thắt chặt; đóng lại</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">mengencangkan; menutup</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">系紧；关闭</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">繫緊；關閉</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">thắt chặt; đóng lại</span></li></ul></details>
-<ul class="words"><li><b>締め切り</b>（しめきり）期限 <span lang="en">/ deadline</span></li><li><b>締める</b>（しめる）かたくしめる <span lang="en">/ to tighten, to fasten</span></li></ul>
-<p class="example">レポートの締め切りは金曜日です。<br><span lang="en">The deadline for the report is Friday.</span></p>
+<ul class="words"><li><b>締め切り</b>（しめきり）期限 <span data-l="en" lang="en">/ deadline</span><span data-l="zh-Hans" lang="zh-Hans">/ 截止日期</span><span data-l="zh-Hant" lang="zh-Hant">/ 截止期限</span><span data-l="id" lang="id">/ batas waktu</span><span data-l="vi" lang="vi">/ hạn chót</span></li><li><b>締める</b>（しめる）かたくしめる <span data-l="en" lang="en">/ to tighten, to fasten</span><span data-l="zh-Hans" lang="zh-Hans">/ 系紧、勒紧</span><span data-l="zh-Hant" lang="zh-Hant">/ 繫緊、勒緊</span><span data-l="id" lang="id">/ mengencangkan, mengikat</span><span data-l="vi" lang="vi">/ thắt chặt, buộc chặt</span></li></ul>
+<p class="example">レポートの締め切りは金曜日です。<br><span data-l="en" lang="en">The deadline for the report is Friday.</span><span data-l="zh-Hans" lang="zh-Hans">报告的截止日期是星期五。</span><span data-l="zh-Hant" lang="zh-Hant">報告的截止期限是星期五。</span><span data-l="id" lang="id">Batas waktu laporan adalah hari Jumat.</span><span data-l="vi" lang="vi">Hạn chót nộp báo cáo là thứ Sáu.</span></p>
 </article>
 <article class="kanji" id="k-賃">
 <p class="glyph">賃</p>
 <dl>
-<dt>音読み</dt><dd>チン</dd>
-<dt>訓読み</dt><dd>―</dd>
-<dt>意味</dt><dd>代金、給料 <span lang="en">/ fee; wages</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>チン</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>―</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>代金、給料 <span data-l="en" lang="en">/ fee; wages</span><span data-l="zh-Hans" lang="zh-Hans">/ 费用；工资</span><span data-l="zh-Hant" lang="zh-Hant">/ 費用；工資</span><span data-l="id" lang="id">/ biaya, upah</span><span data-l="vi" lang="vi">/ tiền công; tiền lương</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">biaya, upah</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">费用；工资</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">費用；工資</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">tiền công; tiền lương</span></li></ul></details>
-<ul class="words"><li><b>家賃</b>（やちん）家を借りる代金 <span lang="en">/ rent</span></li><li><b>運賃</b>（うんちん）乗り物の代金 <span lang="en">/ fare</span></li></ul>
-<p class="example">駅に近い部屋は家賃が高い。<br><span lang="en">Rooms near the station have high rent.</span></p>
+<ul class="words"><li><b>家賃</b>（やちん）家を借りる代金 <span data-l="en" lang="en">/ rent</span><span data-l="zh-Hans" lang="zh-Hans">/ 房租</span><span data-l="zh-Hant" lang="zh-Hant">/ 房租</span><span data-l="id" lang="id">/ uang sewa rumah</span><span data-l="vi" lang="vi">/ tiền thuê nhà</span></li><li><b>運賃</b>（うんちん）乗り物の代金 <span data-l="en" lang="en">/ fare</span><span data-l="zh-Hans" lang="zh-Hans">/ 车费、运费</span><span data-l="zh-Hant" lang="zh-Hant">/ 車費、運費</span><span data-l="id" lang="id">/ ongkos</span><span data-l="vi" lang="vi">/ tiền vé, giá cước</span></li></ul>
+<p class="example">駅に近い部屋は家賃が高い。<br><span data-l="en" lang="en">Rooms near the station have high rent.</span><span data-l="zh-Hans" lang="zh-Hans">离车站近的房子房租很贵。</span><span data-l="zh-Hant" lang="zh-Hant">靠近車站的房間房租很貴。</span><span data-l="id" lang="id">Kamar yang dekat stasiun sewanya mahal.</span><span data-l="vi" lang="vi">Phòng gần ga thì tiền thuê nhà cao.</span></p>
 </article>
 <article class="kanji" id="k-与">
 <p class="glyph">与</p>
 <dl>
-<dt>音読み</dt><dd>ヨ</dd>
-<dt>訓読み</dt><dd>あた-える</dd>
-<dt>意味</dt><dd>あたえる <span lang="en">/ give</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>ヨ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>あた-える</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>あたえる <span data-l="en" lang="en">/ give</span><span data-l="zh-Hans" lang="zh-Hans">/ 给予</span><span data-l="zh-Hant" lang="zh-Hant">/ 給予</span><span data-l="id" lang="id">/ memberi</span><span data-l="vi" lang="vi">/ cho, ban cho</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">memberi</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">给予</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">給予</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">cho, ban cho</span></li></ul></details>
-<ul class="words"><li><b>給与</b>（きゅうよ）働いた人に払うお金 <span lang="en">/ salary</span></li><li><b>与える</b>（あたえる）人にものをやる <span lang="en">/ to give</span></li></ul>
-<p class="example">その事故は、地域に大きな影響を与えた。<br><span lang="en">The accident had a big impact on the area.</span></p>
+<ul class="words"><li><b>給与</b>（きゅうよ）働いた人に払うお金 <span data-l="en" lang="en">/ salary</span><span data-l="zh-Hans" lang="zh-Hans">/ 工资、薪金</span><span data-l="zh-Hant" lang="zh-Hant">/ 薪資</span><span data-l="id" lang="id">/ gaji</span><span data-l="vi" lang="vi">/ tiền lương</span></li><li><b>与える</b>（あたえる）人にものをやる <span data-l="en" lang="en">/ to give</span><span data-l="zh-Hans" lang="zh-Hans">/ 给予</span><span data-l="zh-Hant" lang="zh-Hant">/ 給予</span><span data-l="id" lang="id">/ memberi</span><span data-l="vi" lang="vi">/ cho, trao cho</span></li></ul>
+<p class="example">その事故は、地域に大きな影響を与えた。<br><span data-l="en" lang="en">The accident had a big impact on the area.</span><span data-l="zh-Hans" lang="zh-Hans">那起事故给当地带来了很大的影响。</span><span data-l="zh-Hant" lang="zh-Hant">那起事故對當地造成了很大的影響。</span><span data-l="id" lang="id">Kecelakaan itu memberi dampak besar pada daerah tersebut.</span><span data-l="vi" lang="vi">Vụ tai nạn đó đã gây ảnh hưởng lớn đến khu vực.</span></p>
 </article>
 <article class="kanji" id="k-専">
 <p class="glyph">専</p>
 <dl>
-<dt>音読み</dt><dd>セン</dd>
-<dt>訓読み</dt><dd>もっぱ-ら</dd>
-<dt>意味</dt><dd>もっぱら、それだけ <span lang="en">/ exclusive</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>セン</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>もっぱ-ら</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>もっぱら、それだけ <span data-l="en" lang="en">/ exclusive</span><span data-l="zh-Hans" lang="zh-Hans">/ 专门、只</span><span data-l="zh-Hant" lang="zh-Hant">/ 專門、只顧</span><span data-l="id" lang="id">/ khusus, hanya itu</span><span data-l="vi" lang="vi">/ chuyên, chỉ riêng</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">khusus, hanya itu</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">专门、只</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">專門、只顧</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">chuyên, chỉ riêng</span></li></ul></details>
-<ul class="words"><li><b>専門</b>（せんもん）一つのことを深く研究すること <span lang="en">/ specialty</span></li><li><b>専用</b>（せんよう）その人やことだけに使う <span lang="en">/ exclusive use</span></li></ul>
-<p class="example">兄の専門は経済学です。<br><span lang="en">My brother specializes in economics.</span></p>
+<ul class="words"><li><b>専門</b>（せんもん）一つのことを深く研究すること <span data-l="en" lang="en">/ specialty</span><span data-l="zh-Hans" lang="zh-Hans">/ 专业</span><span data-l="zh-Hant" lang="zh-Hant">/ 專業</span><span data-l="id" lang="id">/ bidang keahlian</span><span data-l="vi" lang="vi">/ chuyên môn</span></li><li><b>専用</b>（せんよう）その人やことだけに使う <span data-l="en" lang="en">/ exclusive use</span><span data-l="zh-Hans" lang="zh-Hans">/ 专用</span><span data-l="zh-Hant" lang="zh-Hant">/ 專用</span><span data-l="id" lang="id">/ penggunaan khusus</span><span data-l="vi" lang="vi">/ dùng riêng</span></li></ul>
+<p class="example">兄の専門は経済学です。<br><span data-l="en" lang="en">My brother specializes in economics.</span><span data-l="zh-Hans" lang="zh-Hans">哥哥的专业是经济学。</span><span data-l="zh-Hant" lang="zh-Hant">哥哥的專業是經濟學。</span><span data-l="id" lang="id">Bidang keahlian kakak laki-laki saya adalah ilmu ekonomi.</span><span data-l="vi" lang="vi">Chuyên môn của anh trai tôi là kinh tế học.</span></p>
 </article>
 <article class="kanji" id="k-延">
 <p class="glyph">延</p>
 <dl>
-<dt>音読み</dt><dd>エン</dd>
-<dt>訓読み</dt><dd>の-びる、の-べる、の-ばす</dd>
-<dt>意味</dt><dd>のびる、のばす <span lang="en">/ extend; postpone</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>エン</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>の-びる、の-べる、の-ばす</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>のびる、のばす <span data-l="en" lang="en">/ extend; postpone</span><span data-l="zh-Hans" lang="zh-Hans">/ 延长；推迟</span><span data-l="zh-Hant" lang="zh-Hant">/ 延長；延後</span><span data-l="id" lang="id">/ memanjang, menunda</span><span data-l="vi" lang="vi">/ kéo dài, hoãn lại</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">memanjang, menunda</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">延长；推迟</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">延長；延後</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">kéo dài, hoãn lại</span></li></ul></details>
-<ul class="words"><li><b>延期</b>（えんき）予定の日をのばすこと <span lang="en">/ postponement</span></li><li><b>延長</b>（えんちょう）長くのばすこと <span lang="en">/ extension</span></li></ul>
-<p class="example">雨のため、試合は来週に延期された。<br><span lang="en">The match was postponed until next week because of rain.</span></p>
+<ul class="words"><li><b>延期</b>（えんき）予定の日をのばすこと <span data-l="en" lang="en">/ postponement</span><span data-l="zh-Hans" lang="zh-Hans">/ 延期</span><span data-l="zh-Hant" lang="zh-Hant">/ 延期</span><span data-l="id" lang="id">/ penundaan</span><span data-l="vi" lang="vi">/ hoãn lại</span></li><li><b>延長</b>（えんちょう）長くのばすこと <span data-l="en" lang="en">/ extension</span><span data-l="zh-Hans" lang="zh-Hans">/ 延长</span><span data-l="zh-Hant" lang="zh-Hant">/ 延長</span><span data-l="id" lang="id">/ perpanjangan</span><span data-l="vi" lang="vi">/ kéo dài, gia hạn</span></li></ul>
+<p class="example">雨のため、試合は来週に延期された。<br><span data-l="en" lang="en">The match was postponed until next week because of rain.</span><span data-l="zh-Hans" lang="zh-Hans">因为下雨，比赛被推迟到了下周。</span><span data-l="zh-Hant" lang="zh-Hant">因為下雨，比賽延期到下週。</span><span data-l="id" lang="id">Karena hujan, pertandingan ditunda sampai minggu depan.</span><span data-l="vi" lang="vi">Vì trời mưa, trận đấu đã được hoãn đến tuần sau.</span></p>
 </article>
 <article class="kanji" id="k-拠">
 <p class="glyph">拠</p>
 <dl>
-<dt>音読み</dt><dd>キョ、コ</dd>
-<dt>訓読み</dt><dd>―</dd>
-<dt>意味</dt><dd>よりどころ <span lang="en">/ basis</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>キョ、コ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>―</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>よりどころ <span data-l="en" lang="en">/ basis</span><span data-l="zh-Hans" lang="zh-Hans">/ 依据</span><span data-l="zh-Hant" lang="zh-Hant">/ 依據</span><span data-l="id" lang="id">/ dasar, landasan</span><span data-l="vi" lang="vi">/ căn cứ, chỗ dựa</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">dasar, landasan</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">依据</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">依據</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">căn cứ, chỗ dựa</span></li></ul></details>
-<ul class="words"><li><b>根拠</b>（こんきょ）考えのもと <span lang="en">/ basis, grounds</span></li><li><b>証拠</b>（しょうこ）事実を示すもの <span lang="en">/ evidence, proof</span></li></ul>
-<p class="example">その意見には、はっきりした根拠がない。<br><span lang="en">That opinion has no clear basis.</span></p>
+<ul class="words"><li><b>根拠</b>（こんきょ）考えのもと <span data-l="en" lang="en">/ basis, grounds</span><span data-l="zh-Hans" lang="zh-Hans">/ 根据、依据</span><span data-l="zh-Hant" lang="zh-Hant">/ 根據</span><span data-l="id" lang="id">/ dasar, landasan</span><span data-l="vi" lang="vi">/ căn cứ, cơ sở</span></li><li><b>証拠</b>（しょうこ）事実を示すもの <span data-l="en" lang="en">/ evidence, proof</span><span data-l="zh-Hans" lang="zh-Hans">/ 证据</span><span data-l="zh-Hant" lang="zh-Hant">/ 證據</span><span data-l="id" lang="id">/ bukti</span><span data-l="vi" lang="vi">/ bằng chứng</span></li></ul>
+<p class="example">その意見には、はっきりした根拠がない。<br><span data-l="en" lang="en">That opinion has no clear basis.</span><span data-l="zh-Hans" lang="zh-Hans">那个意见没有明确的根据。</span><span data-l="zh-Hant" lang="zh-Hant">那個意見沒有明確的根據。</span><span data-l="id" lang="id">Pendapat itu tidak punya dasar yang jelas.</span><span data-l="vi" lang="vi">Ý kiến đó không có căn cứ rõ ràng.</span></p>
 </article>
 <article class="kanji" id="k-響">
 <p class="glyph">響</p>
 <dl>
-<dt>音読み</dt><dd>キョウ</dd>
-<dt>訓読み</dt><dd>ひび-く</dd>
-<dt>意味</dt><dd>ひびく <span lang="en">/ echo, resound</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>キョウ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>ひび-く</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>ひびく <span data-l="en" lang="en">/ echo, resound</span><span data-l="zh-Hans" lang="zh-Hans">/ 回响</span><span data-l="zh-Hant" lang="zh-Hant">/ 迴響</span><span data-l="id" lang="id">/ bergema, berkumandang</span><span data-l="vi" lang="vi">/ vang, dội lại</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">bergema, berkumandang</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">回响</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">迴響</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">vang, dội lại</span></li></ul></details>
-<ul class="words"><li><b>響く</b>（ひびく）音が広がる <span lang="en">/ to resound</span></li><li><b>反響</b>（はんきょう）世の中の反応 <span lang="en">/ response, reaction</span></li></ul>
-<p class="example">新しい商品は、大きな反響を呼んだ。<br><span lang="en">The new product drew a big response.</span></p>
+<ul class="words"><li><b>響く</b>（ひびく）音が広がる <span data-l="en" lang="en">/ to resound</span><span data-l="zh-Hans" lang="zh-Hans">/ 回响、响</span><span data-l="zh-Hant" lang="zh-Hant">/ 迴響、響起</span><span data-l="id" lang="id">/ bergema, berkumandang</span><span data-l="vi" lang="vi">/ vang vọng</span></li><li><b>反響</b>（はんきょう）世の中の反応 <span data-l="en" lang="en">/ response, reaction</span><span data-l="zh-Hans" lang="zh-Hans">/ 反响</span><span data-l="zh-Hant" lang="zh-Hant">/ 反響、回響</span><span data-l="id" lang="id">/ reaksi, tanggapan</span><span data-l="vi" lang="vi">/ phản hồi, phản ứng</span></li></ul>
+<p class="example">新しい商品は、大きな反響を呼んだ。<br><span data-l="en" lang="en">The new product drew a big response.</span><span data-l="zh-Hans" lang="zh-Hans">新产品引起了很大的反响。</span><span data-l="zh-Hant" lang="zh-Hant">新商品引起了很大的反響。</span><span data-l="id" lang="id">Produk baru itu mendapat tanggapan yang besar.</span><span data-l="vi" lang="vi">Sản phẩm mới đã tạo ra phản hồi lớn.</span></p>
 </article>
 <article class="kanji" id="k-厳">
 <p class="glyph">厳</p>
 <dl>
-<dt>音読み</dt><dd>ゲン</dd>
-<dt>訓読み</dt><dd>おごそ-か、きび-しい</dd>
-<dt>意味</dt><dd>きびしい、おごそか <span lang="en">/ strict; solemn</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>ゲン</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>おごそ-か、きび-しい</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>きびしい、おごそか <span data-l="en" lang="en">/ strict; solemn</span><span data-l="zh-Hans" lang="zh-Hans">/ 严格；庄严</span><span data-l="zh-Hant" lang="zh-Hant">/ 嚴格；莊嚴</span><span data-l="id" lang="id">/ ketat, khidmat</span><span data-l="vi" lang="vi">/ nghiêm khắc; trang nghiêm</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">ketat, khidmat</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">严格；庄严</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">嚴格；莊嚴</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">nghiêm khắc; trang nghiêm</span></li></ul></details>
-<ul class="words"><li><b>厳しい</b>（きびしい）ゆるさない <span lang="en">/ strict, severe</span></li><li><b>厳重</b>（げんじゅう）きびしく注意する <span lang="en">/ strict, tight</span></li></ul>
-<p class="example">この学校は、規則がとても厳しい。<br><span lang="en">This school has very strict rules.</span></p>
+<ul class="words"><li><b>厳しい</b>（きびしい）ゆるさない <span data-l="en" lang="en">/ strict, severe</span><span data-l="zh-Hans" lang="zh-Hans">/ 严格、严厉</span><span data-l="zh-Hant" lang="zh-Hant">/ 嚴格、嚴厲</span><span data-l="id" lang="id">/ ketat, keras</span><span data-l="vi" lang="vi">/ nghiêm khắc, khắt khe</span></li><li><b>厳重</b>（げんじゅう）きびしく注意する <span data-l="en" lang="en">/ strict, tight</span><span data-l="zh-Hans" lang="zh-Hans">/ 严格、严密</span><span data-l="zh-Hant" lang="zh-Hant">/ 嚴格、嚴密</span><span data-l="id" lang="id">/ ketat, ketat pengawasan</span><span data-l="vi" lang="vi">/ nghiêm ngặt, chặt chẽ</span></li></ul>
+<p class="example">この学校は、規則がとても厳しい。<br><span data-l="en" lang="en">This school has very strict rules.</span><span data-l="zh-Hans" lang="zh-Hans">这所学校的规则非常严格。</span><span data-l="zh-Hant" lang="zh-Hant">這所學校的規則非常嚴格。</span><span data-l="id" lang="id">Sekolah ini peraturannya sangat ketat.</span><span data-l="vi" lang="vi">Trường này có nội quy rất nghiêm khắc.</span></p>
 </article>
 <article class="kanji" id="k-択">
 <p class="glyph">択</p>
 <dl>
-<dt>音読み</dt><dd>タク</dd>
-<dt>訓読み</dt><dd>―</dd>
-<dt>意味</dt><dd>えらぶ <span lang="en">/ choose</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>タク</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>―</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>えらぶ <span data-l="en" lang="en">/ choose</span><span data-l="zh-Hans" lang="zh-Hans">/ 选择</span><span data-l="zh-Hant" lang="zh-Hant">/ 選擇</span><span data-l="id" lang="id">/ memilih</span><span data-l="vi" lang="vi">/ chọn lựa</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">memilih</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">选择</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">選擇</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">chọn lựa</span></li></ul></details>
-<ul class="words"><li><b>選択</b>（せんたく）えらぶこと <span lang="en">/ selection, choice</span></li><li><b>採択</b>（さいたく）えらんで取り上げること <span lang="en">/ adoption</span></li></ul>
-<p class="example">進路の選択は、よく考えてからにしたい。<br><span lang="en">I want to think carefully before choosing my career path.</span></p>
+<ul class="words"><li><b>選択</b>（せんたく）えらぶこと <span data-l="en" lang="en">/ selection, choice</span><span data-l="zh-Hans" lang="zh-Hans">/ 选择</span><span data-l="zh-Hant" lang="zh-Hant">/ 選擇</span><span data-l="id" lang="id">/ pilihan, seleksi</span><span data-l="vi" lang="vi">/ sự lựa chọn</span></li><li><b>採択</b>（さいたく）えらんで取り上げること <span data-l="en" lang="en">/ adoption</span><span data-l="zh-Hans" lang="zh-Hans">/ 采纳、通过</span><span data-l="zh-Hant" lang="zh-Hant">/ 採納</span><span data-l="id" lang="id">/ pengadopsian (pemilihan)</span><span data-l="vi" lang="vi">/ sự thông qua, chấp nhận</span></li></ul>
+<p class="example">進路の選択は、よく考えてからにしたい。<br><span data-l="en" lang="en">I want to think carefully before choosing my career path.</span><span data-l="zh-Hans" lang="zh-Hans">关于人生道路的选择，我想好好考虑之后再决定。</span><span data-l="zh-Hant" lang="zh-Hant">關於升學方向的選擇，我想先仔細考慮過後再做。</span><span data-l="id" lang="id">Saya ingin memikirkan matang-matang dulu sebelum memilih jalur karier.</span><span data-l="vi" lang="vi">Việc lựa chọn con đường sự nghiệp, tôi muốn suy nghĩ kỹ rồi mới quyết định.</span></p>
 </article>
 <article class="kanji" id="k-済">
 <p class="glyph">済</p>
 <dl>
-<dt>音読み</dt><dd>サイ</dd>
-<dt>訓読み</dt><dd>す-む、す-ます</dd>
-<dt>意味</dt><dd>すむ、すます <span lang="en">/ finish; settle</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>サイ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>す-む、す-ます</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>すむ、すます <span data-l="en" lang="en">/ finish; settle</span><span data-l="zh-Hans" lang="zh-Hans">/ 完成；了结</span><span data-l="zh-Hant" lang="zh-Hant">/ 結束；了結</span><span data-l="id" lang="id">/ selesai, menyelesaikan</span><span data-l="vi" lang="vi">/ xong, hoàn tất</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">selesai, menyelesaikan</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">完成；了结</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">結束；了結</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">xong, hoàn tất</span></li></ul></details>
-<ul class="words"><li><b>経済</b>（けいざい）お金や物の動き <span lang="en">/ economy</span></li><li><b>返済</b>（へんさい）借りたものを返すこと <span lang="en">/ repayment</span></li></ul>
-<p class="example">経済のニュースを毎朝読んでいる。<br><span lang="en">I read economic news every morning.</span></p>
+<ul class="words"><li><b>経済</b>（けいざい）お金や物の動き <span data-l="en" lang="en">/ economy</span><span data-l="zh-Hans" lang="zh-Hans">/ 经济</span><span data-l="zh-Hant" lang="zh-Hant">/ 經濟</span><span data-l="id" lang="id">/ ekonomi</span><span data-l="vi" lang="vi">/ kinh tế</span></li><li><b>返済</b>（へんさい）借りたものを返すこと <span data-l="en" lang="en">/ repayment</span><span data-l="zh-Hans" lang="zh-Hans">/ 还款</span><span data-l="zh-Hant" lang="zh-Hant">/ 還款</span><span data-l="id" lang="id">/ pelunasan (mengembalikan pinjaman)</span><span data-l="vi" lang="vi">/ trả nợ</span></li></ul>
+<p class="example">経済のニュースを毎朝読んでいる。<br><span data-l="en" lang="en">I read economic news every morning.</span><span data-l="zh-Hans" lang="zh-Hans">我每天早上都读经济新闻。</span><span data-l="zh-Hant" lang="zh-Hant">我每天早上都會讀經濟新聞。</span><span data-l="id" lang="id">Saya membaca berita ekonomi setiap pagi.</span><span data-l="vi" lang="vi">Tôi đọc tin tức kinh tế mỗi sáng.</span></p>
 </article>
 <article class="kanji" id="k-異">
 <p class="glyph">異</p>
 <dl>
-<dt>音読み</dt><dd>イ</dd>
-<dt>訓読み</dt><dd>こと</dd>
-<dt>意味</dt><dd>ことなる <span lang="en">/ different</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>イ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>こと</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>ことなる <span data-l="en" lang="en">/ different</span><span data-l="zh-Hans" lang="zh-Hans">/ 不同</span><span data-l="zh-Hant" lang="zh-Hant">/ 不同</span><span data-l="id" lang="id">/ berbeda</span><span data-l="vi" lang="vi">/ khác</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">berbeda</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">不同</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">不同</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">khác</span></li></ul></details>
-<ul class="words"><li><b>異なる</b>（ことなる）ちがう <span lang="en">/ to differ</span></li><li><b>異動</b>（いどう）仕事の場所や役目が変わること <span lang="en">/ transfer (at work)</span></li></ul>
-<p class="example">国によって、習慣は異なる。<br><span lang="en">Customs differ from country to country.</span></p>
+<ul class="words"><li><b>異なる</b>（ことなる）ちがう <span data-l="en" lang="en">/ to differ</span><span data-l="zh-Hans" lang="zh-Hans">/ 不同</span><span data-l="zh-Hant" lang="zh-Hant">/ 不同</span><span data-l="id" lang="id">/ berbeda</span><span data-l="vi" lang="vi">/ khác nhau</span></li><li><b>異動</b>（いどう）仕事の場所や役目が変わること <span data-l="en" lang="en">/ transfer (at work)</span><span data-l="zh-Hans" lang="zh-Hans">/ 调动（工作）</span><span data-l="zh-Hant" lang="zh-Hant">/ 調動（工作）</span><span data-l="id" lang="id">/ perpindahan (tempat atau tugas kerja)</span><span data-l="vi" lang="vi">/ thay đổi (công tác)</span></li></ul>
+<p class="example">国によって、習慣は異なる。<br><span data-l="en" lang="en">Customs differ from country to country.</span><span data-l="zh-Hans" lang="zh-Hans">因国家不同，习惯也不同。</span><span data-l="zh-Hant" lang="zh-Hant">各國的習慣不同。</span><span data-l="id" lang="id">Kebiasaan berbeda-beda tergantung negaranya.</span><span data-l="vi" lang="vi">Phong tục khác nhau tùy theo quốc gia.</span></p>
 </article>
 <article class="kanji" id="k-翌">
 <p class="glyph">翌</p>
 <dl>
-<dt>音読み</dt><dd>ヨク</dd>
-<dt>訓読み</dt><dd>―</dd>
-<dt>意味</dt><dd>つぎの <span lang="en">/ next, following</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>ヨク</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>―</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>つぎの <span data-l="en" lang="en">/ next, following</span><span data-l="zh-Hans" lang="zh-Hans">/ 下一个</span><span data-l="zh-Hant" lang="zh-Hant">/ 下一個</span><span data-l="id" lang="id">/ berikutnya</span><span data-l="vi" lang="vi">/ tiếp theo, kế tiếp</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">berikutnya</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">下一个</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">下一個</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">tiếp theo, kế tiếp</span></li></ul></details>
-<ul class="words"><li><b>翌日</b>（よくじつ）次の日 <span lang="en">/ the next day</span></li><li><b>翌年</b>（よくねん）次の年 <span lang="en">/ the following year</span></li></ul>
-<p class="example">荷物は、注文した翌日に届いた。<br><span lang="en">The package arrived the day after I ordered it.</span></p>
+<ul class="words"><li><b>翌日</b>（よくじつ）次の日 <span data-l="en" lang="en">/ the next day</span><span data-l="zh-Hans" lang="zh-Hans">/ 第二天</span><span data-l="zh-Hant" lang="zh-Hant">/ 隔天</span><span data-l="id" lang="id">/ hari berikutnya</span><span data-l="vi" lang="vi">/ ngày hôm sau</span></li><li><b>翌年</b>（よくねん）次の年 <span data-l="en" lang="en">/ the following year</span><span data-l="zh-Hans" lang="zh-Hans">/ 第二年</span><span data-l="zh-Hant" lang="zh-Hant">/ 第二年</span><span data-l="id" lang="id">/ tahun berikutnya</span><span data-l="vi" lang="vi">/ năm sau</span></li></ul>
+<p class="example">荷物は、注文した翌日に届いた。<br><span data-l="en" lang="en">The package arrived the day after I ordered it.</span><span data-l="zh-Hans" lang="zh-Hans">包裹在下单的第二天送到了。</span><span data-l="zh-Hant" lang="zh-Hant">包裹在我下單的隔天送到了。</span><span data-l="id" lang="id">Paketnya tiba sehari setelah saya memesan.</span><span data-l="vi" lang="vi">Bưu kiện đã đến vào ngày hôm sau khi tôi đặt hàng.</span></p>
 </article>
 <article class="kanji" id="k-肢">
 <p class="glyph">肢</p>
 <dl>
-<dt>音読み</dt><dd>シ</dd>
-<dt>訓読み</dt><dd>―</dd>
-<dt>意味</dt><dd>手足、分かれたもの <span lang="en">/ limb; branch</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>シ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>―</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>手足、分かれたもの <span data-l="en" lang="en">/ limb; branch</span><span data-l="zh-Hans" lang="zh-Hans">/ 肢体；分支</span><span data-l="zh-Hant" lang="zh-Hant">/ 手腳；分支</span><span data-l="id" lang="id">/ anggota badan, bagian yang terpisah</span><span data-l="vi" lang="vi">/ tay chân, phần tách ra</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">anggota badan, bagian yang terpisah</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">肢体；分支</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">手腳；分支</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">tay chân, phần tách ra</span></li></ul></details>
-<ul class="words"><li><b>選択肢</b>（せんたくし）えらぶための候補 <span lang="en">/ options, choices</span></li><li><b>下肢</b>（かし）足 <span lang="en">/ lower limbs, legs</span></li></ul>
-<p class="example">答えの選択肢は四つあります。<br><span lang="en">There are four answer options.</span></p>
+<ul class="words"><li><b>選択肢</b>（せんたくし）えらぶための候補 <span data-l="en" lang="en">/ options, choices</span><span data-l="zh-Hans" lang="zh-Hans">/ 选项</span><span data-l="zh-Hant" lang="zh-Hant">/ 選項</span><span data-l="id" lang="id">/ pilihan (opsi)</span><span data-l="vi" lang="vi">/ lựa chọn</span></li><li><b>下肢</b>（かし）足 <span data-l="en" lang="en">/ lower limbs, legs</span><span data-l="zh-Hans" lang="zh-Hans">/ 下肢</span><span data-l="zh-Hant" lang="zh-Hant">/ 下肢</span><span data-l="id" lang="id">/ tungkai bawah, kaki</span><span data-l="vi" lang="vi">/ chi dưới</span></li></ul>
+<p class="example">答えの選択肢は四つあります。<br><span data-l="en" lang="en">There are four answer options.</span><span data-l="zh-Hans" lang="zh-Hans">答案有四个选项。</span><span data-l="zh-Hant" lang="zh-Hant">答案的選項有四個。</span><span data-l="id" lang="id">Pilihan jawabannya ada empat.</span><span data-l="vi" lang="vi">Có bốn lựa chọn trả lời.</span></p>
 </article>
 <article class="kanji" id="k-迎">
 <p class="glyph">迎</p>
 <dl>
-<dt>音読み</dt><dd>ゲイ</dd>
-<dt>訓読み</dt><dd>むか-える</dd>
-<dt>意味</dt><dd>むかえる <span lang="en">/ welcome</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>ゲイ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>むか-える</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>むかえる <span data-l="en" lang="en">/ welcome</span><span data-l="zh-Hans" lang="zh-Hans">/ 迎接</span><span data-l="zh-Hant" lang="zh-Hant">/ 迎接</span><span data-l="id" lang="id">/ menyambut</span><span data-l="vi" lang="vi">/ đón</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">menyambut</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">迎接</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">迎接</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">đón</span></li></ul></details>
-<ul class="words"><li><b>歓迎</b>（かんげい）よろこんでむかえること <span lang="en">/ welcome</span></li><li><b>迎える</b>（むかえる）来る人を待ってうける <span lang="en">/ to welcome, to meet</span></li></ul>
-<p class="example">駅まで友達を迎えに行った。<br><span lang="en">I went to the station to meet my friend.</span></p>
+<ul class="words"><li><b>歓迎</b>（かんげい）よろこんでむかえること <span data-l="en" lang="en">/ welcome</span><span data-l="zh-Hans" lang="zh-Hans">/ 欢迎</span><span data-l="zh-Hant" lang="zh-Hant">/ 歡迎</span><span data-l="id" lang="id">/ sambutan</span><span data-l="vi" lang="vi">/ hoan nghênh</span></li><li><b>迎える</b>（むかえる）来る人を待ってうける <span data-l="en" lang="en">/ to welcome, to meet</span><span data-l="zh-Hans" lang="zh-Hans">/ 迎接</span><span data-l="zh-Hant" lang="zh-Hant">/ 迎接</span><span data-l="id" lang="id">/ menyambut, menjemput</span><span data-l="vi" lang="vi">/ đón</span></li></ul>
+<p class="example">駅まで友達を迎えに行った。<br><span data-l="en" lang="en">I went to the station to meet my friend.</span><span data-l="zh-Hans" lang="zh-Hans">我去车站接朋友了。</span><span data-l="zh-Hant" lang="zh-Hant">我到車站去接朋友。</span><span data-l="id" lang="id">Saya pergi ke stasiun untuk menjemput teman.</span><span data-l="vi" lang="vi">Tôi đã ra ga đón bạn.</span></p>
 </article>
 <article class="kanji" id="k-傾">
 <p class="glyph">傾</p>
 <dl>
-<dt>音読み</dt><dd>ケイ</dd>
-<dt>訓読み</dt><dd>かたむ-く、かたむ-ける</dd>
-<dt>意味</dt><dd>かたむく <span lang="en">/ lean, tilt</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>ケイ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>かたむ-く、かたむ-ける</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>かたむく <span data-l="en" lang="en">/ lean, tilt</span><span data-l="zh-Hans" lang="zh-Hans">/ 倾斜</span><span data-l="zh-Hant" lang="zh-Hant">/ 傾斜</span><span data-l="id" lang="id">/ miring, condong</span><span data-l="vi" lang="vi">/ nghiêng</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">miring, condong</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">倾斜</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">傾斜</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">nghiêng</span></li></ul></details>
-<ul class="words"><li><b>傾向</b>（けいこう）物事の向かう方向 <span lang="en">/ tendency</span></li><li><b>傾く</b>（かたむく）ななめになる <span lang="en">/ to lean, to tilt</span></li></ul>
-<p class="example">最近、若者が本を読まない傾向がある。<br><span lang="en">Recently, young people tend not to read books.</span></p>
+<ul class="words"><li><b>傾向</b>（けいこう）物事の向かう方向 <span data-l="en" lang="en">/ tendency</span><span data-l="zh-Hans" lang="zh-Hans">/ 倾向</span><span data-l="zh-Hant" lang="zh-Hant">/ 傾向</span><span data-l="id" lang="id">/ kecenderungan</span><span data-l="vi" lang="vi">/ xu hướng</span></li><li><b>傾く</b>（かたむく）ななめになる <span data-l="en" lang="en">/ to lean, to tilt</span><span data-l="zh-Hans" lang="zh-Hans">/ 倾斜</span><span data-l="zh-Hant" lang="zh-Hant">/ 傾斜</span><span data-l="id" lang="id">/ miring, condong</span><span data-l="vi" lang="vi">/ nghiêng</span></li></ul>
+<p class="example">最近、若者が本を読まない傾向がある。<br><span data-l="en" lang="en">Recently, young people tend not to read books.</span><span data-l="zh-Hans" lang="zh-Hans">最近，年轻人有不读书的倾向。</span><span data-l="zh-Hant" lang="zh-Hant">最近年輕人有不讀書的傾向。</span><span data-l="id" lang="id">Akhir-akhir ini ada kecenderungan anak muda tidak membaca buku.</span><span data-l="vi" lang="vi">Gần đây, có xu hướng người trẻ không đọc sách.</span></p>
 </article>
 <article class="kanji" id="k-及">
 <p class="glyph">及</p>
 <dl>
-<dt>音読み</dt><dd>キュウ</dd>
-<dt>訓読み</dt><dd>およ-ぶ、およ-び、およ-ぼす</dd>
-<dt>意味</dt><dd>およぶ <span lang="en">/ reach, extend</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>キュウ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>およ-ぶ、およ-び、およ-ぼす</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>およぶ <span data-l="en" lang="en">/ reach, extend</span><span data-l="zh-Hans" lang="zh-Hans">/ 达到；波及</span><span data-l="zh-Hant" lang="zh-Hant">/ 達到；波及</span><span data-l="id" lang="id">/ mencapai, menjangkau</span><span data-l="vi" lang="vi">/ vươn tới, lan tới</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">mencapai, menjangkau</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">达到；波及</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">達到；波及</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">vươn tới, lan tới</span></li></ul></details>
-<ul class="words"><li><b>普及</b>（ふきゅう）広く行きわたること <span lang="en">/ spread, popularization</span></li><li><b>及ぼす</b>（およぼす）影響などを与える <span lang="en">/ to exert, to cause</span></li></ul>
-<p class="example">スマートフォンは、世界中に普及した。<br><span lang="en">Smartphones have spread all over the world.</span></p>
+<ul class="words"><li><b>普及</b>（ふきゅう）広く行きわたること <span data-l="en" lang="en">/ spread, popularization</span><span data-l="zh-Hans" lang="zh-Hans">/ 普及</span><span data-l="zh-Hant" lang="zh-Hant">/ 普及</span><span data-l="id" lang="id">/ penyebaran, popularisasi</span><span data-l="vi" lang="vi">/ phổ biến</span></li><li><b>及ぼす</b>（およぼす）影響などを与える <span data-l="en" lang="en">/ to exert, to cause</span><span data-l="zh-Hans" lang="zh-Hans">/ 施加（影响）</span><span data-l="zh-Hant" lang="zh-Hant">/ 造成（影響）</span><span data-l="id" lang="id">/ memberi (pengaruh), menyebabkan</span><span data-l="vi" lang="vi">/ gây ra</span></li></ul>
+<p class="example">スマートフォンは、世界中に普及した。<br><span data-l="en" lang="en">Smartphones have spread all over the world.</span><span data-l="zh-Hans" lang="zh-Hans">智能手机已在全世界普及。</span><span data-l="zh-Hant" lang="zh-Hant">智慧型手機已經普及到全世界。</span><span data-l="id" lang="id">Ponsel pintar telah menyebar ke seluruh dunia.</span><span data-l="vi" lang="vi">Điện thoại thông minh đã phổ biến khắp thế giới.</span></p>
 </article>
 <article class="kanji" id="k-否">
 <p class="glyph">否</p>
 <dl>
-<dt>音読み</dt><dd>ヒ</dd>
-<dt>訓読み</dt><dd>いな</dd>
-<dt>意味</dt><dd>いな、打ち消す <span lang="en">/ no; deny</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>ヒ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>いな</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>いな、打ち消す <span data-l="en" lang="en">/ no; deny</span><span data-l="zh-Hans" lang="zh-Hans">/ 否；否定</span><span data-l="zh-Hant" lang="zh-Hant">/ 不；否定</span><span data-l="id" lang="id">/ tidak, menyangkal</span><span data-l="vi" lang="vi">/ không, phủ nhận</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">tidak, menyangkal</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">否；否定</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">不；否定</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">không, phủ nhận</span></li></ul></details>
-<ul class="words"><li><b>否定</b>（ひてい）そうではないと打ち消すこと <span lang="en">/ denial</span></li><li><b>賛否</b>（さんぴ）賛成と反対 <span lang="en">/ approval or disapproval</span></li></ul>
-<p class="example">彼はうわさを強く否定した。<br><span lang="en">He strongly denied the rumour.</span></p>
+<ul class="words"><li><b>否定</b>（ひてい）そうではないと打ち消すこと <span data-l="en" lang="en">/ denial</span><span data-l="zh-Hans" lang="zh-Hans">/ 否定</span><span data-l="zh-Hant" lang="zh-Hant">/ 否定</span><span data-l="id" lang="id">/ penyangkalan</span><span data-l="vi" lang="vi">/ phủ định</span></li><li><b>賛否</b>（さんぴ）賛成と反対 <span data-l="en" lang="en">/ approval or disapproval</span><span data-l="zh-Hans" lang="zh-Hans">/ 赞成与否</span><span data-l="zh-Hant" lang="zh-Hant">/ 贊成與反對</span><span data-l="id" lang="id">/ setuju atau tidak setuju</span><span data-l="vi" lang="vi">/ tán thành hay phản đối</span></li></ul>
+<p class="example">彼はうわさを強く否定した。<br><span data-l="en" lang="en">He strongly denied the rumour.</span><span data-l="zh-Hans" lang="zh-Hans">他强烈否定了传言。</span><span data-l="zh-Hant" lang="zh-Hant">他強烈否認了那個謠言。</span><span data-l="id" lang="id">Dia dengan tegas menyangkal rumor itu.</span><span data-l="vi" lang="vi">Anh ấy đã mạnh mẽ phủ nhận tin đồn.</span></p>
 </article>
 <article class="kanji" id="k-密">
 <p class="glyph">密</p>
 <dl>
-<dt>音読み</dt><dd>ミツ</dd>
-<dt>訓読み</dt><dd>―</dd>
-<dt>意味</dt><dd>すきまがない、ひそか <span lang="en">/ dense; secret</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>ミツ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>―</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>すきまがない、ひそか <span data-l="en" lang="en">/ dense; secret</span><span data-l="zh-Hans" lang="zh-Hans">/ 紧密；秘密</span><span data-l="zh-Hant" lang="zh-Hant">/ 緊密；祕密</span><span data-l="id" lang="id">/ rapat, tanpa celah; diam-diam</span><span data-l="vi" lang="vi">/ dày đặc, bí mật</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">rapat, tanpa celah; diam-diam</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">紧密；秘密</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">緊密；祕密</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">dày đặc, bí mật</span></li></ul></details>
-<ul class="words"><li><b>秘密</b>（ひみつ）人に知らせないこと <span lang="en">/ secret</span></li><li><b>密接</b>（みっせつ）深く関係していること <span lang="en">/ close (relation)</span></li></ul>
-<p class="example">このことは二人だけの秘密にしよう。<br><span lang="en">Let's keep this a secret between the two of us.</span></p>
+<ul class="words"><li><b>秘密</b>（ひみつ）人に知らせないこと <span data-l="en" lang="en">/ secret</span><span data-l="zh-Hans" lang="zh-Hans">/ 秘密</span><span data-l="zh-Hant" lang="zh-Hant">/ 祕密</span><span data-l="id" lang="id">/ rahasia</span><span data-l="vi" lang="vi">/ bí mật</span></li><li><b>密接</b>（みっせつ）深く関係していること <span data-l="en" lang="en">/ close (relation)</span><span data-l="zh-Hans" lang="zh-Hans">/ 密切</span><span data-l="zh-Hant" lang="zh-Hant">/ 密切</span><span data-l="id" lang="id">/ erat (hubungan)</span><span data-l="vi" lang="vi">/ mật thiết</span></li></ul>
+<p class="example">このことは二人だけの秘密にしよう。<br><span data-l="en" lang="en">Let's keep this a secret between the two of us.</span><span data-l="zh-Hans" lang="zh-Hans">这件事就当作只有我们两个人的秘密吧。</span><span data-l="zh-Hant" lang="zh-Hant">這件事就當作我們兩個人的祕密吧。</span><span data-l="id" lang="id">Mari jadikan ini rahasia kita berdua saja.</span><span data-l="vi" lang="vi">Chuyện này hãy để làm bí mật chỉ giữa hai người.</span></p>
 </article>
 <article class="kanji" id="k-廃">
 <p class="glyph">廃</p>
 <dl>
-<dt>音読み</dt><dd>ハイ</dd>
-<dt>訓読み</dt><dd>すた-れる、すた-る</dd>
-<dt>意味</dt><dd>すたれる、やめる <span lang="en">/ decline; abolish</span></dd>
+<dt><span data-l="ja" lang="ja">音読み</span><span data-l="en" lang="en">On reading</span><span data-l="zh-Hans" lang="zh-Hans">音读</span><span data-l="zh-Hant" lang="zh-Hant">音讀</span><span data-l="id" lang="id">Bacaan on</span><span data-l="vi" lang="vi">Âm On</span></dt><dd>ハイ</dd>
+<dt><span data-l="ja" lang="ja">訓読み</span><span data-l="en" lang="en">Kun reading</span><span data-l="zh-Hans" lang="zh-Hans">训读</span><span data-l="zh-Hant" lang="zh-Hant">訓讀</span><span data-l="id" lang="id">Cara baca kun</span><span data-l="vi" lang="vi">Âm Kun</span></dt><dd>すた-れる、すた-る</dd>
+<dt><span data-l="ja" lang="ja">意味</span><span data-l="en" lang="en">Meaning</span><span data-l="zh-Hans" lang="zh-Hans">意思</span><span data-l="zh-Hant" lang="zh-Hant">意思</span><span data-l="id" lang="id">Arti</span><span data-l="vi" lang="vi">Nghĩa</span></dt><dd>すたれる、やめる <span data-l="en" lang="en">/ decline; abolish</span><span data-l="zh-Hans" lang="zh-Hans">/ 衰落；废除</span><span data-l="zh-Hant" lang="zh-Hant">/ 荒廢；廢除</span><span data-l="id" lang="id">/ usang, dihentikan</span><span data-l="vi" lang="vi">/ suy tàn, bãi bỏ</span></dd>
 </dl>
-<details class="tr"><summary>ほかの言語 <span lang="en">Other languages</span></summary><ul><li><span class="lang-name">Bahasa Indonesia</span> <span lang="id">usang, dihentikan</span></li><li><span class="lang-name">简体中文</span> <span lang="zh-Hans">衰落；废除</span></li><li><span class="lang-name">繁體中文</span> <span lang="zh-Hant">荒廢；廢除</span></li><li><span class="lang-name">Tiếng Việt</span> <span lang="vi">suy tàn, bãi bỏ</span></li></ul></details>
-<ul class="words"><li><b>廃止</b>（はいし）やめてなくすこと <span lang="en">/ abolition</span></li><li><b>廃棄</b>（はいき）いらないものを捨てること <span lang="en">/ disposal</span></li></ul>
-<p class="example">このバス路線は、来年廃止される予定だ。<br><span lang="en">This bus route is due to be abolished next year.</span></p>
+<ul class="words"><li><b>廃止</b>（はいし）やめてなくすこと <span data-l="en" lang="en">/ abolition</span><span data-l="zh-Hans" lang="zh-Hans">/ 废除</span><span data-l="zh-Hant" lang="zh-Hant">/ 廢止</span><span data-l="id" lang="id">/ penghapusan, penghentian</span><span data-l="vi" lang="vi">/ bãi bỏ</span></li><li><b>廃棄</b>（はいき）いらないものを捨てること <span data-l="en" lang="en">/ disposal</span><span data-l="zh-Hans" lang="zh-Hans">/ 废弃</span><span data-l="zh-Hant" lang="zh-Hant">/ 廢棄</span><span data-l="id" lang="id">/ pembuangan (barang)</span><span data-l="vi" lang="vi">/ thải bỏ</span></li></ul>
+<p class="example">このバス路線は、来年廃止される予定だ。<br><span data-l="en" lang="en">This bus route is due to be abolished next year.</span><span data-l="zh-Hans" lang="zh-Hans">这条公交线路预计明年废除。</span><span data-l="zh-Hant" lang="zh-Hant">這條公車路線預計明年廢止。</span><span data-l="id" lang="id">Rute bus ini dijadwalkan dihapus tahun depan.</span><span data-l="vi" lang="vi">Tuyến xe buýt này dự kiến sẽ bị bãi bỏ vào năm sau.</span></p>
 </article>
 </div>
+<nav class="jlpt-nav" aria-label="JLPT"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a></nav>
 <aside class="app-cta">
-<p class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
-<p class="cta-en" lang="en">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
-<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener">Google Play で見る <span lang="en">/ View on Google Play</span></a>
+<p data-l="ja" lang="ja" class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
+<p data-l="en" lang="en" class="cta-lead">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="cta-lead">每道题都附解析的完整模拟考试，请在 JLPT-GO 应用中练习。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="cta-lead">每一題都附解析的完整模擬考試，請在 JLPT-GO App 中練習。</p>
+<p data-l="id" lang="id" class="cta-lead">Ujian simulasi lengkap dengan penjelasan untuk setiap soal ada di aplikasi JLPT-GO.</p>
+<p data-l="vi" lang="vi" class="cta-lead">Bài thi thử trọn vẹn, câu nào cũng có giải thích, có trong ứng dụng JLPT-GO.</p>
+<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener"><span data-l="ja" lang="ja">Google Play で見る</span><span data-l="en" lang="en">View on Google Play</span><span data-l="zh-Hans" lang="zh-Hans">在 Google Play 查看</span><span data-l="zh-Hant" lang="zh-Hant">在 Google Play 查看</span><span data-l="id" lang="id">Lihat di Google Play</span><span data-l="vi" lang="vi">Xem trên Google Play</span></a>
 </aside>
 </div></main>
 <footer class="bottom"><div class="wrap footer-inner">

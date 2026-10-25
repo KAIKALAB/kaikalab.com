@@ -11,54 +11,86 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat&family=Noto+Serif+JP:wght@400;600&display=swap">
 <link rel="stylesheet" href="/home.css">
 <link rel="stylesheet" href="/jlpt/jlpt.css">
+<script>
+(function () {
+  var L = ["ja","en","zh-Hans","zh-Hant","id","vi"], k = "jlpt.lang", l = null;
+  try {
+    var q = new URLSearchParams(location.search).get("lang");
+    if (L.indexOf(q) >= 0) { l = q; localStorage.setItem(k, q); } else { l = localStorage.getItem(k); }
+  } catch (e) {}
+  if (L.indexOf(l) < 0) return;
+  document.documentElement.setAttribute("data-ui", l);
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("details.answer").forEach(function (answer) {
+      // 選んだ言語の訳を開く。その言語の訳が無い問題（訳を足す前の日の分）は英語の訳を出す
+      var mine = answer.querySelector('details.tr[data-l="' + l + '"]') || (l === "ja" ? null : answer.querySelector('details.tr[data-l="en"]'));
+      if (mine) { mine.style.display = "block"; mine.open = true; }
+    });
+    // localStorage が使えない端末でも言語が続くよう、/jlpt/ の中のリンクに ?lang= を付ける
+    document.querySelectorAll('a[href^="/jlpt/"]').forEach(function (a) {
+      a.setAttribute("href", a.getAttribute("href").split("#")[0] + "?lang=" + l + (a.hash || ""));
+    });
+  });
+})();
+</script>
 </head>
 <body>
 <header class="top"><div class="wrap nav">
 <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Kaika Lab</span></a>
-<nav class="menu"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a></nav>
+<nav class="menu langs" aria-label="Language"><a href="?lang=ja" data-set="ja" lang="ja">日本語</a><a href="?lang=en" data-set="en" lang="en">English</a><a href="?lang=zh-Hans" data-set="zh-Hans" lang="zh-Hans">简体中文</a><a href="?lang=zh-Hant" data-set="zh-Hant" lang="zh-Hant">繁體中文</a><a href="?lang=id" data-set="id" lang="id">Bahasa Indonesia</a><a href="?lang=vi" data-set="vi" lang="vi">Tiếng Việt</a></nav>
 </div></header>
 <main><div class="wrap jlpt">
-<nav class="crumbs" aria-label="パンくず"><a href="/jlpt/">JLPT</a> › <a href="/jlpt/n3/">N3</a> › <span>2026-10-23 読解</span></nav>
-<h1>JLPT N3 毎日の読解 <span class="h1-en" lang="en">Daily Reading</span></h1>
+<nav class="crumbs" aria-label="パンくず"><a href="/jlpt/">JLPT</a> › <a href="/jlpt/n3/">N3</a> › <span>2026-10-23 <span data-l="ja" lang="ja">読解</span><span data-l="en" lang="en">Reading</span><span data-l="zh-Hans" lang="zh-Hans">阅读</span><span data-l="zh-Hant" lang="zh-Hant">閱讀</span><span data-l="id" lang="id">Membaca</span><span data-l="vi" lang="vi">Đọc hiểu</span></span></nav>
+<h1>JLPT N3 <span data-l="ja" lang="ja">毎日の読解</span><span data-l="en" lang="en">Daily Reading</span><span data-l="zh-Hans" lang="zh-Hans">每日阅读</span><span data-l="zh-Hant" lang="zh-Hant">每日閱讀</span><span data-l="id" lang="id">Membaca harian</span><span data-l="vi" lang="vi">Đọc hiểu hằng ngày</span></h1>
 <p class="date">2026-10-23</p>
-<p class="lead">文章を読んで、答えを選んでください。答えと解説は下で開けます。</p>
+<p data-l="ja" lang="ja" class="lead">文章を読んで、答えを選んでください。答えと解説は下で開けます。</p>
+<p data-l="en" lang="en" class="lead">Read the passage and choose your answers. Open the answer and explanation below each question.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="lead">阅读文章并选择答案。答案与解析可在每题下方展开。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="lead">閱讀文章並選擇答案。答案與解析可在每題下方展開。</p>
+<p data-l="id" lang="id" class="lead">Bacalah teks lalu pilih jawaban. Jawaban dan penjelasan bisa dibuka di bawah setiap soal.</p>
+<p data-l="vi" lang="vi" class="lead">Đọc bài rồi chọn đáp án. Có thể mở đáp án và giải thích bên dưới mỗi câu.</p>
 <div class="passage">
 <p>私の町には、小さな川が流れています。十年前は、川の水は黒くて、においもひどく、魚はほとんどいませんでした。近くに住む人たちは、川にごみを捨てていました。しかし、ある年、町の小学校の子どもたちが「川をきれいにしよう」と声を上げました。子どもたちは、毎月一回、家族と一緒にごみを拾い、川の水を調べました。大人たちも少しずつ協力するようになりました。五年がたち、川の水は透明になり、魚が戻ってきました。今では、夏になると、子どもたちが川で遊ぶ声が聞こえます。きれいになった川は、町の大切な場所になりました。</p>
 </div>
 <section class="q">
-<h2>問1 <span lang="en">Q1</span></h2>
+<h2><span data-l="ja" lang="ja">問1</span><span data-l="en" lang="en">Q1</span><span data-l="zh-Hans" lang="zh-Hans">第1题</span><span data-l="zh-Hant" lang="zh-Hant">第1題</span><span data-l="id" lang="id">Soal 1</span><span data-l="vi" lang="vi">Câu 1</span></h2>
 <p class="qtext">十年前、この川はどんな様子でしたか。</p>
 <ol class="options"><li>大人たちがごみを拾っていました。</li><li>水が黒くて、においがひどかったです。</li><li>水がきれいで、魚がたくさんいました。</li><li>子どもたちが毎日遊んでいました。</li></ol>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 2. 水が黒くて、においがひどかったです。</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 2. 水が黒くて、においがひどかったです。</p>
 <p class="ex">本文に「十年前は、川の水は黒くて、においもひどく、魚はほとんどいませんでした」とある。</p>
-<details class="tr"><summary>English</summary><p lang="en">The passage states that ten years ago the river water was black, smelled terrible, and had almost no fish.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The passage states that ten years ago the river water was black, smelled terrible, and had almost no fish.</p></details>
 </details>
 </section>
 <section class="q">
-<h2>問2 <span lang="en">Q2</span></h2>
+<h2><span data-l="ja" lang="ja">問2</span><span data-l="en" lang="en">Q2</span><span data-l="zh-Hans" lang="zh-Hans">第2题</span><span data-l="zh-Hant" lang="zh-Hant">第2題</span><span data-l="id" lang="id">Soal 2</span><span data-l="vi" lang="vi">Câu 2</span></h2>
 <p class="qtext">川がきれいになったきっかけは何ですか。</p>
 <ol class="options"><li>魚が川に戻ってきたことです。</li><li>町の大人たちが最初にごみを拾い始めたことです。</li><li>小学校の子どもたちが声を上げたことです。</li><li>夏に子どもたちが川で遊び始めたことです。</li></ol>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 3. 小学校の子どもたちが声を上げたことです。</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 3. 小学校の子どもたちが声を上げたことです。</p>
 <p class="ex">「ある年、町の小学校の子どもたちが『川をきれいにしよう』と声を上げました」とあり、それが始まりだと分かる。</p>
-<details class="tr"><summary>English</summary><p lang="en">The passage says that one year, elementary school children spoke up to clean the river, which was the starting point.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The passage says that one year, elementary school children spoke up to clean the river, which was the starting point.</p></details>
 </details>
 </section>
 <section class="q">
-<h2>問3 <span lang="en">Q3</span></h2>
+<h2><span data-l="ja" lang="ja">問3</span><span data-l="en" lang="en">Q3</span><span data-l="zh-Hans" lang="zh-Hans">第3题</span><span data-l="zh-Hant" lang="zh-Hant">第3題</span><span data-l="id" lang="id">Soal 3</span><span data-l="vi" lang="vi">Câu 3</span></h2>
 <p class="qtext">今の川の様子として、本文と合っているものはどれですか。</p>
 <ol class="options"><li>大人だけが川をそうじしています。</li><li>子どもたちは川で遊ばなくなりました。</li><li>ごみが多くて、魚はまだいません。</li><li>水は透明で、魚が戻ってきました。</li></ol>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 4. 水は透明で、魚が戻ってきました。</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 4. 水は透明で、魚が戻ってきました。</p>
 <p class="ex">「五年がたち、川の水は透明になり、魚が戻ってきました」とあり、今はきれいで魚がいることが分かる。</p>
-<details class="tr"><summary>English</summary><p lang="en">The passage says that after five years the water became clear and fish returned, showing the river is now clean with fish.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The passage says that after five years the water became clear and fish returned, showing the river is now clean with fish.</p></details>
 </details>
 </section>
+<nav class="jlpt-nav" aria-label="JLPT"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a></nav>
 <aside class="app-cta">
-<p class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
-<p class="cta-en" lang="en">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
-<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener">Google Play で見る <span lang="en">/ View on Google Play</span></a>
+<p data-l="ja" lang="ja" class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
+<p data-l="en" lang="en" class="cta-lead">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="cta-lead">每道题都附解析的完整模拟考试，请在 JLPT-GO 应用中练习。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="cta-lead">每一題都附解析的完整模擬考試，請在 JLPT-GO App 中練習。</p>
+<p data-l="id" lang="id" class="cta-lead">Ujian simulasi lengkap dengan penjelasan untuk setiap soal ada di aplikasi JLPT-GO.</p>
+<p data-l="vi" lang="vi" class="cta-lead">Bài thi thử trọn vẹn, câu nào cũng có giải thích, có trong ứng dụng JLPT-GO.</p>
+<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener"><span data-l="ja" lang="ja">Google Play で見る</span><span data-l="en" lang="en">View on Google Play</span><span data-l="zh-Hans" lang="zh-Hans">在 Google Play 查看</span><span data-l="zh-Hant" lang="zh-Hant">在 Google Play 查看</span><span data-l="id" lang="id">Lihat di Google Play</span><span data-l="vi" lang="vi">Xem trên Google Play</span></a>
 </aside>
 </div></main>
 <footer class="bottom"><div class="wrap footer-inner">

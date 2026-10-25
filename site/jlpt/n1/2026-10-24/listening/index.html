@@ -11,23 +11,50 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat&family=Noto+Serif+JP:wght@400;600&display=swap">
 <link rel="stylesheet" href="/home.css">
 <link rel="stylesheet" href="/jlpt/jlpt.css">
+<script>
+(function () {
+  var L = ["ja","en","zh-Hans","zh-Hant","id","vi"], k = "jlpt.lang", l = null;
+  try {
+    var q = new URLSearchParams(location.search).get("lang");
+    if (L.indexOf(q) >= 0) { l = q; localStorage.setItem(k, q); } else { l = localStorage.getItem(k); }
+  } catch (e) {}
+  if (L.indexOf(l) < 0) return;
+  document.documentElement.setAttribute("data-ui", l);
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("details.answer").forEach(function (answer) {
+      // 選んだ言語の訳を開く。その言語の訳が無い問題（訳を足す前の日の分）は英語の訳を出す
+      var mine = answer.querySelector('details.tr[data-l="' + l + '"]') || (l === "ja" ? null : answer.querySelector('details.tr[data-l="en"]'));
+      if (mine) { mine.style.display = "block"; mine.open = true; }
+    });
+    // localStorage が使えない端末でも言語が続くよう、/jlpt/ の中のリンクに ?lang= を付ける
+    document.querySelectorAll('a[href^="/jlpt/"]').forEach(function (a) {
+      a.setAttribute("href", a.getAttribute("href").split("#")[0] + "?lang=" + l + (a.hash || ""));
+    });
+  });
+})();
+</script>
 </head>
 <body>
 <header class="top"><div class="wrap nav">
 <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Kaika Lab</span></a>
-<nav class="menu"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a></nav>
+<nav class="menu langs" aria-label="Language"><a href="?lang=ja" data-set="ja" lang="ja">日本語</a><a href="?lang=en" data-set="en" lang="en">English</a><a href="?lang=zh-Hans" data-set="zh-Hans" lang="zh-Hans">简体中文</a><a href="?lang=zh-Hant" data-set="zh-Hant" lang="zh-Hant">繁體中文</a><a href="?lang=id" data-set="id" lang="id">Bahasa Indonesia</a><a href="?lang=vi" data-set="vi" lang="vi">Tiếng Việt</a></nav>
 </div></header>
 <main><div class="wrap jlpt">
-<nav class="crumbs" aria-label="パンくず"><a href="/jlpt/">JLPT</a> › <a href="/jlpt/n1/">N1</a> › <span>2026-10-24 聴解</span></nav>
-<h1>JLPT N1 毎日の聴解 <span class="h1-en" lang="en">Daily Listening</span></h1>
+<nav class="crumbs" aria-label="パンくず"><a href="/jlpt/">JLPT</a> › <a href="/jlpt/n1/">N1</a> › <span>2026-10-24 <span data-l="ja" lang="ja">聴解</span><span data-l="en" lang="en">Listening</span><span data-l="zh-Hans" lang="zh-Hans">听力</span><span data-l="zh-Hant" lang="zh-Hant">聽力</span><span data-l="id" lang="id">Menyimak</span><span data-l="vi" lang="vi">Nghe hiểu</span></span></nav>
+<h1>JLPT N1 <span data-l="ja" lang="ja">毎日の聴解</span><span data-l="en" lang="en">Daily Listening</span><span data-l="zh-Hans" lang="zh-Hans">每日听力</span><span data-l="zh-Hant" lang="zh-Hant">每日聽力</span><span data-l="id" lang="id">Menyimak harian</span><span data-l="vi" lang="vi">Nghe hiểu hằng ngày</span></h1>
 <p class="date">2026-10-24</p>
-<p class="lead">音声を聞いて、答えを選んでください。スクリプトと答えは下で開けます。</p>
+<p data-l="ja" lang="ja" class="lead">音声を聞いて、答えを選んでください。スクリプトと答えは下で開けます。</p>
+<p data-l="en" lang="en" class="lead">Listen to the audio and choose your answers. Open the script and the answer below each question.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="lead">听音频并选择答案。听力原文和答案可在每题下方展开。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="lead">聽音檔並選擇答案。聽力原文和答案可在每題下方展開。</p>
+<p data-l="id" lang="id" class="lead">Dengarkan audio lalu pilih jawaban. Naskah dan jawaban bisa dibuka di bawah setiap soal.</p>
+<p data-l="vi" lang="vi" class="lead">Nghe âm thanh rồi chọn đáp án. Có thể mở lời thoại và đáp án bên dưới mỗi câu.</p>
 <section class="q">
-<h2>問1 <span lang="en">Q1</span></h2>
+<h2><span data-l="ja" lang="ja">問1</span><span data-l="en" lang="en">Q1</span><span data-l="zh-Hans" lang="zh-Hans">第1题</span><span data-l="zh-Hant" lang="zh-Hant">第1題</span><span data-l="id" lang="id">Soal 1</span><span data-l="vi" lang="vi">Câu 1</span></h2>
 <audio controls preload="none" src="https://pub-84049f5e6df74e898b5d0976f678f0d2.r2.dev/2026-10-24/N1/1.mp3"></audio>
 <p class="qtext">部下はこのあとまず何をしますか。</p>
 <ol class="options"><li>昨年度との差異を整理する。</li><li>分析の方針を上司と決める。</li><li>データの集計をやり直す。</li><li>去年のデータを集め直す。</li></ol>
-<details class="script"><summary>スクリプト <span lang="en">Script</span></summary>
+<details class="script"><summary><span data-l="ja" lang="ja">スクリプト</span><span data-l="en" lang="en">Script</span><span data-l="zh-Hans" lang="zh-Hans">听力原文</span><span data-l="zh-Hant" lang="zh-Hant">聽力原文</span><span data-l="id" lang="id">Naskah</span><span data-l="vi" lang="vi">Lời thoại</span></summary>
 <p>会社の会議室で、上司と部下が話しています。部下はこのあとまず何をしますか。</p>
 <p>男：来週の企画会議の資料、進み具合はどうだ。</p>
 <p>女：はい、データの集計は終わったのですが、分析の部分で少し手間取っています。</p>
@@ -36,18 +63,18 @@
 <p>男：それは困ったな。とりあえず、今日中に定義の違いをまとめて、明日の朝、私に説明してくれ。その上で方針を決めよう。</p>
 <p>女：わかりました。では、定義の違いをまとめて、明日の朝ご説明します。</p>
 </details>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 1. 昨年度との差異を整理する。</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 1. 昨年度との差異を整理する。</p>
 <p class="ex">上司は「今日中に定義の違いをまとめて、明日の朝、私に説明してくれ」と指示している。部下もそれを復唱しているので、まず定義の違いをまとめるのが正しい。分析の方針を決めるのはその後。</p>
-<details class="tr"><summary>English</summary><p lang="en">The boss instructs the subordinate to summarize the differences in definitions by the end of the day and explain them the next morning. The subordinate agrees, so summarizing the differences is the first action. Deciding the analysis policy comes later.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The boss instructs the subordinate to summarize the differences in definitions by the end of the day and explain them the next morning. The subordinate agrees, so summarizing the differences is the first action. Deciding the analysis policy comes later.</p></details>
 </details>
 </section>
 <section class="q">
-<h2>問2 <span lang="en">Q2</span></h2>
+<h2><span data-l="ja" lang="ja">問2</span><span data-l="en" lang="en">Q2</span><span data-l="zh-Hans" lang="zh-Hans">第2题</span><span data-l="zh-Hant" lang="zh-Hant">第2題</span><span data-l="id" lang="id">Soal 2</span><span data-l="vi" lang="vi">Câu 2</span></h2>
 <audio controls preload="none" src="https://pub-84049f5e6df74e898b5d0976f678f0d2.r2.dev/2026-10-24/N1/2.mp3"></audio>
 <p class="qtext">生徒はこのあとまず何をしますか。</p>
 <ol class="options"><li>店に段ボールを買いに行く。</li><li>倉庫で段ボールを探す。</li><li>文化祭の展示を完成させる。</li><li>看板のデザインを決める。</li></ol>
-<details class="script"><summary>スクリプト <span lang="en">Script</span></summary>
+<details class="script"><summary><span data-l="ja" lang="ja">スクリプト</span><span data-l="en" lang="en">Script</span><span data-l="zh-Hans" lang="zh-Hans">听力原文</span><span data-l="zh-Hant" lang="zh-Hant">聽力原文</span><span data-l="id" lang="id">Naskah</span><span data-l="vi" lang="vi">Lời thoại</span></summary>
 <p>学校の職員室で、先生と生徒が話しています。生徒はこのあとまず何をしますか。</p>
 <p>女：文化祭の展示、準備は進んでる？</p>
 <p>男：はい、だいたい形にはなったんですけど、案内の看板がまだできていなくて。</p>
@@ -56,18 +83,18 @@
 <p>女：それなら、まず職員室の隣の倉庫に予備の段ボールがあるから、それを使ってみて。足りなかったら買いに行くといいわ。</p>
 <p>男：わかりました。じゃあ、倉庫を確認してきます。</p>
 </details>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 2. 倉庫で段ボールを探す。</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 2. 倉庫で段ボールを探す。</p>
 <p class="ex">先生は「まず職員室の隣の倉庫に予備の段ボールがあるから、それを使ってみて」と提案し、生徒は「倉庫を確認してきます」と応じている。デザインは既に決まっており、買いに行くのは倉庫に足りない場合なので、まず倉庫で探すのが正しい。</p>
-<details class="tr"><summary>English</summary><p lang="en">The teacher suggests first using spare cardboard from the storeroom next to the staff room, and the student agrees to check the storeroom. The design is already decided, and buying cardboard is only if the storeroom lacks enough, so checking the storeroom comes first.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The teacher suggests first using spare cardboard from the storeroom next to the staff room, and the student agrees to check the storeroom. The design is already decided, and buying cardboard is only if the storeroom lacks enough, so checking the storeroom comes first.</p></details>
 </details>
 </section>
 <section class="q">
-<h2>問3 <span lang="en">Q3</span></h2>
+<h2><span data-l="ja" lang="ja">問3</span><span data-l="en" lang="en">Q3</span><span data-l="zh-Hans" lang="zh-Hans">第3题</span><span data-l="zh-Hant" lang="zh-Hant">第3題</span><span data-l="id" lang="id">Soal 3</span><span data-l="vi" lang="vi">Câu 3</span></h2>
 <audio controls preload="none" src="https://pub-84049f5e6df74e898b5d0976f678f0d2.r2.dev/2026-10-24/N1/3.mp3"></audio>
 <p class="qtext">客はこのあとまず何をしますか。</p>
 <ol class="options"><li>昨年のモデルを注文する。</li><li>店員に在庫を確認する。</li><li>後継のモデルに座ってみる。</li><li>色違いのモデルを探す。</li></ol>
-<details class="script"><summary>スクリプト <span lang="en">Script</span></summary>
+<details class="script"><summary><span data-l="ja" lang="ja">スクリプト</span><span data-l="en" lang="en">Script</span><span data-l="zh-Hans" lang="zh-Hans">听力原文</span><span data-l="zh-Hant" lang="zh-Hant">聽力原文</span><span data-l="id" lang="id">Naskah</span><span data-l="vi" lang="vi">Lời thoại</span></summary>
 <p>店で、店員と客が話しています。客はこのあとまず何をしますか。</p>
 <p>男：すみません、この椅子と同じものを探しているのですが。</p>
 <p>女：はい、こちらは昨年のモデルで、今は在庫がないんです。後継のモデルでしたら、色違いでございますが、店頭にございます。</p>
@@ -76,16 +103,21 @@
 <p>男：じゃあ、ちょっと座ってみてもいいですか。</p>
 <p>女：もちろんです。こちらへどうぞ。</p>
 </details>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 3. 後継のモデルに座ってみる。</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 3. 後継のモデルに座ってみる。</p>
 <p class="ex">客は「ちょっと座ってみてもいいですか」と尋ね、店員が「こちらへどうぞ」と案内している。昨年のモデルは在庫がなく、後継モデルは店頭にあると説明された後なので、まず座ってみるのが正しい。</p>
-<details class="tr"><summary>English</summary><p lang="en">The customer asks if they can try sitting on the successor model, and the clerk invites them to do so. Since the previous year's model is out of stock and the successor is available in the store, trying it out is the next action.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The customer asks if they can try sitting on the successor model, and the clerk invites them to do so. Since the previous year's model is out of stock and the successor is available in the store, trying it out is the next action.</p></details>
 </details>
 </section>
+<nav class="jlpt-nav" aria-label="JLPT"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a></nav>
 <aside class="app-cta">
-<p class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
-<p class="cta-en" lang="en">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
-<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener">Google Play で見る <span lang="en">/ View on Google Play</span></a>
+<p data-l="ja" lang="ja" class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
+<p data-l="en" lang="en" class="cta-lead">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="cta-lead">每道题都附解析的完整模拟考试，请在 JLPT-GO 应用中练习。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="cta-lead">每一題都附解析的完整模擬考試，請在 JLPT-GO App 中練習。</p>
+<p data-l="id" lang="id" class="cta-lead">Ujian simulasi lengkap dengan penjelasan untuk setiap soal ada di aplikasi JLPT-GO.</p>
+<p data-l="vi" lang="vi" class="cta-lead">Bài thi thử trọn vẹn, câu nào cũng có giải thích, có trong ứng dụng JLPT-GO.</p>
+<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener"><span data-l="ja" lang="ja">Google Play で見る</span><span data-l="en" lang="en">View on Google Play</span><span data-l="zh-Hans" lang="zh-Hans">在 Google Play 查看</span><span data-l="zh-Hant" lang="zh-Hant">在 Google Play 查看</span><span data-l="id" lang="id">Lihat di Google Play</span><span data-l="vi" lang="vi">Xem trên Google Play</span></a>
 </aside>
 </div></main>
 <footer class="bottom"><div class="wrap footer-inner">

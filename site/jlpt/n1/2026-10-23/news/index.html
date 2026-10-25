@@ -11,59 +11,96 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat&family=Noto+Serif+JP:wght@400;600&display=swap">
 <link rel="stylesheet" href="/home.css">
 <link rel="stylesheet" href="/jlpt/jlpt.css">
+<script>
+(function () {
+  var L = ["ja","en","zh-Hans","zh-Hant","id","vi"], k = "jlpt.lang", l = null;
+  try {
+    var q = new URLSearchParams(location.search).get("lang");
+    if (L.indexOf(q) >= 0) { l = q; localStorage.setItem(k, q); } else { l = localStorage.getItem(k); }
+  } catch (e) {}
+  if (L.indexOf(l) < 0) return;
+  document.documentElement.setAttribute("data-ui", l);
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("details.answer").forEach(function (answer) {
+      // 選んだ言語の訳を開く。その言語の訳が無い問題（訳を足す前の日の分）は英語の訳を出す
+      var mine = answer.querySelector('details.tr[data-l="' + l + '"]') || (l === "ja" ? null : answer.querySelector('details.tr[data-l="en"]'));
+      if (mine) { mine.style.display = "block"; mine.open = true; }
+    });
+    // localStorage が使えない端末でも言語が続くよう、/jlpt/ の中のリンクに ?lang= を付ける
+    document.querySelectorAll('a[href^="/jlpt/"]').forEach(function (a) {
+      a.setAttribute("href", a.getAttribute("href").split("#")[0] + "?lang=" + l + (a.hash || ""));
+    });
+  });
+})();
+</script>
 </head>
 <body>
 <header class="top"><div class="wrap nav">
 <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Kaika Lab</span></a>
-<nav class="menu"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a></nav>
+<nav class="menu langs" aria-label="Language"><a href="?lang=ja" data-set="ja" lang="ja">日本語</a><a href="?lang=en" data-set="en" lang="en">English</a><a href="?lang=zh-Hans" data-set="zh-Hans" lang="zh-Hans">简体中文</a><a href="?lang=zh-Hant" data-set="zh-Hant" lang="zh-Hant">繁體中文</a><a href="?lang=id" data-set="id" lang="id">Bahasa Indonesia</a><a href="?lang=vi" data-set="vi" lang="vi">Tiếng Việt</a></nav>
 </div></header>
 <main><div class="wrap jlpt">
-<nav class="crumbs" aria-label="パンくず"><a href="/jlpt/">JLPT</a> › <a href="/jlpt/n1/">N1</a> › <span>2026-10-23 ニュース</span></nav>
-<h1>JLPT N1 毎日のニュース <span class="h1-en" lang="en">Daily News</span></h1>
+<nav class="crumbs" aria-label="パンくず"><a href="/jlpt/">JLPT</a> › <a href="/jlpt/n1/">N1</a> › <span>2026-10-23 <span data-l="ja" lang="ja">ニュース</span><span data-l="en" lang="en">News</span><span data-l="zh-Hans" lang="zh-Hans">新闻</span><span data-l="zh-Hant" lang="zh-Hant">新聞</span><span data-l="id" lang="id">Berita</span><span data-l="vi" lang="vi">Tin tức</span></span></nav>
+<h1>JLPT N1 <span data-l="ja" lang="ja">毎日のニュース</span><span data-l="en" lang="en">Daily News</span><span data-l="zh-Hans" lang="zh-Hans">每日新闻</span><span data-l="zh-Hant" lang="zh-Hant">每日新聞</span><span data-l="id" lang="id">Berita harian</span><span data-l="vi" lang="vi">Tin tức hằng ngày</span></h1>
 <p class="date">2026-10-23</p>
-<p class="lead">文章を読んで、答えを選んでください。答えと解説は下で開けます。</p>
+<p data-l="ja" lang="ja" class="lead">文章を読んで、答えを選んでください。答えと解説は下で開けます。</p>
+<p data-l="en" lang="en" class="lead">Read the passage and choose your answers. Open the answer and explanation below each question.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="lead">阅读文章并选择答案。答案与解析可在每题下方展开。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="lead">閱讀文章並選擇答案。答案與解析可在每題下方展開。</p>
+<p data-l="id" lang="id" class="lead">Bacalah teks lalu pilih jawaban. Jawaban dan penjelasan bisa dibuka di bawah setiap soal.</p>
+<p data-l="vi" lang="vi" class="lead">Đọc bài rồi chọn đáp án. Có thể mở đáp án và giải thích bên dưới mỗi câu.</p>
 <div class="source">
-<p>話題: 宇宙航空研究開発機構(JAXA）が、火星衛星探査機「MMX」搭載のH3ロケット10号機を種子島宇宙センターから打ち上げ、成功した。</p>
-<p><a href="https://ja.wikipedia.org/wiki/Portal%3A%E6%9C%80%E8%BF%91%E3%81%AE%E5%87%BA%E6%9D%A5%E4%BA%8B%2F2026%E5%B9%B410%E6%9C%88" target="_blank" rel="noopener">ウィキペディア日本語版「Portal:最近の出来事」</a>（CC BY-SA 4.0） ／ <a href="https://www.jiji.com/jc/article?k=2026102000118&amp;g=soc" target="_blank" rel="noopener">元の報道</a></p>
-<p>本文は上の記載をもとに書いたもので、CC BY-SA 4.0 で公開しています。</p>
+<p><span data-l="ja" lang="ja">話題</span><span data-l="en" lang="en">Topic</span><span data-l="zh-Hans" lang="zh-Hans">话题</span><span data-l="zh-Hant" lang="zh-Hant">話題</span><span data-l="id" lang="id">Topik</span><span data-l="vi" lang="vi">Chủ đề</span>: 宇宙航空研究開発機構(JAXA）が、火星衛星探査機「MMX」搭載のH3ロケット10号機を種子島宇宙センターから打ち上げ、成功した。</p>
+<p><a href="https://ja.wikipedia.org/wiki/Portal%3A%E6%9C%80%E8%BF%91%E3%81%AE%E5%87%BA%E6%9D%A5%E4%BA%8B%2F2026%E5%B9%B410%E6%9C%88" target="_blank" rel="noopener">ウィキペディア日本語版「Portal:最近の出来事」</a>（CC BY-SA 4.0） ／ <a href="https://www.jiji.com/jc/article?k=2026102000118&amp;g=soc" target="_blank" rel="noopener"><span data-l="ja" lang="ja">元の報道</span><span data-l="en" lang="en">Original report</span><span data-l="zh-Hans" lang="zh-Hans">原报道</span><span data-l="zh-Hant" lang="zh-Hant">原始報導</span><span data-l="id" lang="id">Laporan asli</span><span data-l="vi" lang="vi">Bài báo gốc</span></a></p>
+<p data-l="ja" lang="ja">本文は上の記載をもとに書いたもので、CC BY-SA 4.0 で公開しています。</p>
+<p data-l="en" lang="en">The article is based on the entry above and is published under CC BY-SA 4.0.</p>
+<p data-l="zh-Hans" lang="zh-Hans">本文根据上述内容撰写，以 CC BY-SA 4.0 发布。</p>
+<p data-l="zh-Hant" lang="zh-Hant">本文是根據上方記載所撰寫，並以 CC BY-SA 4.0 公開。</p>
+<p data-l="id" lang="id">Isi artikel ditulis berdasarkan keterangan di atas dan dipublikasikan dengan CC BY-SA 4.0.</p>
+<p data-l="vi" lang="vi">Nội dung bài viết dựa trên ghi chú ở trên và được công bố theo CC BY-SA 4.0.</p>
 </div>
 <div class="passage">
 <p>日本の宇宙航空研究開発機構（JAXA）が主導する火星衛星探査計画で、探査機「MMX」を載せたH3ロケット10号機が、種子島宇宙センターから打ち上げられ、成功した。この計画は国際共同の深宇宙探査であり、火星の二つの衛星フォボスとダイモスを観測する。さらに、そのうちフォボスに着陸してサンプルを採取し、2031年7月に地球へ帰還するサンプルリターンを目指している。JAXAは日本の航空宇宙開発政策を担う国立研究開発法人で、本部は東京都調布市に置かれている。</p>
 </div>
 <section class="q">
-<h2>問1 <span lang="en">Q1</span></h2>
+<h2><span data-l="ja" lang="ja">問1</span><span data-l="en" lang="en">Q1</span><span data-l="zh-Hans" lang="zh-Hans">第1题</span><span data-l="zh-Hant" lang="zh-Hant">第1題</span><span data-l="id" lang="id">Soal 1</span><span data-l="vi" lang="vi">Câu 1</span></h2>
 <p class="qtext">本文中の「サンプルリターン」とは、この計画においてどのような意味で使われているか。</p>
 <ol class="options"><li>探査機が現地で採取した試料を地球に持ち帰ること</li><li>国際共同で探査の計画を立て直すこと</li><li>探査機が衛星の表面を遠くから観測すること</li><li>ロケットを再び地上に回収して再利用すること</li></ol>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 1. 探査機が現地で採取した試料を地球に持ち帰ること</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 1. 探査機が現地で採取した試料を地球に持ち帰ること</p>
 <p class="ex">本文では「フォボスに着陸してサンプルを採取し、2031年7月に地球へ帰還する」とあり、試料を持ち帰る計画を指す。</p>
-<details class="tr"><summary>English</summary><p lang="en">The passage says the probe will land on Phobos, collect samples, and return to Earth in July 2031, so it means bringing collected samples back to Earth.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The passage says the probe will land on Phobos, collect samples, and return to Earth in July 2031, so it means bringing collected samples back to Earth.</p></details>
 </details>
 </section>
 <section class="q">
-<h2>問2 <span lang="en">Q2</span></h2>
+<h2><span data-l="ja" lang="ja">問2</span><span data-l="en" lang="en">Q2</span><span data-l="zh-Hans" lang="zh-Hans">第2题</span><span data-l="zh-Hant" lang="zh-Hant">第2題</span><span data-l="id" lang="id">Soal 2</span><span data-l="vi" lang="vi">Câu 2</span></h2>
 <p class="qtext">この計画について、本文の内容と合っているものはどれか。</p>
 <ol class="options"><li>フォボスとダイモスの両方を観測したうえで、フォボスに降り立つ予定である</li><li>フォボスとダイモスのどちらに着陸するかは、打ち上げ後に決めることになっている</li><li>火星そのものに着陸して試料を集め、地球に持ち帰る計画である</li><li>観測は国際共同で行うが、試料の採取は行わない予定である</li></ol>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 1. フォボスとダイモスの両方を観測したうえで、フォボスに降り立つ予定である</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 1. フォボスとダイモスの両方を観測したうえで、フォボスに降り立つ予定である</p>
 <p class="ex">本文は二つの衛星を観測し、そのうちフォボスに着陸して試料を採取すると述べている。着陸先はフォボスと決まっており、火星本体への着陸や採取なしとは書かれていない。</p>
-<details class="tr"><summary>English</summary><p lang="en">The passage states that both moons will be observed and that the probe will land on Phobos to collect samples. The landing target is already Phobos, and it does not say the probe lands on Mars itself or skips sampling.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The passage states that both moons will be observed and that the probe will land on Phobos to collect samples. The landing target is already Phobos, and it does not say the probe lands on Mars itself or skips sampling.</p></details>
 </details>
 </section>
 <section class="q">
-<h2>問3 <span lang="en">Q3</span></h2>
+<h2><span data-l="ja" lang="ja">問3</span><span data-l="en" lang="en">Q3</span><span data-l="zh-Hans" lang="zh-Hans">第3题</span><span data-l="zh-Hant" lang="zh-Hant">第3題</span><span data-l="id" lang="id">Soal 3</span><span data-l="vi" lang="vi">Câu 3</span></h2>
 <p class="qtext">本文によれば、この計画の帰還について正しく述べているのはどれか。</p>
 <ol class="options"><li>打ち上げの翌年である2027年に、地球へ戻る予定である</li><li>地球へは戻らず、フォボスの周囲を回り続ける計画である</li><li>試料の採取が終わり次第、時期を決めずに地球へ戻る</li><li>試料を採取した後、2031年7月に地球へ戻ることを目指している</li></ol>
-<details class="answer"><summary>答えと解説 <span lang="en">Answer</span></summary>
-<p class="correct">正解 <span lang="en">Answer</span>: 4. 試料を採取した後、2031年7月に地球へ戻ることを目指している</p>
+<details class="answer"><summary><span data-l="ja" lang="ja">答えと解説</span><span data-l="en" lang="en">Answer and explanation</span><span data-l="zh-Hans" lang="zh-Hans">答案与解析</span><span data-l="zh-Hant" lang="zh-Hant">答案與解析</span><span data-l="id" lang="id">Jawaban dan penjelasan</span><span data-l="vi" lang="vi">Đáp án và giải thích</span></summary>
+<p class="correct"><span data-l="ja" lang="ja">正解</span><span data-l="en" lang="en">Answer</span><span data-l="zh-Hans" lang="zh-Hans">正确答案</span><span data-l="zh-Hant" lang="zh-Hant">正確答案</span><span data-l="id" lang="id">Jawaban benar</span><span data-l="vi" lang="vi">Đáp án đúng</span>: 4. 試料を採取した後、2031年7月に地球へ戻ることを目指している</p>
 <p class="ex">本文には「2031年7月に地球へ帰還するサンプルリターンを目指している」とある。帰還の時期は2031年7月と示されており、戻らない計画でもない。</p>
-<details class="tr"><summary>English</summary><p lang="en">The passage says the plan aims at a sample return to Earth in July 2031. The return time is given as July 2031, and it is not a plan that never returns.</p></details>
+<details class="tr" data-l="en"><summary>English</summary><p lang="en">The passage says the plan aims at a sample return to Earth in July 2031. The return time is given as July 2031, and it is not a plan that never returns.</p></details>
 </details>
 </section>
+<nav class="jlpt-nav" aria-label="JLPT"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a></nav>
 <aside class="app-cta">
-<p class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
-<p class="cta-en" lang="en">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
-<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener">Google Play で見る <span lang="en">/ View on Google Play</span></a>
+<p data-l="ja" lang="ja" class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
+<p data-l="en" lang="en" class="cta-lead">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="cta-lead">每道题都附解析的完整模拟考试，请在 JLPT-GO 应用中练习。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="cta-lead">每一題都附解析的完整模擬考試，請在 JLPT-GO App 中練習。</p>
+<p data-l="id" lang="id" class="cta-lead">Ujian simulasi lengkap dengan penjelasan untuk setiap soal ada di aplikasi JLPT-GO.</p>
+<p data-l="vi" lang="vi" class="cta-lead">Bài thi thử trọn vẹn, câu nào cũng có giải thích, có trong ứng dụng JLPT-GO.</p>
+<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener"><span data-l="ja" lang="ja">Google Play で見る</span><span data-l="en" lang="en">View on Google Play</span><span data-l="zh-Hans" lang="zh-Hans">在 Google Play 查看</span><span data-l="zh-Hant" lang="zh-Hant">在 Google Play 查看</span><span data-l="id" lang="id">Lihat di Google Play</span><span data-l="vi" lang="vi">Xem trên Google Play</span></a>
 </aside>
 </div></main>
 <footer class="bottom"><div class="wrap footer-inner">

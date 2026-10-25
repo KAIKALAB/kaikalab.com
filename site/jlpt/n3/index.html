@@ -11,26 +11,58 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat&family=Noto+Serif+JP:wght@400;600&display=swap">
 <link rel="stylesheet" href="/home.css">
 <link rel="stylesheet" href="/jlpt/jlpt.css">
+<script>
+(function () {
+  var L = ["ja","en","zh-Hans","zh-Hant","id","vi"], k = "jlpt.lang", l = null;
+  try {
+    var q = new URLSearchParams(location.search).get("lang");
+    if (L.indexOf(q) >= 0) { l = q; localStorage.setItem(k, q); } else { l = localStorage.getItem(k); }
+  } catch (e) {}
+  if (L.indexOf(l) < 0) return;
+  document.documentElement.setAttribute("data-ui", l);
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("details.answer").forEach(function (answer) {
+      // 選んだ言語の訳を開く。その言語の訳が無い問題（訳を足す前の日の分）は英語の訳を出す
+      var mine = answer.querySelector('details.tr[data-l="' + l + '"]') || (l === "ja" ? null : answer.querySelector('details.tr[data-l="en"]'));
+      if (mine) { mine.style.display = "block"; mine.open = true; }
+    });
+    // localStorage が使えない端末でも言語が続くよう、/jlpt/ の中のリンクに ?lang= を付ける
+    document.querySelectorAll('a[href^="/jlpt/"]').forEach(function (a) {
+      a.setAttribute("href", a.getAttribute("href").split("#")[0] + "?lang=" + l + (a.hash || ""));
+    });
+  });
+})();
+</script>
 </head>
 <body>
 <header class="top"><div class="wrap nav">
 <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Kaika Lab</span></a>
-<nav class="menu"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a></nav>
+<nav class="menu langs" aria-label="Language"><a href="?lang=ja" data-set="ja" lang="ja">日本語</a><a href="?lang=en" data-set="en" lang="en">English</a><a href="?lang=zh-Hans" data-set="zh-Hans" lang="zh-Hans">简体中文</a><a href="?lang=zh-Hant" data-set="zh-Hant" lang="zh-Hant">繁體中文</a><a href="?lang=id" data-set="id" lang="id">Bahasa Indonesia</a><a href="?lang=vi" data-set="vi" lang="vi">Tiếng Việt</a></nav>
 </div></header>
 <main><div class="wrap jlpt">
 <nav class="crumbs" aria-label="パンくず"><a href="/jlpt/">JLPT</a> › <span>N3</span></nav>
-<h1>JLPT N3 毎日の学習 <span class="h1-en" lang="en">Daily N3 practice</span></h1>
-<p class="lead">読解・聴解・ニュースの問題を、毎日1セットずつ載せています。</p>
-<p class="today-kanji">今日の漢字 <span lang="en">Kanji of the day</span>: <a href="/jlpt/kanji/n3/#k-保">保</a>（たもつ、まもる）・<a href="/jlpt/kanji/n3/">N3 の漢字の一覧</a></p>
+<h1>JLPT N3 <span data-l="ja" lang="ja">毎日の学習</span><span data-l="en" lang="en">Daily study</span><span data-l="zh-Hans" lang="zh-Hans">每日学习</span><span data-l="zh-Hant" lang="zh-Hant">每日學習</span><span data-l="id" lang="id">Belajar setiap hari</span><span data-l="vi" lang="vi">Học hằng ngày</span></h1>
+<p data-l="ja" lang="ja" class="lead">読解・聴解・ニュースの問題を、毎日1セットずつ載せています。</p>
+<p data-l="en" lang="en" class="lead">One set of reading, listening and news questions every day.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="lead">每天发布一套阅读、听力和新闻题。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="lead">每天刊登一套閱讀、聽力和新聞題。</p>
+<p data-l="id" lang="id" class="lead">Satu set soal membaca, menyimak, dan berita setiap hari.</p>
+<p data-l="vi" lang="vi" class="lead">Mỗi ngày một bộ câu hỏi đọc hiểu, nghe hiểu và tin tức.</p>
+<p class="today-kanji"><span data-l="ja" lang="ja">今日の漢字</span><span data-l="en" lang="en">Kanji of the day</span><span data-l="zh-Hans" lang="zh-Hans">今日汉字</span><span data-l="zh-Hant" lang="zh-Hant">今日漢字</span><span data-l="id" lang="id">Kanji hari ini</span><span data-l="vi" lang="vi">Kanji hôm nay</span>: <a href="/jlpt/kanji/n3/#k-保">保</a>（たもつ、まもる）・<a href="/jlpt/kanji/n3/"><span data-l="ja" lang="ja">N3 の漢字の一覧</span><span data-l="en" lang="en">All N3 kanji</span><span data-l="zh-Hans" lang="zh-Hans">N3 汉字一览</span><span data-l="zh-Hant" lang="zh-Hant">N3 漢字一覽</span><span data-l="id" lang="id">Daftar kanji N3</span><span data-l="vi" lang="vi">Danh sách kanji N3</span></a></p>
 <ul class="days">
-<li><span class="day">2026-10-25</span><span class="kinds"><a href="/jlpt/n3/2026-10-25/reading/">読解 <span lang="en">Reading</span></a><a href="/jlpt/n3/2026-10-25/listening/">聴解 <span lang="en">Listening</span></a><a href="/jlpt/n3/2026-10-25/news/">ニュース <span lang="en">News</span></a></span></li>
-<li><span class="day">2026-10-24</span><span class="kinds"><a href="/jlpt/n3/2026-10-24/reading/">読解 <span lang="en">Reading</span></a><a href="/jlpt/n3/2026-10-24/listening/">聴解 <span lang="en">Listening</span></a><a href="/jlpt/n3/2026-10-24/news/">ニュース <span lang="en">News</span></a></span></li>
-<li><span class="day">2026-10-23</span><span class="kinds"><a href="/jlpt/n3/2026-10-23/reading/">読解 <span lang="en">Reading</span></a><a href="/jlpt/n3/2026-10-23/listening/">聴解 <span lang="en">Listening</span></a><a href="/jlpt/n3/2026-10-23/news/">ニュース <span lang="en">News</span></a></span></li>
+<li><span class="day">2026-10-25</span><span class="kinds"><a href="/jlpt/n3/2026-10-25/reading/"><span data-l="ja" lang="ja">読解</span><span data-l="en" lang="en">Reading</span><span data-l="zh-Hans" lang="zh-Hans">阅读</span><span data-l="zh-Hant" lang="zh-Hant">閱讀</span><span data-l="id" lang="id">Membaca</span><span data-l="vi" lang="vi">Đọc hiểu</span></a><a href="/jlpt/n3/2026-10-25/listening/"><span data-l="ja" lang="ja">聴解</span><span data-l="en" lang="en">Listening</span><span data-l="zh-Hans" lang="zh-Hans">听力</span><span data-l="zh-Hant" lang="zh-Hant">聽力</span><span data-l="id" lang="id">Menyimak</span><span data-l="vi" lang="vi">Nghe hiểu</span></a><a href="/jlpt/n3/2026-10-25/news/"><span data-l="ja" lang="ja">ニュース</span><span data-l="en" lang="en">News</span><span data-l="zh-Hans" lang="zh-Hans">新闻</span><span data-l="zh-Hant" lang="zh-Hant">新聞</span><span data-l="id" lang="id">Berita</span><span data-l="vi" lang="vi">Tin tức</span></a></span></li>
+<li><span class="day">2026-10-24</span><span class="kinds"><a href="/jlpt/n3/2026-10-24/reading/"><span data-l="ja" lang="ja">読解</span><span data-l="en" lang="en">Reading</span><span data-l="zh-Hans" lang="zh-Hans">阅读</span><span data-l="zh-Hant" lang="zh-Hant">閱讀</span><span data-l="id" lang="id">Membaca</span><span data-l="vi" lang="vi">Đọc hiểu</span></a><a href="/jlpt/n3/2026-10-24/listening/"><span data-l="ja" lang="ja">聴解</span><span data-l="en" lang="en">Listening</span><span data-l="zh-Hans" lang="zh-Hans">听力</span><span data-l="zh-Hant" lang="zh-Hant">聽力</span><span data-l="id" lang="id">Menyimak</span><span data-l="vi" lang="vi">Nghe hiểu</span></a><a href="/jlpt/n3/2026-10-24/news/"><span data-l="ja" lang="ja">ニュース</span><span data-l="en" lang="en">News</span><span data-l="zh-Hans" lang="zh-Hans">新闻</span><span data-l="zh-Hant" lang="zh-Hant">新聞</span><span data-l="id" lang="id">Berita</span><span data-l="vi" lang="vi">Tin tức</span></a></span></li>
+<li><span class="day">2026-10-23</span><span class="kinds"><a href="/jlpt/n3/2026-10-23/reading/"><span data-l="ja" lang="ja">読解</span><span data-l="en" lang="en">Reading</span><span data-l="zh-Hans" lang="zh-Hans">阅读</span><span data-l="zh-Hant" lang="zh-Hant">閱讀</span><span data-l="id" lang="id">Membaca</span><span data-l="vi" lang="vi">Đọc hiểu</span></a><a href="/jlpt/n3/2026-10-23/listening/"><span data-l="ja" lang="ja">聴解</span><span data-l="en" lang="en">Listening</span><span data-l="zh-Hans" lang="zh-Hans">听力</span><span data-l="zh-Hant" lang="zh-Hant">聽力</span><span data-l="id" lang="id">Menyimak</span><span data-l="vi" lang="vi">Nghe hiểu</span></a><a href="/jlpt/n3/2026-10-23/news/"><span data-l="ja" lang="ja">ニュース</span><span data-l="en" lang="en">News</span><span data-l="zh-Hans" lang="zh-Hans">新闻</span><span data-l="zh-Hant" lang="zh-Hant">新聞</span><span data-l="id" lang="id">Berita</span><span data-l="vi" lang="vi">Tin tức</span></a></span></li>
 </ul>
+<nav class="jlpt-nav" aria-label="JLPT"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a></nav>
 <aside class="app-cta">
-<p class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
-<p class="cta-en" lang="en">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
-<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener">Google Play で見る <span lang="en">/ View on Google Play</span></a>
+<p data-l="ja" lang="ja" class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
+<p data-l="en" lang="en" class="cta-lead">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="cta-lead">每道题都附解析的完整模拟考试，请在 JLPT-GO 应用中练习。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="cta-lead">每一題都附解析的完整模擬考試，請在 JLPT-GO App 中練習。</p>
+<p data-l="id" lang="id" class="cta-lead">Ujian simulasi lengkap dengan penjelasan untuk setiap soal ada di aplikasi JLPT-GO.</p>
+<p data-l="vi" lang="vi" class="cta-lead">Bài thi thử trọn vẹn, câu nào cũng có giải thích, có trong ứng dụng JLPT-GO.</p>
+<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener"><span data-l="ja" lang="ja">Google Play で見る</span><span data-l="en" lang="en">View on Google Play</span><span data-l="zh-Hans" lang="zh-Hans">在 Google Play 查看</span><span data-l="zh-Hant" lang="zh-Hant">在 Google Play 查看</span><span data-l="id" lang="id">Lihat di Google Play</span><span data-l="vi" lang="vi">Xem trên Google Play</span></a>
 </aside>
 </div></main>
 <footer class="bottom"><div class="wrap footer-inner">

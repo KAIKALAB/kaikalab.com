@@ -1,8 +1,24 @@
+html:not([data-ui]) [data-l]:not([data-l="ja"]):not([data-l="en"]) { display: none; }
+html[data-ui="ja"] [data-l]:not([data-l="ja"]) { display: none; }
+html[data-ui="en"] [data-l]:not([data-l="en"]) { display: none; }
+html[data-ui="zh-Hans"] [data-l]:not([data-l="zh-Hans"]) { display: none; }
+html[data-ui="zh-Hant"] [data-l]:not([data-l="zh-Hant"]) { display: none; }
+html[data-ui="id"] [data-l]:not([data-l="id"]) { display: none; }
+html[data-ui="vi"] [data-l]:not([data-l="vi"]) { display: none; }
+html[data-ui="ja"] .langs a[data-set="ja"] { font-weight: 700; text-decoration: underline; }
+html[data-ui="en"] .langs a[data-set="en"] { font-weight: 700; text-decoration: underline; }
+html[data-ui="zh-Hans"] .langs a[data-set="zh-Hans"] { font-weight: 700; text-decoration: underline; }
+html[data-ui="zh-Hant"] .langs a[data-set="zh-Hant"] { font-weight: 700; text-decoration: underline; }
+html[data-ui="id"] .langs a[data-set="id"] { font-weight: 700; text-decoration: underline; }
+html[data-ui="vi"] .langs a[data-set="vi"] { font-weight: 700; text-decoration: underline; }
+html:not([data-ui]) span[data-l="en"]::before { content: " "; }
+html:not([data-ui]) h1 [data-l="en"] { display: block; font-size: 15px; font-weight: 500; color: var(--muted); }
+nav.menu.langs { flex-wrap: wrap; align-content: flex-start; justify-content: flex-start; gap: 0 16px; font-size: 14px; }
+nav.menu.langs a { white-space: nowrap; padding: 4px 0; }
 .jlpt { max-width: 760px; padding: 28px 0 56px; color: var(--ink); }
 .crumbs { font-size: 13px; color: var(--muted); margin-bottom: 18px; }
 .crumbs a { color: var(--blue); text-decoration: none; }
 .jlpt h1 { font-size: clamp(24px, 3.4vw, 32px); line-height: 1.4; margin: 0 0 8px; }
-.h1-en { display: block; font-size: 15px; font-weight: 500; color: var(--muted); }
 .jlpt .date { color: var(--muted); margin: 0 0 12px; }
 .jlpt .lead { line-height: 1.9; color: var(--ink-2); }
 .passage { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 18px 22px; margin: 18px 0; font-size: 17px; line-height: 2; }
@@ -23,7 +39,7 @@ details.script p { margin: 4px 0; line-height: 1.9; }
 .ex { line-height: 1.9; }
 details.tr { margin: 6px 0 0; padding-left: 4px; }
 details.tr summary { font-weight: 500; font-size: 14px; }
-details.tr p, details.tr ul { line-height: 1.9; color: var(--ink-2); }
+details.tr p { line-height: 1.9; color: var(--ink-2); }
 .days { list-style: none; padding: 0; margin: 18px 0; }
 .days li { display: flex; flex-wrap: wrap; gap: 6px 18px; padding: 10px 0; border-bottom: 1px solid var(--line); }
 .days .day { font-weight: 700; min-width: 7em; }
@@ -37,12 +53,14 @@ details.tr p, details.tr ul { line-height: 1.9; color: var(--ink-2); }
 .kanji-list { display: grid; gap: 14px; margin-top: 18px; }
 .kanji { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px; }
 .kanji .glyph { font-size: 52px; line-height: 1.1; margin: 0 0 8px; }
-.kanji dl { display: grid; grid-template-columns: 5em 1fr; gap: 4px 12px; margin: 0 0 8px; font-size: 15px; }
+.kanji dl { display: grid; grid-template-columns: 6.5em 1fr; gap: 4px 12px; margin: 0 0 8px; font-size: 15px; }
 .kanji dd { margin: 0; }
 .kanji .words { padding-left: 1.2em; line-height: 1.9; font-size: 15px; }
 .kanji .example { line-height: 1.9; color: var(--ink-2); }
-.lang-name { color: var(--muted); font-size: 13px; }
-.app-cta { margin-top: 36px; background: var(--blue-soft); border-radius: 14px; padding: 20px 22px; text-align: center; }
-.cta-lead { font-weight: 700; font-size: 17px; margin: 0 0 4px; }
-.cta-en { color: var(--ink-2); font-size: 14px; margin: 0 0 14px; }
+.jlpt-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 28px; margin-top: 32px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 12px; background: #fff; font-weight: 600; }
+.jlpt-nav a { color: var(--blue); text-decoration: none; }
+.app-cta { margin-top: 16px; background: var(--blue-soft); border-radius: 14px; padding: 20px 22px; text-align: center; }
+.cta-lead { font-weight: 700; font-size: 17px; margin: 0 0 14px; }
+html:not([data-ui]) .cta-lead[data-l="en"] { font-weight: 400; font-size: 14px; color: var(--ink-2); margin-top: -10px; }
 .cta-button { display: inline-block; background: var(--blue); color: #fff; font-weight: 700; padding: 10px 20px; border-radius: 999px; text-decoration: none; }
+html:not([data-ui]) .cta-button [data-l="en"]::before { content: " / "; }
