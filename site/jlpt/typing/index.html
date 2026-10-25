@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>日本語タイピング練習｜ローマ字でかな・単語・文を打つ｜JLPT-GO</title>
+<meta name="description" content="ローマ字入力で、かな・JLPT の漢字の言葉・読解の文を打つ日本語タイピング練習。打ち間違えると打ち方を表示。Japanese typing practice in romaji: kana, JLPT words and sentences.">
+<link rel="canonical" href="https://kaikalab.com/jlpt/typing/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat&family=Noto+Serif+JP:wght@400;600&display=swap">
+<link rel="stylesheet" href="/home.css">
+<link rel="stylesheet" href="/jlpt/jlpt.css">
+<script>
+(function () {
+  var L = ["ja","en","zh-Hans","zh-Hant","id","vi"], k = "jlpt.lang", l = null;
+  try {
+    var q = new URLSearchParams(location.search).get("lang");
+    if (L.indexOf(q) >= 0) { l = q; localStorage.setItem(k, q); } else { l = localStorage.getItem(k); }
+  } catch (e) {}
+  if (L.indexOf(l) < 0) return;
+  document.documentElement.setAttribute("data-ui", l);
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("details.answer").forEach(function (answer) {
+      // 選んだ言語の訳を開く。その言語の訳が無い問題（訳を足す前の日の分）は英語の訳を出す
+      var mine = answer.querySelector('details.tr[data-l="' + l + '"]') || (l === "ja" ? null : answer.querySelector('details.tr[data-l="en"]'));
+      if (mine) { mine.style.display = "block"; mine.open = true; }
+    });
+    // localStorage が使えない端末でも言語が続くよう、/jlpt/ の中のリンクに ?lang= を付ける
+    document.querySelectorAll('a[href^="/jlpt/"]').forEach(function (a) {
+      a.setAttribute("href", a.getAttribute("href").split("#")[0] + "?lang=" + l + (a.hash || ""));
+    });
+  });
+})();
+</script>
+</head>
+<body>
+<header class="top"><div class="wrap nav">
+<a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Kaika Lab</span></a>
+<nav class="menu langs" aria-label="Language"><a href="?lang=ja" data-set="ja" lang="ja">日本語</a><a href="?lang=en" data-set="en" lang="en">English</a><a href="?lang=zh-Hans" data-set="zh-Hans" lang="zh-Hans">简体中文</a><a href="?lang=zh-Hant" data-set="zh-Hant" lang="zh-Hant">繁體中文</a><a href="?lang=id" data-set="id" lang="id">Bahasa Indonesia</a><a href="?lang=vi" data-set="vi" lang="vi">Tiếng Việt</a></nav>
+</div></header>
+<main><div class="wrap jlpt">
+<nav class="crumbs" aria-label="パンくず"><a href="/jlpt/">JLPT</a> › <span><span data-l="ja" lang="ja">タイピング</span><span data-l="en" lang="en">Typing</span><span data-l="zh-Hans" lang="zh-Hans">打字</span><span data-l="zh-Hant" lang="zh-Hant">打字</span><span data-l="id" lang="id">Mengetik</span><span data-l="vi" lang="vi">Luyện gõ</span></span></nav>
+<h1><span data-l="ja" lang="ja">日本語タイピング練習</span><span data-l="en" lang="en">Japanese typing practice</span><span data-l="zh-Hans" lang="zh-Hans">日语打字练习</span><span data-l="zh-Hant" lang="zh-Hant">日文打字練習</span><span data-l="id" lang="id">Latihan mengetik bahasa Jepang</span><span data-l="vi" lang="vi">Luyện gõ tiếng Nhật</span></h1>
+<p data-l="ja" lang="ja" class="lead">ローマ字入力で、かな → 単語 → 短文 → 長文 の順に打ちます。登録は要りません。</p>
+<p data-l="en" lang="en" class="lead">Practise typing Japanese in romaji: kana, then words, sentences and passages. No sign-up needed.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="lead">用罗马字输入，按假名 → 单词 → 短句 → 长文的顺序练习。无需注册。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="lead">用羅馬字輸入，依假名 → 單字 → 短句 → 長文的順序練習。不需要註冊。</p>
+<p data-l="id" lang="id" class="lead">Latihan mengetik bahasa Jepang dengan romaji: kana, lalu kata, kalimat, dan teks panjang. Tidak perlu mendaftar.</p>
+<p data-l="vi" lang="vi" class="lead">Luyện gõ tiếng Nhật bằng romaji: kana, rồi từ vựng, câu ngắn và đoạn văn. Không cần đăng ký.</p>
+<link rel="stylesheet" href="/jlpt/typing/typing.css">
+<div id="typing-app" data-base="/jlpt/typing/"></div>
+<noscript><p>JavaScript を有効にしてください。 / Please enable JavaScript.</p></noscript>
+<script type="module" src="/jlpt/typing/app.js"></script>
+<nav class="jlpt-nav" aria-label="JLPT"><a href="/jlpt/">JLPT</a><a href="/jlpt/n1/">N1</a><a href="/jlpt/n2/">N2</a><a href="/jlpt/n3/">N3</a><a href="/jlpt/typing/"><span data-l="ja" lang="ja">タイピング</span><span data-l="en" lang="en">Typing</span><span data-l="zh-Hans" lang="zh-Hans">打字</span><span data-l="zh-Hant" lang="zh-Hant">打字</span><span data-l="id" lang="id">Mengetik</span><span data-l="vi" lang="vi">Luyện gõ</span></a></nav>
+<aside class="app-cta">
+<p data-l="ja" lang="ja" class="cta-lead">全問解説つきの模擬試験は、アプリ JLPT-GO で。</p>
+<p data-l="en" lang="en" class="cta-lead">Full JLPT mock exams, with an explanation for every question, are in the JLPT-GO app.</p>
+<p data-l="zh-Hans" lang="zh-Hans" class="cta-lead">每道题都附解析的完整模拟考试，请在 JLPT-GO 应用中练习。</p>
+<p data-l="zh-Hant" lang="zh-Hant" class="cta-lead">每一題都附解析的完整模擬考試，請在 JLPT-GO App 中練習。</p>
+<p data-l="id" lang="id" class="cta-lead">Ujian simulasi lengkap dengan penjelasan untuk setiap soal ada di aplikasi JLPT-GO.</p>
+<p data-l="vi" lang="vi" class="cta-lead">Bài thi thử trọn vẹn, câu nào cũng có giải thích, có trong ứng dụng JLPT-GO.</p>
+<a class="cta-button" href="https://play.google.com/store/apps/details?id=com.kaikalab.nihongo&amp;referrer=utm_source%3Dkaikalab%26utm_medium%3Dweb%26utm_campaign%3Djlpt_study" target="_blank" rel="noopener"><span data-l="ja" lang="ja">Google Play で見る</span><span data-l="en" lang="en">View on Google Play</span><span data-l="zh-Hans" lang="zh-Hans">在 Google Play 查看</span><span data-l="zh-Hant" lang="zh-Hant">在 Google Play 查看</span><span data-l="id" lang="id">Lihat di Google Play</span><span data-l="vi" lang="vi">Xem trên Google Play</span></a>
+</aside>
+
+</div></main>
+<footer class="bottom"><div class="wrap footer-inner">
+<span>&copy; 2026 Kaika Lab. All rights reserved.</span>
+<span class="trademark">「JLPT」および「日本語能力試験」は、国際交流基金および日本国際教育支援協会の商標です。JLPT-GO と Kaika Lab は同団体とは関係がなく、公認・提携・推薦を受けたものではありません。</span>
+</div></footer>
+</body>
+</html>

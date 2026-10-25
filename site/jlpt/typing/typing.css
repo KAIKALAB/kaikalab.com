@@ -1,0 +1,34 @@
+/* JLPT-GO — 日本語タイピング練習（ADR 0038）。色は /jlpt/ のページ（home.css の変数）に合わせる */
+#typing-app { margin: 20px 0 8px; }
+#typing-app .en { color: var(--muted); font-size: 0.85em; font-weight: 400; }
+#typing-app a { color: var(--blue); }
+.howto { line-height: 1.9; color: var(--ink-2); font-size: 14.5px; }
+.notice { background: var(--orange-soft); border-radius: 10px; padding: 10px 14px; line-height: 1.8; }
+.steps { display: grid; gap: 14px; margin-top: 14px; }
+.step { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px; }
+.step h2 { font-size: 19px; margin: 0 0 4px; }
+.step p { margin: 0 0 8px; line-height: 1.8; color: var(--ink-2); font-size: 14.5px; }
+.step-no { color: var(--blue) !important; font-weight: 700; font-size: 13px !important; margin: 0 0 2px !important; }
+.choices { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.choices a { display: inline-block; border: 1px solid var(--blue); border-radius: 999px; padding: 6px 14px; text-decoration: none; font-weight: 600; }
+.choices a:hover { background: var(--blue-soft); }
+.rec { font-size: 12.5px; color: var(--muted); margin-left: -6px; }
+.play { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 18px 22px 22px; }
+.play-head { display: flex; flex-wrap: wrap; gap: 4px 18px; color: var(--muted); font-size: 13.5px; margin: 0 0 14px; }
+.play-head .esc { margin-left: auto; }
+.target { font-size: 30px; line-height: 1.6; margin: 0 0 8px; color: var(--ink); }
+.target.big { font-size: 64px; text-align: center; margin: 10px 0; }
+.target.longtext { font-size: 19px; line-height: 2; }
+.reading { font-size: 18px; line-height: 1.9; color: var(--muted); margin: 0 0 8px; word-break: break-all; }
+.guide { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: 20px; line-height: 1.8; color: #9aa9b8; margin: 0 0 8px; word-break: break-all; }
+.play.center .guide, .target.big + .guide { text-align: center; }
+.done { color: var(--green); }
+.sub { color: var(--ink-2); margin: 8px 0 0; }
+.message { min-height: 1.8em; color: var(--pink); font-weight: 600; margin: 10px 0 0; }
+.result { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 20px 24px; text-align: center; }
+.result h2 { margin: 0 0 12px; }
+.result dl { display: grid; grid-template-columns: auto auto; justify-content: center; gap: 6px 18px; font-size: 17px; }
+.result dd { margin: 0; font-weight: 700; text-align: left; }
+.result dt { text-align: right; color: var(--ink-2); }
+.actions { display: flex; justify-content: center; gap: 12px; margin-top: 18px; }
+.actions a { border: 1px solid var(--blue); border-radius: 999px; padding: 8px 18px; text-decoration: none; font-weight: 700; }
