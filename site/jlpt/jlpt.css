@@ -57,6 +57,13 @@ details.tr p { line-height: 1.9; color: var(--ink-2); }
 .kanji dd { margin: 0; }
 .kanji .words { padding-left: 1.2em; line-height: 1.9; font-size: 15px; }
 .kanji .example { line-height: 1.9; color: var(--ink-2); }
+.about-app { margin-top: 28px; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 18px 22px; }
+.about-app h2 { font-size: 19px; margin: 0 0 6px; }
+.about-app h3 { font-size: 15.5px; margin: 16px 0 4px; color: var(--ink); }
+.about-app p { margin: 0; line-height: 1.9; color: var(--ink-2); font-size: 14.5px; }
+html:not([data-ui]) .about-app p[data-l="en"] { margin-top: 4px; }
+.about-app .legal { margin-top: 16px; font-size: 13.5px; }
+.about-app .legal a { color: var(--blue); }
 .jlpt-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 28px; margin-top: 32px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 12px; background: #fff; font-weight: 600; }
 .jlpt-nav a { color: var(--blue); text-decoration: none; }
 .app-cta { margin-top: 16px; background: var(--blue-soft); border-radius: 14px; padding: 20px 22px; text-align: center; }
