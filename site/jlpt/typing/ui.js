@@ -3,6 +3,8 @@
  * 表示言語は /jlpt/ のほかのページと同じ（html の data-ui。選んでいなければ日本語と英語）
  */
 
+import { soundOn } from "./sound.js";
+
 export const LANGS = ["ja", "en", "zh-Hans", "zh-Hant", "id", "vi"];
 export const LEVELS = ["N3", "N2", "N1"];
 
@@ -58,3 +60,15 @@ export const pick = (list, n) => {
   while (out.length < n) out = out.concat(shuffle(list));
   return out.slice(0, n);
 };
+
+const SOUND = {
+  label: { ja: "効果音", en: "Sound", "zh-Hans": "音效", "zh-Hant": "音效", id: "Suara", vi: "Âm thanh" },
+  on: { ja: "オン", en: "On", "zh-Hans": "开", "zh-Hant": "開", id: "Nyala", vi: "Bật" },
+  off: { ja: "オフ", en: "Off", "zh-Hans": "关", "zh-Hant": "關", id: "Mati", vi: "Tắt" },
+};
+
+/** 効果音のオン・オフを切り替えるボタン（押すと app.js が切り替える） */
+export function soundButton() {
+  const on = soundOn();
+  return `<button type="button" class="sound-toggle" data-sound aria-pressed="${on}">${tx(SOUND.label)}: ${tx(on ? SOUND.on : SOUND.off)}</button>`;
+}

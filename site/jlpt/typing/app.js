@@ -7,7 +7,8 @@
  */
 import { Typing } from "./romaji.js";
 import { bestOf, G, startGame, stopGame } from "./games.js";
-import { esc, lang, LEVELS, meaningOf, pick, readStore, tx, writeStore } from "./ui.js";
+import { play, setSound, soundOn } from "./sound.js";
+import { esc, lang, LEVELS, meaningOf, pick, readStore, soundButton, tx, writeStore } from "./ui.js";
 
 const root = document.getElementById("typing-app");
 const BASE = root.dataset.base;
@@ -140,6 +141,7 @@ function menu() {
   root.innerHTML = `
 ${coarse ? `<p class="notice">${tx(S.pc)}</p>` : ""}
 <p class="howto">${tx(S.howto)}</p>
+<p class="sound-row">${soundButton()}</p>
 <div class="steps">
   <section class="step">
     <p class="step-no">${tx(S.step)} 1</p><h2>${tx(S.kana)}</h2><p>${tx(S.kanaDesc)}</p>
@@ -220,7 +222,7 @@ function draw() {
   const bigKana = item.text === item.reading;
   root.innerHTML = `
 <div class="play">
-  <p class="play-head"><span>${tx(s.title)}</span><span>${s.index + 1} / ${s.list.length}</span><span class="esc">${tx(S.esc)}</span></p>
+  <p class="play-head"><span>${tx(s.title)}</span><span>${s.index + 1} / ${s.list.length}</span><span class="esc">${tx(S.esc)}</span>${soundButton()}</p>
   <p class="target${bigKana ? " big" : ""}${s.mode === "long" ? " longtext" : ""}">${esc(item.text)}</p>
   ${bigKana ? "" : `<p class="reading"><span class="done">${esc(chars.slice(0, done).join(""))}</span>${esc(chars.slice(done).join(""))}</p>`}
   <p class="guide"><span class="done">${esc(guide.typed)}</span>${esc(guide.rest)}</p>
@@ -235,6 +237,7 @@ function finish() {
   const kpm = Math.round(s.ok / minutes);
   const acc = s.ok + s.miss === 0 ? 0 : Math.round((s.ok / (s.ok + s.miss)) * 100);
   const best = saveRecord(s.mode, kpm, acc);
+  play("finish");
   const route = location.hash;
   session = null;
   root.innerHTML = `
@@ -266,6 +269,7 @@ document.addEventListener("keydown", (e) => {
   const unit = session.typing.current();
   const result = session.typing.key(e.key);
   if (!result.ok) {
+    play("miss");
     session.miss++;
     const romaji = unit.options.slice(0, 3).join(S.or[lang() ?? "ja"]);
     session.message = tx(S.hint, { kana: unit.text, romaji });
@@ -274,6 +278,7 @@ document.addEventListener("keydown", (e) => {
   }
   session.ok++;
   session.message = "";
+  play(result.done ? "done" : "key");
   if (result.done) {
     session.index++;
     if (session.index >= session.list.length) {
@@ -294,4 +299,12 @@ async function route() {
   else void start(hash);
 }
 window.addEventListener("hashchange", () => void route());
+// 効果音のオン・オフ（メニューと、打っている画面の上のボタン）
+root.addEventListener("click", (e) => {
+  const button = e.target.closest("[data-sound]");
+  if (button === null) return;
+  setSound(!soundOn());
+  button.outerHTML = soundButton();
+  if (soundOn()) play("done");
+});
 void route();

@@ -8,7 +8,8 @@
  * #/game/mole、#/game/match/N3、#/game/rain/N3、#/game/sprint/N3
  */
 import { toUnits, Typing } from "./romaji.js";
-import { esc, LEVELS, meaningOf, pick, readStore, shuffle, tx, writeStore } from "./ui.js";
+import { play } from "./sound.js";
+import { esc, LEVELS, meaningOf, pick, readStore, shuffle, soundButton, tx, writeStore } from "./ui.js";
 
 // ── 文言（6言語。日英以外は人が確認していない） ──
 
@@ -137,6 +138,7 @@ function onKey(handler) {
 
 function result(root, route, title, rows, bestValue) {
   stopGame();
+  play("finish");
   root.innerHTML = `
 <div class="result">
   <h2>${tx(G.over)}</h2>
@@ -166,7 +168,7 @@ export function startGame(root, route, data) {
 }
 
 const head = (title, info) =>
-  `<p class="play-head"><span>${tx(title)}</span>${info}<span class="esc">${tx(G.esc)}</span></p>`;
+  `<p class="play-head"><span>${tx(title)}</span>${info}<span class="esc">${tx(G.esc)}</span>${soundButton()}</p>`;
 
 // ── 字のもぐらたたき ──
 
@@ -216,8 +218,12 @@ function mole(root, route) {
   const timer = setInterval(tick, 100);
   const off = onKey((key) => {
     const r = matchKana(buffer, key, up.map((u) => u.kana));
-    if (!r.ok) miss++;
+    if (!r.ok) {
+      miss++;
+      play("miss");
+    } else if (r.hit < 0) play("key");
     if (r.hit >= 0) {
+      play("hit");
       score++;
       const hitKana = up[r.hit];
       up = up.filter((u) => u !== hitKana);
@@ -245,6 +251,8 @@ function match(root, route, level, words) {
   let index = 0;
   let correct = 0;
   let locked = false;
+  /** 次の問題へ移るまでの待ち。ゲームを離れたら取り消す（残すと、別の画面を意味あわせで上書きした） */
+  let pending = null;
   const show = (feedback = "") => {
     const q = questions[index];
     root.innerHTML = `
@@ -263,8 +271,9 @@ function match(root, route, level, words) {
     locked = true;
     const ok = q.choices[i] === q.answer;
     if (ok) correct++;
+    play(ok ? "done" : "miss");
     show(ok ? `<span class="ok">${tx(G.correct)}</span>` : `${tx(G.wrong)}: ${esc(q.answer.word)}（${esc(q.answer.reading)}）`);
-    setTimeout(
+    pending = setTimeout(
       () => {
         locked = false;
         index++;
@@ -277,7 +286,10 @@ function match(root, route, level, words) {
   const off = onKey((key) => {
     if (/^[1-4]$/.test(key)) choose(Number(key) - 1);
   });
-  stopCurrent = off;
+  stopCurrent = () => {
+    off();
+    if (pending !== null) clearTimeout(pending);
+  };
   show();
 }
 
@@ -341,6 +353,7 @@ function rain(root, route, level, words) {
     for (const d of drops.filter((d) => d.y > HEIGHT - 30)) {
       d.el.remove();
       lives--;
+      if (lives > 0) play("lose");
       if (d === target) target = null;
     }
     drops = drops.filter((d) => d.y <= HEIGHT - 30);
@@ -360,6 +373,7 @@ function rain(root, route, level, words) {
       const i = pickTarget(key, ordered.map((d) => d.word.reading));
       if (i < 0) {
         miss++;
+        play("miss");
         return;
       }
       target = ordered[i];
@@ -368,9 +382,11 @@ function rain(root, route, level, words) {
     const r = target.typing.key(key);
     if (!r.ok) {
       miss++;
+      play("miss");
       return;
     }
     ok++;
+    play(r.done ? "done" : "key");
     if (r.done) {
       score++;
       target.el.remove();
@@ -436,9 +452,11 @@ function sprint(root, route, level, words) {
     const r = typing.key(key);
     if (!r.ok) {
       miss++;
+      play("miss");
       return;
     }
     ok++;
+    play(r.done ? "done" : "key");
     if (r.done) {
       done++;
       index++;
