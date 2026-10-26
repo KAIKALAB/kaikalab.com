@@ -1,15 +1,16 @@
 /**
  * JLPT-GO — 日本語タイピング練習の画面（kaikalab.com/jlpt/typing/・ADR 0038）
  *
- * 段階は # で切り替える: #/ メニュー、#/kana/1〜5、#/words/N3、#/short、#/long
+ * 段階は # で切り替える: #/ メニュー、#/kana/1〜5、#/words/N3、#/short、#/long、ゲームは #/game/…（games.js）
  * 表示言語は /jlpt/ のほかのページと同じ（html の data-ui。選んでいなければ日本語と英語）
  * 記録は端末だけ（localStorage）。サーバーには送らない
  */
 import { Typing } from "./romaji.js";
+import { bestOf, G, startGame, stopGame } from "./games.js";
+import { esc, lang, LEVELS, meaningOf, pick, readStore, tx, writeStore } from "./ui.js";
 
 const root = document.getElementById("typing-app");
 const BASE = root.dataset.base;
-const LANGS = ["ja", "en", "zh-Hans", "zh-Hant", "id", "vi"];
 
 // ── 文言（6言語。日英以外は人が確認していない・ADR 0034〜0036 と同じ） ──
 
@@ -104,47 +105,17 @@ const KANA_STAGES = [
   { name: { ja: "「っ」「ん」と長音", en: "っ, ん and long vowels", "zh-Hans": "「っ」「ん」与长音", "zh-Hant": "「っ」「ん」與長音", id: "っ, ん, dan vokal panjang", vi: "っ, ん và trường âm" }, items: "がっこう きって ざっし いっぱい まっすぐ ちょっと にほん みんな せんせい きんえん こんや ほんや しんぶん ラーメン コーヒー スーパー ノート ケーキ ゲーム カレー".split(" ") },
   { name: { ja: "カタカナ", en: "Katakana", "zh-Hans": "片假名", "zh-Hant": "片假名", id: "Katakana", vi: "Katakana" }, items: [..."アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポ"] },
 ];
-const LEVELS = ["N3", "N2", "N1"];
 
-// ── 表示言語 ──
-
-function lang() {
-  const l = document.documentElement.getAttribute("data-ui");
-  return LANGS.includes(l) ? l : null;
-}
-const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-/** 文言。言語を選んでいなければ日本語と英語を並べる */
-function tx(text, params = {}) {
-  const fill = (s) => s.replace(/\{(\w+)\}/g, (_, k) => params[k] ?? "");
-  const l = lang();
-  if (l !== null) return esc(fill(text[l]));
-  return `${esc(fill(text.ja))} <span class="en" lang="en">${esc(fill(text.en))}</span>`;
-}
-/** 意味。言語を選んでいなければ英語、日本語を選んでいれば日本語 */
-function meaningOf(meaning) {
-  return meaning[lang() ?? "en"] ?? meaning.en ?? meaning.ja;
-}
 
 // ── 記録（端末だけ） ──
 
 const RECORD_KEY = "jlpt.typing.best";
-function readRecords() {
-  try {
-    return JSON.parse(localStorage.getItem(RECORD_KEY) ?? "{}");
-  } catch {
-    return {};
-  }
-}
+const readRecords = () => readStore(RECORD_KEY);
 function saveRecord(mode, kpm, acc) {
   const records = readRecords();
   const old = records[mode];
-  const better = old === undefined || kpm > old.kpm;
-  if (better) records[mode] = { kpm, acc };
-  try {
-    localStorage.setItem(RECORD_KEY, JSON.stringify(records));
-  } catch {
-    // 端末が保存を許さないときは、記録を残さないだけ
-  }
+  if (old === undefined || kpm > old.kpm) records[mode] = { kpm, acc };
+  writeStore(RECORD_KEY, records);
   return records[mode];
 }
 
@@ -155,21 +126,6 @@ async function loadData() {
   if (data === null) data = await (await fetch(`${BASE}data.json`)).json();
   return data;
 }
-const shuffle = (list) => {
-  const a = [...list];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-};
-/** n 件取り出す。足りなければ繰り返す */
-const pick = (list, n) => {
-  if (list.length === 0) return [];
-  let out = [];
-  while (out.length < n) out = out.concat(shuffle(list));
-  return out.slice(0, n);
-};
 
 // ── 画面 ──
 
@@ -179,6 +135,7 @@ function menu() {
   session = null;
   const records = readRecords();
   const rec = (mode) => (records[mode] ? `<span class="rec">${tx(S.best)}: ${records[mode].kpm} / ${records[mode].acc}%</span>` : "");
+  const gameRec = (mode) => (bestOf(mode) !== undefined ? `<span class="rec">${tx(S.best)}: ${bestOf(mode)}</span>` : "");
   const coarse = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
   root.innerHTML = `
 ${coarse ? `<p class="notice">${tx(S.pc)}</p>` : ""}
@@ -200,6 +157,21 @@ ${coarse ? `<p class="notice">${tx(S.pc)}</p>` : ""}
     <p class="step-no">${tx(S.step)} 4</p><h2>${tx(S.long)}</h2><p>${tx(S.longDesc)}</p>
     <div class="choices"><a href="#/long">${tx(S.start)}</a>${rec("long")}</div>
   </section>
+</div>
+<h2 class="games-title">${tx(G.games)}</h2>
+<div class="steps games">
+  <section class="step">
+    <h2>${tx(G.mole)}</h2><p>${tx(G.moleDesc)}</p>
+    <div class="choices"><a href="#/game/mole">${tx(G.start)}</a>${gameRec("mole")}</div>
+  </section>
+  ${["match", "rain", "sprint"]
+    .map(
+      (name) => `<section class="step">
+    <h2>${tx(G[name])}</h2><p>${tx(G[`${name}Desc`])}</p>
+    <div class="choices">${LEVELS.map((l) => `<a href="#/game/${name}/${l}">${l}</a>${gameRec(`${name}${l}`)}`).join("")}</div>
+  </section>`,
+    )
+    .join("")}
 </div>`;
 }
 
@@ -313,10 +285,13 @@ document.addEventListener("keydown", (e) => {
   draw();
 });
 
-function route() {
+async function route() {
+  stopGame();
+  session = null;
   const hash = location.hash.replace(/^#/, "") || "/";
   if (hash === "/") menu();
+  else if (hash.startsWith("/game/")) startGame(root, hash, await loadData());
   else void start(hash);
 }
-window.addEventListener("hashchange", route);
-route();
+window.addEventListener("hashchange", () => void route());
+void route();
