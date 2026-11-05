@@ -1,14 +1,7 @@
 {
  "version": 1,
- "built": "2026-11-05",
+ "built": "2026-11-06",
  "days": {
-  "2026-10-23": {
-   "level": "N2",
-   "kind": "reading",
-   "position": 2,
-   "url": "https://kaikalab.com/jlpt/n2/2026-10-23/reading/",
-   "text": "今日の JLPT N2 読解から1問。\nながら掃除の注意点として、本文で述べられているのはどれか。\n\nA 部屋が必ず汚れること\nB 掃除用具が壊れやすいこと\nC 汚れを見落としやすいこと\nD 掃除の時間が長くなること\n\n答えと解説はこちら（Daily JLPT N2 quiz）\nhttps://kaikalab.com/jlpt/n2/2026-10-23/reading/\n#JLPT #JLPTN2"
-  },
   "2026-10-25": {
    "level": "N2",
    "kind": "news",
@@ -85,6 +78,13 @@
    "position": 3,
    "url": "https://kaikalab.com/jlpt/n3/2026-11-05/news/",
    "text": "今日の JLPT N3 ニュースから1問。\n本文によると、熊谷正寿は何をしたか。\n\nA 会社の代表をやめた\nB 新しい商品を発表した\nC 記者会見を開いて謝罪した\nD 個人情報を集めるのをやめた\n\n答えと解説はこちら（Daily JLPT N3 quiz）\nhttps://kaikalab.com/jlpt/n3/2026-11-05/news/\n#JLPT #JLPTN3"
+  },
+  "2026-11-06": {
+   "level": "N2",
+   "kind": "news",
+   "position": 1,
+   "url": "https://kaikalab.com/jlpt/n2/2026-11-06/news/",
+   "text": "今日の JLPT N2 ニュースから1問。\n本文中の「閉幕した」の意味として最も近いものはどれか。\n\nA 大会が終わった\nB 大会が延期になった\nC 大会が始まった\nD 大会が中止になった\n\n答えと解説はこちら（Daily JLPT N2 quiz）\nhttps://kaikalab.com/jlpt/n2/2026-11-06/news/\n#JLPT #JLPTN2"
   }
  }
 }
