@@ -1,14 +1,7 @@
 {
  "version": 1,
- "built": "2026-11-08",
+ "built": "2026-11-09",
  "days": {
-  "2026-10-26": {
-   "level": "N2",
-   "kind": "reading",
-   "position": 2,
-   "url": "https://kaikalab.com/jlpt/n2/2026-10-26/reading/",
-   "text": "今日の JLPT N2 読解から1問。\n就寝直前に食事をとることについて、本文が述べていることはどれか。\n\nA 体重が増えやすくなる。\nB 朝食をとりたくなくなる。\nC ぐっすり眠りにくくなる。\nD 体内時計が朝型になる。\n\n答えと解説はこちら（Daily JLPT N2 quiz）\nhttps://kaikalab.com/jlpt/n2/2026-10-26/reading/\n#JLPT #JLPTN2"
-  },
   "2026-10-28": {
    "level": "N2",
    "kind": "news",
@@ -92,6 +85,13 @@
    "position": 1,
    "url": "https://kaikalab.com/jlpt/n3/2026-11-08/news/",
    "text": "今日の JLPT N3 ニュースから1問。\n本文の「不正」に最も近い意味はどれか。\n\nA データを新しく作り直すこと\nB 決まりを守って丁寧に行うこと\nC 決まりに反して正しくないこと\nD 問題の原因を詳しく調べること\n\n答えと解説はこちら（Daily JLPT N3 quiz）\nhttps://kaikalab.com/jlpt/n3/2026-11-08/news/\n#JLPT #JLPTN3"
+  },
+  "2026-11-09": {
+   "level": "N3",
+   "kind": "news",
+   "position": 1,
+   "url": "https://kaikalab.com/jlpt/n3/2026-11-09/news/",
+   "text": "今日の JLPT N3 ニュースから1問。\nこのニュースで「特別アドバイザー」とあるが、松井さんはどこでその仕事をしていたか。\n\nA 読売ジャイアンツ\nB セントラル・リーグ\nC 石川県の球団\nD ニューヨークの球団\n\n答えと解説はこちら（Daily JLPT N3 quiz）\nhttps://kaikalab.com/jlpt/n3/2026-11-09/news/\n#JLPT #JLPTN3"
   }
  }
 }
