@@ -1,14 +1,7 @@
 {
  "version": 1,
- "built": "2026-11-11",
+ "built": "2026-11-12",
  "days": {
-  "2026-10-29": {
-   "level": "N3",
-   "kind": "news",
-   "position": 1,
-   "url": "https://kaikalab.com/jlpt/n3/2026-10-29/news/",
-   "text": "今日の JLPT N3 ニュースから1問。\n本文の「詩人」の説明として正しいものはどれか。\n\nA カナダで文学を教える人\nB ノーベル賞を贈る人\nC 文学の賞を選ぶ人\nD 詩を作って世に出す人\n\n答えと解説はこちら（Daily JLPT N3 quiz）\nhttps://kaikalab.com/jlpt/n3/2026-10-29/news/\n#JLPT #JLPTN3"
-  },
   "2026-10-30": {
    "level": "N3",
    "kind": "news",
@@ -92,6 +85,13 @@
    "position": 1,
    "url": "https://kaikalab.com/jlpt/n1/2026-11-10/news/",
    "text": "今日の JLPT N1 ニュースから1問。\n本文の「承認する」に最も近い意味はどれか。\n\nA 新しく作る\nB 詳しく調べる\nC 正式に認める\nD 広く知らせる\n\n答えと解説はこちら（Daily JLPT N1 quiz）\nhttps://kaikalab.com/jlpt/n1/2026-11-10/news/\n#JLPT #JLPTN1"
+  },
+  "2026-11-12": {
+   "level": "N2",
+   "kind": "reading",
+   "position": 1,
+   "url": "https://kaikalab.com/jlpt/n2/2026-11-12/reading/",
+   "text": "今日の JLPT N2 読解から1問。\n都市の森に期待される主な効果は何か。\n\nA 都市の気温上昇を和らげる効果\nB 住民のコミュニケーションを増やす効果\nC 周辺の農村の気温を下げる効果\nD アスファルトの量を減らす効果\n\n答えと解説はこちら（Daily JLPT N2 quiz）\nhttps://kaikalab.com/jlpt/n2/2026-11-12/reading/\n#JLPT #JLPTN2"
   }
  }
 }
