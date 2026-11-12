@@ -1,14 +1,7 @@
 {
  "version": 1,
- "built": "2026-11-12",
+ "built": "2026-11-13",
  "days": {
-  "2026-10-30": {
-   "level": "N3",
-   "kind": "news",
-   "position": 1,
-   "url": "https://kaikalab.com/jlpt/n3/2026-10-30/news/",
-   "text": "今日の JLPT N3 ニュースから1問。\n本文中の「指導した」と意味が最も近いものはどれですか。\n\nA 教えて導いた\nB 調査して報告した\nC 通訳して伝えた\nD 応援して支えた\n\n答えと解説はこちら（Daily JLPT N3 quiz）\nhttps://kaikalab.com/jlpt/n3/2026-10-30/news/\n#JLPT #JLPTN3"
-  },
   "2026-10-31": {
    "level": "N2",
    "kind": "news",
@@ -92,6 +85,13 @@
    "position": 1,
    "url": "https://kaikalab.com/jlpt/n2/2026-11-12/reading/",
    "text": "今日の JLPT N2 読解から1問。\n都市の森に期待される主な効果は何か。\n\nA 都市の気温上昇を和らげる効果\nB 住民のコミュニケーションを増やす効果\nC 周辺の農村の気温を下げる効果\nD アスファルトの量を減らす効果\n\n答えと解説はこちら（Daily JLPT N2 quiz）\nhttps://kaikalab.com/jlpt/n2/2026-11-12/reading/\n#JLPT #JLPTN2"
+  },
+  "2026-11-13": {
+   "level": "N3",
+   "kind": "news",
+   "position": 3,
+   "url": "https://kaikalab.com/jlpt/n3/2026-11-13/news/",
+   "text": "今日の JLPT N3 ニュースから1問。\n東芝野球部の本拠地はどこだと書かれていますか。\n\nA 京都府久御山町\nB 大阪府大阪市\nC 神奈川県川崎市\nD 大阪ドーム\n\n答えと解説はこちら（Daily JLPT N3 quiz）\nhttps://kaikalab.com/jlpt/n3/2026-11-13/news/\n#JLPT #JLPTN3"
   }
  }
 }
