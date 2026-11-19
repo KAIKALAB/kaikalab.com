@@ -23,11 +23,24 @@
 
 <section id="ja" lang="ja">
 <h1>プライバシーポリシー</h1>
-<p class="meta">HSK-GO · Kaika Lab · 最終更新日 2026年11月18日</p>
+<p class="meta">HSK-GO · Kaika Lab · 最終更新日 2026年11月19日</p>
 <p>このページは、Kaika Lab が提供する無料の Android アプリ「HSK-GO」（以下「本アプリ」）での情報の取り扱いを定めるものです。本アプリは HSK の実施団体とは関係ありません。</p>
-<h2>情報の収集と利用</h2>
-<p>本アプリは、ユーザーの個人情報を集めたり、Kaika Lab へ送ったりしません。登録やログインもありません。</p>
-<p>選んだ表示言語は、お使いの端末の中にだけ保存されます。練習問題や模擬試験の答えは保存しません。アプリを削除すると、端末の中の記録も消えます。</p>
+<h2>登録とログイン</h2>
+<p>本アプリを使うには、無料のアカウントの登録が必要です。登録とログインには Google の Firebase Authentication を使います。登録すると、次の情報が扱われます。</p>
+<ul>
+<li>メールアドレス</li>
+<li>パスワード（Firebase が元に戻せない形で保存します。Kaika Lab は見ることができません）</li>
+<li>Google でログインした場合は、Google アカウントの名前とプロフィール写真（Google から渡されます）</li>
+<li>不正な利用を防ぐために、Firebase は IP アドレスと端末の情報（ユーザー エージェント）も扱います。Google は記録した IP アドレスを数週間保管します。</li>
+</ul>
+<h2>保存する登録情報</h2>
+<p>アカウントごとに、メールアドレス・登録した日時・最後に使った日時・表示言語を Google の Cloud Firestore に保存します。これらは、アカウントの管理と、本アプリを使っている人の数を知るためだけに使います。売ったり、広告に使ったりはしません。</p>
+<h2>保存する場所</h2>
+<p>Cloud Firestore のデータは、日本（東京）にある Google のデータセンターに保存します。Firebase Authentication は、米国でデータを扱います。</p>
+<h2>端末の中だけに残る情報</h2>
+<p>練習問題や模擬試験の答えは保存しません。選んだ表示言語は、お使いの端末の中にも保存されます。アプリを削除すると、端末の中の記録も消えます。</p>
+<h2>アカウントの削除</h2>
+<p>アカウントはいつでもアプリの中で削除できます。ホーム画面の下の「アカウント」を開き、「アカウントを削除」を押してください。アカウントと保存した登録情報は、すぐに削除されます。ログインの情報は、Google のバックアップからも180日以内に消されます。登録したメールアドレスから <a href="mailto:support@kaikalab.com">support@kaikalab.com</a> に連絡していただいても削除できます。その場合は30日以内に削除します。詳しくは<a href="/hsk/delete-account/#ja">HSK-GO のアカウントを削除する方法</a>をご覧ください。</p>
 <h2>広告（第三者のサービス）</h2>
 <p>本アプリは Google AdMob で広告を表示します。AdMob は、広告の表示・効果の測定・不正の防止のために、端末の識別子（Android の広告 ID など）、IP アドレス（おおよその位置の推定に使われることがあります）、アプリの操作や動作の情報を集めることがあります。Google によるデータの扱いは、<a href="https://policies.google.com/technologies/partner-sites">Google のパートナーのサイトやアプリでのデータの使用</a>をご覧ください。</p>
 <h2>パーソナライズ広告をやめるには</h2>
@@ -42,11 +55,24 @@
 
 <section id="en" lang="en">
 <h1>Privacy Policy</h1>
-<p class="meta">HSK-GO · Kaika Lab · Last updated 18 November 2026</p>
+<p class="meta">HSK-GO · Kaika Lab · Last updated 19 November 2026</p>
 <p>This page describes how the free Android app "HSK-GO" (the "App") provided by Kaika Lab handles information. The App is not affiliated with the organizers of the HSK.</p>
-<h2>Information collection and use</h2>
-<p>The App does not collect any personal information or send it to Kaika Lab. There is no sign-up or login.</p>
-<p>The display language you choose is stored only on your device. Your answers to practice questions and mock tests are not saved. Uninstalling the App deletes the data on your device.</p>
+<h2>Account registration and sign-in</h2>
+<p>To use the App, you need to create a free account. Registration and sign-in use Google's Firebase Authentication. When you register, the following information is processed:</p>
+<ul>
+<li>Your email address</li>
+<li>Your password (Firebase stores it in a form that cannot be reversed; Kaika Lab cannot see it)</li>
+<li>If you sign in with Google: the name and profile photo of your Google account (provided by Google)</li>
+<li>To prevent abuse, Firebase also processes your IP address and device information (user agent). Google keeps logged IP addresses for a few weeks.</li>
+</ul>
+<h2>Information we store</h2>
+<p>For each account, we store your email address, the date and time you registered, the date and time you last used the App, and your display language in Google's Cloud Firestore. We use this information only to manage your account and to know how many people use the App. We do not sell it or use it for advertising.</p>
+<h2>Where the information is stored</h2>
+<p>Cloud Firestore data is stored in a Google data center in Tokyo, Japan. Firebase Authentication processes data in the United States.</p>
+<h2>Information kept only on your device</h2>
+<p>Your answers to practice questions and mock tests are not saved. The display language you choose is also stored on your device. Uninstalling the App deletes the data on your device.</p>
+<h2>Deleting your account</h2>
+<p>You can delete your account at any time in the App: open "Account" at the bottom of the home screen and tap "Delete account". Your account and the stored registration information are deleted right away. Sign-in information is also removed from Google's backup systems within 180 days. You can also ask us to delete your account by emailing <a href="mailto:support@kaikalab.com">support@kaikalab.com</a> from your registered email address; we will delete it within 30 days. See <a href="/hsk/delete-account/#en">How to delete your HSK-GO account</a>.</p>
 <h2>Advertising (third-party services)</h2>
 <p>The App shows ads with Google AdMob. To show ads, measure their performance and prevent fraud, AdMob may collect device identifiers (such as the Android Advertising ID), your IP address (which may be used to estimate your general location), and information about app interactions and performance. See <a href="https://policies.google.com/technologies/partner-sites">How Google uses information from sites or apps that use our services</a> for how Google uses data.</p>
 <h2>Opting out of personalized ads</h2>
@@ -61,11 +87,24 @@
 
 <section id="ko" lang="ko">
 <h1>개인정보 처리방침</h1>
-<p class="meta">HSK-GO · Kaika Lab · 최종 수정일 2026년 11월 18일</p>
+<p class="meta">HSK-GO · Kaika Lab · 최종 수정일 2026년 11월 19일</p>
 <p>이 페이지는 Kaika Lab이 제공하는 무료 Android 앱 「HSK-GO」(이하 「본 앱」)에서 정보를 어떻게 다루는지 정한 것입니다. 본 앱은 HSK 시행 기관과 관계가 없습니다.</p>
-<h2>정보의 수집과 이용</h2>
-<p>본 앱은 이용자의 개인정보를 수집하거나 Kaika Lab에 보내지 않습니다. 회원 가입이나 로그인도 없습니다.</p>
-<p>선택한 표시 언어는 이용자의 기기 안에만 저장됩니다. 연습 문제와 모의고사의 답은 저장하지 않습니다. 앱을 삭제하면 기기 안의 기록도 삭제됩니다.</p>
+<h2>회원 가입과 로그인</h2>
+<p>본 앱을 사용하려면 무료 계정을 만들어야 합니다. 가입과 로그인에는 Google의 Firebase Authentication을 사용합니다. 가입하면 다음 정보가 처리됩니다.</p>
+<ul>
+<li>이메일 주소</li>
+<li>비밀번호(Firebase가 되돌릴 수 없는 형태로 저장하며, Kaika Lab은 볼 수 없습니다)</li>
+<li>Google로 로그인한 경우, Google 계정의 이름과 프로필 사진(Google이 제공)</li>
+<li>부정 이용을 막기 위해 Firebase는 IP 주소와 기기 정보(사용자 에이전트)도 처리합니다. Google은 기록한 IP 주소를 몇 주 동안 보관합니다.</li>
+</ul>
+<h2>저장하는 가입 정보</h2>
+<p>계정마다 이메일 주소, 가입 일시, 마지막 이용 일시, 표시 언어를 Google의 Cloud Firestore에 저장합니다. 이 정보는 계정 관리와 본 앱의 이용자 수를 파악하는 데만 사용하며, 판매하거나 광고에 사용하지 않습니다.</p>
+<h2>저장 위치</h2>
+<p>Cloud Firestore의 데이터는 일본(도쿄)에 있는 Google 데이터 센터에 저장됩니다. Firebase Authentication은 미국에서 데이터를 처리합니다.</p>
+<h2>기기 안에만 남는 정보</h2>
+<p>연습 문제와 모의고사의 답은 저장하지 않습니다. 선택한 표시 언어는 이용자의 기기 안에도 저장됩니다. 앱을 삭제하면 기기 안의 기록도 삭제됩니다.</p>
+<h2>계정 삭제</h2>
+<p>계정은 언제든지 앱 안에서 삭제할 수 있습니다. 홈 화면 아래의 「계정」을 열고 「계정 삭제」를 누르세요. 계정과 저장된 가입 정보는 바로 삭제됩니다. 로그인 정보는 Google의 백업에서도 180일 이내에 삭제됩니다. 가입한 이메일 주소로 <a href="mailto:support@kaikalab.com">support@kaikalab.com</a>에 연락하셔도 삭제할 수 있으며, 이 경우 30일 이내에 삭제합니다. 자세한 내용은 <a href="/hsk/delete-account/#ko">HSK-GO 계정 삭제 방법</a>을 참고해 주세요.</p>
 <h2>광고(제3자 서비스)</h2>
 <p>본 앱은 Google AdMob으로 광고를 표시합니다. AdMob은 광고 표시, 효과 측정, 부정 방지를 위해 기기 식별자(Android 광고 ID 등), IP 주소(대략적인 위치 추정에 쓰일 수 있음), 앱 이용과 성능에 관한 정보를 수집할 수 있습니다. Google의 데이터 처리에 대해서는 <a href="https://policies.google.com/technologies/partner-sites">Google 서비스를 사용하는 사이트 또는 앱에서 Google이 정보를 사용하는 방법</a>을 참고해 주세요.</p>
 <h2>맞춤 광고를 끄려면</h2>
@@ -80,11 +119,24 @@
 
 <section id="vi" lang="vi">
 <h1>Chính sách quyền riêng tư</h1>
-<p class="meta">HSK-GO · Kaika Lab · Cập nhật lần cuối ngày 18 tháng 11 năm 2026</p>
+<p class="meta">HSK-GO · Kaika Lab · Cập nhật lần cuối ngày 19 tháng 11 năm 2026</p>
 <p>Trang này mô tả cách ứng dụng Android miễn phí "HSK-GO" (sau đây gọi là "Ứng dụng") do Kaika Lab cung cấp xử lý thông tin. Ứng dụng không liên quan đến đơn vị tổ chức kỳ thi HSK.</p>
-<h2>Thu thập và sử dụng thông tin</h2>
-<p>Ứng dụng không thu thập thông tin cá nhân của người dùng và không gửi cho Kaika Lab. Ứng dụng không cần đăng ký hay đăng nhập.</p>
-<p>Ngôn ngữ hiển thị bạn chọn chỉ được lưu trên thiết bị của bạn. Câu trả lời trong bài luyện tập và bài thi thử không được lưu. Khi gỡ Ứng dụng, dữ liệu trên thiết bị cũng bị xóa.</p>
+<h2>Đăng ký và đăng nhập</h2>
+<p>Để dùng Ứng dụng, bạn cần tạo một tài khoản miễn phí. Việc đăng ký và đăng nhập sử dụng Firebase Authentication của Google. Khi bạn đăng ký, các thông tin sau được xử lý:</p>
+<ul>
+<li>Địa chỉ email</li>
+<li>Mật khẩu (Firebase lưu ở dạng không thể khôi phục; Kaika Lab không thể xem)</li>
+<li>Nếu đăng nhập bằng Google: tên và ảnh hồ sơ của tài khoản Google (do Google cung cấp)</li>
+<li>Để ngăn chặn việc sử dụng trái phép, Firebase cũng xử lý địa chỉ IP và thông tin thiết bị (user agent). Google lưu các địa chỉ IP đã ghi lại trong vài tuần.</li>
+</ul>
+<h2>Thông tin đăng ký được lưu</h2>
+<p>Với mỗi tài khoản, chúng tôi lưu địa chỉ email, thời điểm đăng ký, thời điểm sử dụng gần nhất và ngôn ngữ hiển thị trong Cloud Firestore của Google. Thông tin này chỉ dùng để quản lý tài khoản và để biết số người dùng Ứng dụng. Chúng tôi không bán và không dùng cho quảng cáo.</p>
+<h2>Nơi lưu trữ</h2>
+<p>Dữ liệu Cloud Firestore được lưu tại trung tâm dữ liệu của Google ở Tokyo, Nhật Bản. Firebase Authentication xử lý dữ liệu tại Hoa Kỳ.</p>
+<h2>Thông tin chỉ lưu trên thiết bị</h2>
+<p>Câu trả lời trong bài luyện tập và bài thi thử không được lưu. Ngôn ngữ hiển thị bạn chọn cũng được lưu trên thiết bị của bạn. Khi gỡ Ứng dụng, dữ liệu trên thiết bị cũng bị xóa.</p>
+<h2>Xóa tài khoản</h2>
+<p>Bạn có thể xóa tài khoản bất cứ lúc nào trong Ứng dụng: mở "Tài khoản" ở cuối màn hình chính và nhấn "Xóa tài khoản". Tài khoản và thông tin đăng ký đã lưu sẽ bị xóa ngay. Thông tin đăng nhập cũng bị xóa khỏi hệ thống sao lưu của Google trong vòng 180 ngày. Bạn cũng có thể gửi email đến <a href="mailto:support@kaikalab.com">support@kaikalab.com</a> từ địa chỉ email đã đăng ký để yêu cầu xóa; khi đó chúng tôi sẽ xóa trong vòng 30 ngày. Xem <a href="/hsk/delete-account/#vi">Cách xóa tài khoản HSK-GO</a>.</p>
 <h2>Quảng cáo (dịch vụ của bên thứ ba)</h2>
 <p>Ứng dụng hiển thị quảng cáo bằng Google AdMob. Để hiển thị quảng cáo, đo lường hiệu quả và ngăn chặn gian lận, AdMob có thể thu thập mã nhận dạng thiết bị (như ID quảng cáo Android), địa chỉ IP (có thể dùng để ước tính vị trí gần đúng) và thông tin về thao tác và hiệu suất của ứng dụng. Xem <a href="https://policies.google.com/technologies/partner-sites">Cách Google sử dụng thông tin từ các trang web hoặc ứng dụng sử dụng dịch vụ của Google</a> để biết Google xử lý dữ liệu như thế nào.</p>
 <h2>Tắt quảng cáo được cá nhân hóa</h2>
@@ -99,11 +151,24 @@
 
 <section id="id" lang="id">
 <h1>Kebijakan Privasi</h1>
-<p class="meta">HSK-GO · Kaika Lab · Terakhir diperbarui 18 November 2026</p>
+<p class="meta">HSK-GO · Kaika Lab · Terakhir diperbarui 19 November 2026</p>
 <p>Halaman ini menjelaskan bagaimana aplikasi Android gratis "HSK-GO" ("Aplikasi") dari Kaika Lab menangani informasi. Aplikasi ini tidak berafiliasi dengan penyelenggara HSK.</p>
-<h2>Pengumpulan dan penggunaan informasi</h2>
-<p>Aplikasi tidak mengumpulkan informasi pribadi pengguna dan tidak mengirimkannya ke Kaika Lab. Tidak ada pendaftaran atau login.</p>
-<p>Bahasa tampilan yang Anda pilih hanya disimpan di perangkat Anda. Jawaban latihan soal dan tes simulasi tidak disimpan. Menghapus Aplikasi juga menghapus data di perangkat Anda.</p>
+<h2>Pendaftaran dan masuk</h2>
+<p>Untuk memakai Aplikasi, Anda perlu membuat akun gratis. Pendaftaran dan masuk menggunakan Firebase Authentication dari Google. Saat Anda mendaftar, informasi berikut diproses:</p>
+<ul>
+<li>Alamat email</li>
+<li>Kata sandi (disimpan Firebase dalam bentuk yang tidak dapat dikembalikan; Kaika Lab tidak dapat melihatnya)</li>
+<li>Jika masuk dengan Google: nama dan foto profil akun Google Anda (diberikan oleh Google)</li>
+<li>Untuk mencegah penyalahgunaan, Firebase juga memproses alamat IP dan informasi perangkat (user agent). Google menyimpan alamat IP yang dicatat selama beberapa minggu.</li>
+</ul>
+<h2>Informasi pendaftaran yang disimpan</h2>
+<p>Untuk setiap akun, kami menyimpan alamat email, waktu pendaftaran, waktu terakhir memakai Aplikasi, dan bahasa tampilan di Cloud Firestore milik Google. Informasi ini hanya dipakai untuk mengelola akun dan mengetahui jumlah pengguna Aplikasi. Kami tidak menjualnya dan tidak memakainya untuk iklan.</p>
+<h2>Lokasi penyimpanan</h2>
+<p>Data Cloud Firestore disimpan di pusat data Google di Tokyo, Jepang. Firebase Authentication memproses data di Amerika Serikat.</p>
+<h2>Informasi yang hanya ada di perangkat</h2>
+<p>Jawaban latihan soal dan tes simulasi tidak disimpan. Bahasa tampilan yang Anda pilih juga disimpan di perangkat Anda. Menghapus Aplikasi juga menghapus data di perangkat Anda.</p>
+<h2>Menghapus akun</h2>
+<p>Anda dapat menghapus akun kapan saja di dalam Aplikasi: buka "Akun" di bagian bawah layar beranda, lalu ketuk "Hapus akun". Akun dan informasi pendaftaran yang disimpan langsung dihapus. Informasi masuk juga dihapus dari sistem cadangan Google dalam 180 hari. Anda juga dapat meminta penghapusan dengan mengirim email ke <a href="mailto:support@kaikalab.com">support@kaikalab.com</a> dari alamat email yang terdaftar; kami akan menghapusnya dalam 30 hari. Lihat <a href="/hsk/delete-account/#id">Cara menghapus akun HSK-GO</a>.</p>
 <h2>Iklan (layanan pihak ketiga)</h2>
 <p>Aplikasi menampilkan iklan melalui Google AdMob. Untuk menampilkan iklan, mengukur kinerjanya, dan mencegah penipuan, AdMob dapat mengumpulkan pengenal perangkat (seperti ID Iklan Android), alamat IP (yang dapat digunakan untuk memperkirakan lokasi umum), serta informasi tentang interaksi dan kinerja aplikasi. Lihat <a href="https://policies.google.com/technologies/partner-sites">Cara Google menggunakan informasi dari situs atau aplikasi yang menggunakan layanan kami</a> untuk mengetahui cara Google menggunakan data.</p>
 <h2>Menonaktifkan iklan yang dipersonalisasi</h2>
@@ -118,11 +183,24 @@
 
 <section id="ne" lang="ne">
 <h1>गोपनीयता नीति</h1>
-<p class="meta">HSK-GO · Kaika Lab · अन्तिम पटक अद्यावधिक: 2026 नोभेम्बर 18</p>
+<p class="meta">HSK-GO · Kaika Lab · अन्तिम पटक अद्यावधिक: 2026 नोभेम्बर 19</p>
 <p>यो पृष्ठले Kaika Lab ले उपलब्ध गराएको निःशुल्क Android एप "HSK-GO" (यसपछि "एप") ले जानकारी कसरी व्यवस्थापन गर्छ भन्ने बताउँछ। यो एपको HSK सञ्चालन गर्ने संस्थासँग कुनै सम्बन्ध छैन।</p>
-<h2>जानकारी सङ्कलन र प्रयोग</h2>
-<p>एपले प्रयोगकर्ताको व्यक्तिगत जानकारी सङ्कलन गर्दैन र Kaika Lab लाई पठाउँदैन। दर्ता वा लगइन पनि छैन।</p>
-<p>तपाईंले छानेको भाषा तपाईंको उपकरणमा मात्र सुरक्षित हुन्छ। अभ्यास प्रश्न र नमुना परीक्षाका उत्तरहरू सुरक्षित गरिँदैनन्। एप हटाउँदा उपकरणमा भएको डेटा पनि मेटिन्छ।</p>
+<h2>दर्ता र लगइन</h2>
+<p>एप प्रयोग गर्न निःशुल्क खाता बनाउनुपर्छ। दर्ता र लगइनका लागि Google को Firebase Authentication प्रयोग गरिन्छ। दर्ता गर्दा तलका जानकारी प्रयोग हुन्छन्:</p>
+<ul>
+<li>इमेल ठेगाना</li>
+<li>पासवर्ड (Firebase ले फिर्ता पढ्न नसकिने रूपमा राख्छ; Kaika Lab ले हेर्न सक्दैन)</li>
+<li>Google बाट लगइन गरेमा, Google खाताको नाम र प्रोफाइल फोटो (Google ले दिन्छ)</li>
+<li>दुरुपयोग रोक्न Firebase ले IP ठेगाना र उपकरणको जानकारी (user agent) पनि प्रयोग गर्छ। Google ले रेकर्ड गरिएका IP ठेगाना केही हप्तासम्म राख्छ।</li>
+</ul>
+<h2>राखिने दर्ताको जानकारी</h2>
+<p>हरेक खाताका लागि इमेल ठेगाना, दर्ता गरेको मिति-समय, अन्तिम पटक प्रयोग गरेको मिति-समय र प्रदर्शन भाषा Google को Cloud Firestore मा राखिन्छ। यी जानकारी खाता व्यवस्थापन र एप प्रयोग गर्नेहरूको सङ्ख्या थाहा पाउन मात्र प्रयोग गरिन्छ। हामी यसलाई बेच्दैनौं र विज्ञापनमा प्रयोग गर्दैनौं।</p>
+<h2>राखिने ठाउँ</h2>
+<p>Cloud Firestore को डेटा जापान (टोकियो) मा रहेको Google को डेटा सेन्टरमा राखिन्छ। Firebase Authentication ले संयुक्त राज्य अमेरिकामा डेटा प्रयोग गर्छ।</p>
+<h2>उपकरणमा मात्र रहने जानकारी</h2>
+<p>अभ्यास प्रश्न र नमुना परीक्षाका उत्तरहरू सुरक्षित गरिँदैनन्। तपाईंले छानेको भाषा तपाईंको उपकरणमा पनि राखिन्छ। एप हटाउँदा उपकरणमा भएको डेटा पनि मेटिन्छ।</p>
+<h2>खाता मेटाउने</h2>
+<p>तपाईं जुनसुकै बेला एपभित्रै खाता मेटाउन सक्नुहुन्छ: होम स्क्रिनको तल "खाता" खोल्नुहोस् र "खाता मेटाउनुहोस्" थिच्नुहोस्। खाता र राखिएको दर्ताको जानकारी तुरुन्तै मेटिन्छ। लगइनको जानकारी Google को ब्याकअपबाट पनि 180 दिनभित्र मेटिन्छ। दर्ता गरेको इमेल ठेगानाबाट <a href="mailto:support@kaikalab.com">support@kaikalab.com</a> मा इमेल पठाएर पनि मेटाउन अनुरोध गर्न सक्नुहुन्छ; त्यसमा हामी 30 दिनभित्र मेटाउँछौं। थप जानकारीका लागि <a href="/hsk/delete-account/#ne">HSK-GO खाता मेटाउने तरिका</a> हेर्नुहोस्।</p>
 <h2>विज्ञापन (तेस्रो पक्षको सेवा)</h2>
 <p>एपले Google AdMob मार्फत विज्ञापन देखाउँछ। विज्ञापन देखाउन, त्यसको प्रभाव मापन गर्न र ठगी रोक्न AdMob ले उपकरण पहिचानकर्ता (जस्तै Android विज्ञापन ID), IP ठेगाना (अनुमानित स्थान थाहा पाउन प्रयोग हुन सक्छ) र एपको प्रयोग तथा कार्यसम्पादनसम्बन्धी जानकारी सङ्कलन गर्न सक्छ। Google ले डेटा कसरी प्रयोग गर्छ भन्ने बारे <a href="https://policies.google.com/technologies/partner-sites">Google का सेवा प्रयोग गर्ने साइट वा एपबाट Google ले जानकारी कसरी प्रयोग गर्छ</a> हेर्नुहोस्।</p>
 <h2>व्यक्तिगत विज्ञापन बन्द गर्न</h2>
@@ -137,11 +215,24 @@
 
 <section id="my" lang="my">
 <h1>ကိုယ်ရေးအချက်အလက် မူဝါဒ</h1>
-<p class="meta">HSK-GO · Kaika Lab · နောက်ဆုံး ပြင်ဆင်သည့်နေ့ 2026 ခုနှစ် နိုဝင်ဘာ 18</p>
+<p class="meta">HSK-GO · Kaika Lab · နောက်ဆုံး ပြင်ဆင်သည့်နေ့ 2026 ခုနှစ် နိုဝင်ဘာ 19</p>
 <p>ဤစာမျက်နှာသည် Kaika Lab ပေးသော အခမဲ့ Android အက်ပ် "HSK-GO" (နောက်ပိုင်းတွင် "အက်ပ်") က အချက်အလက်များကို မည်သို့ ကိုင်တွယ်သည်ကို ဖော်ပြသည်။ ဤအက်ပ်သည် HSK စီစဉ်သူများနှင့် မသက်ဆိုင်ပါ။</p>
-<h2>အချက်အလက် စုဆောင်းခြင်းနှင့် အသုံးပြုခြင်း</h2>
-<p>အက်ပ်သည် အသုံးပြုသူ၏ ကိုယ်ရေးအချက်အလက်ကို မစုဆောင်းပါ၊ Kaika Lab သို့လည်း မပို့ပါ။ စာရင်းသွင်းခြင်း သို့မဟုတ် လော့ဂ်အင်ဝင်ခြင်း မရှိပါ။</p>
-<p>သင်ရွေးချယ်ထားသော ဘာသာစကားကို သင့်စက်ထဲတွင်သာ သိမ်းဆည်းသည်။ လေ့ကျင့်ခန်းနှင့် စမ်းသပ်စာမေးပွဲ၏ အဖြေများကို မသိမ်းဆည်းပါ။ အက်ပ်ကို ဖျက်လိုက်လျှင် စက်ထဲရှိ ဒေတာလည်း ပျက်သွားမည်။</p>
+<h2>စာရင်းသွင်းခြင်းနှင့် ဝင်ရောက်ခြင်း</h2>
+<p>အက်ပ်ကို သုံးရန် အခမဲ့ အကောင့်တစ်ခု ဖွင့်ရန် လိုအပ်သည်။ စာရင်းသွင်းခြင်းနှင့် ဝင်ရောက်ခြင်းအတွက် Google ၏ Firebase Authentication ကို အသုံးပြုသည်။ စာရင်းသွင်းသောအခါ အောက်ပါ အချက်အလက်များကို ကိုင်တွယ်သည်-</p>
+<ul>
+<li>အီးမေးလ်လိပ်စာ</li>
+<li>စကားဝှက် (Firebase က ပြန်ဖတ်၍ မရသော ပုံစံဖြင့် သိမ်းသည်။ Kaika Lab က မမြင်နိုင်ပါ)</li>
+<li>Google ဖြင့် ဝင်ပါက Google အကောင့်၏ အမည်နှင့် ပရိုဖိုင်ဓာတ်ပုံ (Google က ပေးသည်)</li>
+<li>အလွဲသုံးစားမှုကို ကာကွယ်ရန် Firebase သည် IP လိပ်စာနှင့် စက်၏ အချက်အလက် (user agent) ကိုလည်း ကိုင်တွယ်သည်။ Google သည် မှတ်တမ်းတင်ထားသော IP လိပ်စာများကို ရက်သတ္တပတ်အနည်းငယ် သိမ်းထားသည်။</li>
+</ul>
+<h2>သိမ်းဆည်းသော စာရင်းသွင်း အချက်အလက်</h2>
+<p>အကောင့်တစ်ခုစီအတွက် အီးမေးလ်လိပ်စာ၊ စာရင်းသွင်းသည့် အချိန်၊ နောက်ဆုံး အသုံးပြုသည့် အချိန်နှင့် ပြသသည့် ဘာသာစကားကို Google ၏ Cloud Firestore တွင် သိမ်းသည်။ ဤအချက်အလက်များကို အကောင့် စီမံရန်နှင့် အက်ပ်ကို သုံးသူ အရေအတွက် သိရန်အတွက်သာ အသုံးပြုသည်။ ရောင်းချခြင်း သို့မဟုတ် ကြော်ငြာအတွက် အသုံးပြုခြင်း မပြုပါ။</p>
+<h2>သိမ်းဆည်းသည့် နေရာ</h2>
+<p>Cloud Firestore ၏ ဒေတာကို ဂျပန်နိုင်ငံ (တိုကျို) ရှိ Google ဒေတာစင်တာတွင် သိမ်းသည်။ Firebase Authentication သည် အမေရိကန်ပြည်ထောင်စုတွင် ဒေတာကို ကိုင်တွယ်သည်။</p>
+<h2>စက်ထဲတွင်သာ ကျန်သော အချက်အလက်</h2>
+<p>လေ့ကျင့်ခန်းနှင့် စမ်းသပ်စာမေးပွဲ၏ အဖြေများကို မသိမ်းဆည်းပါ။ သင်ရွေးချယ်ထားသော ဘာသာစကားကို သင့်စက်ထဲတွင်လည်း သိမ်းသည်။ အက်ပ်ကို ဖျက်လိုက်လျှင် စက်ထဲရှိ ဒေတာလည်း ပျက်သွားမည်။</p>
+<h2>အကောင့် ဖျက်ခြင်း</h2>
+<p>အကောင့်ကို အက်ပ်ထဲတွင် အချိန်မရွေး ဖျက်နိုင်သည်- ပင်မစာမျက်နှာ၏ အောက်ခြေရှိ "အကောင့်" ကို ဖွင့်ပြီး "အကောင့် ဖျက်ရန်" ကို နှိပ်ပါ။ အကောင့်နှင့် သိမ်းထားသော စာရင်းသွင်း အချက်အလက်များကို ချက်ချင်း ဖျက်မည်။ ဝင်ရောက်မှု အချက်အလက်များကို Google ၏ အရန်သိမ်းစနစ်မှလည်း ရက် 180 အတွင်း ဖျက်မည်။ စာရင်းသွင်းထားသော အီးမေးလ်လိပ်စာမှ <a href="mailto:support@kaikalab.com">support@kaikalab.com</a> သို့ အီးမေးလ်ပို့၍လည်း ဖျက်ရန် တောင်းဆိုနိုင်သည်။ ထိုသို့ဆိုလျှင် ရက် 30 အတွင်း ဖျက်ပေးမည်။ အသေးစိတ်ကို <a href="/hsk/delete-account/#my">HSK-GO အကောင့် ဖျက်နည်း</a> တွင် ကြည့်ပါ။</p>
 <h2>ကြော်ငြာ (ပြင်ပ ဝန်ဆောင်မှု)</h2>
 <p>အက်ပ်သည် Google AdMob ဖြင့် ကြော်ငြာများကို ပြသသည်။ AdMob သည် ကြော်ငြာပြသရန်၊ ရလဒ်ကို တိုင်းတာရန်နှင့် လိမ်လည်မှုကို ကာကွယ်ရန် စက်၏ အမှတ်အသား (Android ကြော်ငြာ ID ကဲ့သို့)၊ IP လိပ်စာ (ခန့်မှန်းတည်နေရာကို သိရန် အသုံးပြုနိုင်သည်) နှင့် အက်ပ်အသုံးပြုမှုနှင့် စွမ်းဆောင်ရည်ဆိုင်ရာ အချက်အလက်များကို စုဆောင်းနိုင်သည်။ Google က ဒေတာကို မည်သို့ အသုံးပြုသည်ကို <a href="https://policies.google.com/technologies/partner-sites">Google ဝန်ဆောင်မှုကို သုံးသော ဆိုက် သို့မဟုတ် အက်ပ်များမှ Google က အချက်အလက်ကို မည်သို့ အသုံးပြုသည်</a> တွင် ကြည့်ပါ။</p>
 <h2>ကိုယ်ပိုင်ကြော်ငြာကို ပိတ်ရန်</h2>
@@ -156,11 +247,24 @@
 
 <section id="ru" lang="ru">
 <h1>Политика конфиденциальности</h1>
-<p class="meta">HSK-GO · Kaika Lab · Последнее обновление: 18 ноября 2026 г.</p>
+<p class="meta">HSK-GO · Kaika Lab · Последнее обновление: 19 ноября 2026 г.</p>
 <p>На этой странице описано, как бесплатное Android-приложение «HSK-GO» (далее — «Приложение») от Kaika Lab обращается с информацией. Приложение не связано с организаторами экзамена HSK.</p>
-<h2>Сбор и использование информации</h2>
-<p>Приложение не собирает персональные данные пользователей и не передаёт их Kaika Lab. Регистрация и вход не требуются.</p>
-<p>Выбранный язык интерфейса хранится только на вашем устройстве. Ответы на упражнения и пробные тесты не сохраняются. При удалении Приложения данные на устройстве также удаляются.</p>
+<h2>Регистрация и вход</h2>
+<p>Чтобы пользоваться Приложением, нужно создать бесплатный аккаунт. Для регистрации и входа используется Firebase Authentication от Google. При регистрации обрабатываются следующие данные:</p>
+<ul>
+<li>адрес электронной почты;</li>
+<li>пароль (Firebase хранит его в виде, который нельзя восстановить; Kaika Lab не может его увидеть);</li>
+<li>при входе через Google: имя и фото профиля вашего аккаунта Google (их передаёт Google);</li>
+<li>для защиты от злоупотреблений Firebase также обрабатывает IP-адрес и сведения об устройстве (user agent). Google хранит записанные IP-адреса несколько недель.</li>
+</ul>
+<h2>Какие данные мы храним</h2>
+<p>Для каждого аккаунта мы храним в Cloud Firestore от Google адрес электронной почты, дату и время регистрации, дату и время последнего использования и язык интерфейса. Эти данные используются только для управления аккаунтом и чтобы знать, сколько людей пользуется Приложением. Мы не продаём их и не используем для рекламы.</p>
+<h2>Где хранятся данные</h2>
+<p>Данные Cloud Firestore хранятся в центре обработки данных Google в Токио (Япония). Firebase Authentication обрабатывает данные в США.</p>
+<h2>Данные, которые остаются только на устройстве</h2>
+<p>Ответы на упражнения и пробные тесты не сохраняются. Выбранный язык интерфейса также хранится на вашем устройстве. При удалении Приложения данные на устройстве также удаляются.</p>
+<h2>Удаление аккаунта</h2>
+<p>Вы можете удалить аккаунт в любое время в Приложении: откройте «Аккаунт» внизу главного экрана и нажмите «Удалить аккаунт». Аккаунт и сохранённые данные регистрации удаляются сразу. Данные для входа также удаляются из резервных копий Google в течение 180 дней. Вы также можете попросить удалить аккаунт, написав на <a href="mailto:support@kaikalab.com">support@kaikalab.com</a> с адреса, указанного при регистрации; в этом случае мы удалим его в течение 30 дней. Подробнее: <a href="/hsk/delete-account/#ru">Как удалить аккаунт HSK-GO</a>.</p>
 <h2>Реклама (сторонние сервисы)</h2>
 <p>Приложение показывает рекламу через Google AdMob. Чтобы показывать рекламу, оценивать её эффективность и предотвращать мошенничество, AdMob может собирать идентификаторы устройства (например, рекламный идентификатор Android), IP-адрес (по нему может определяться примерное местоположение), а также сведения о действиях в приложении и его работе. О том, как Google использует данные, см. <a href="https://policies.google.com/technologies/partner-sites">Как Google использует информацию с сайтов и из приложений, которые используют сервисы Google</a>.</p>
 <h2>Отключение персонализированной рекламы</h2>
